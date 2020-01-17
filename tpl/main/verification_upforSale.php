@@ -25,7 +25,7 @@ $price += 500;
 </head>
 <body>
     <h1>出品の確認</h1>
-    <form action="" method="post">
+    <form action="DoneupforSale.php" method="post">
 
         <p>商品名：<?php echo $title ?></p>
         <p>商品画像<br>
