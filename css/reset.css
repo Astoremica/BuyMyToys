@@ -179,3 +179,11 @@ input,
 select {
     vertical-align: middle;
 }
+
+
+/* position: relative */
+
+body,
+nav {
+    position: relative;
+}

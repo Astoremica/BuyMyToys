@@ -10,21 +10,19 @@
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,500,900&amp;subset=japanese" rel="stylesheet">
     <link href="./images/logo.PNG">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-    <script src="../../jquery-3.4.1.min.js"></script>
 </head>
 
 <body>
     <header>
-        <h1 class="logo">
-            <a href="">
-                <img src="./images/materials/toys_boy.png" alt="BuyMyToys">
-            </a>
-        </h1>
         <nav>
             <form action="./regist.php" method="post">
-                <ul>
-                    <li><button type="submit">会員登録</button></li>
-                </ul>
+                <button id="login_icon"  type="submit"></button>
             </form>
+            <h1 id="logo">
+                <a href="">
+                    <img src="./images/materials/toys_boy_white.png" alt="BuyMyToys">
+                </a>
+            </h1>
+            <p id="search_icon"><img src="./images/materials/search.png" alt="商品検索"></p>
         </nav>
     </header>
