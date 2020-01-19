@@ -15,39 +15,23 @@ move_uploaded_file($image1['tmp_name'], './images/upload/' .'image1.jpg');
 move_uploaded_file($image2['tmp_name'], './images/upload/' .'image2.jpg');
 move_uploaded_file($image3['tmp_name'], './images/upload/' .'image3.jpg');
 ?>
-<!doctype html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>Buy My Toys | 出品の確認</title>
-    <link href="css/reset.css" rel="stylesheet" type="text/css">
-    <script>
-        var price = 100;
-        var commission = price * 0.1;
-        var sumarry = price + commission + 500;
-    </script>
-</head>
-<body>
-    <h1>出品の確認</h1>
-    <form action="./index.php" method="post">
+<h1>出品の確認</h1>
+<form action="./index.php" method="post">
 
-        <p>商品名：<?php echo $title ?></p>
-        <p>商品画像</p>
-        <ul>
-            <li><img src="./images/upload/image1.jpg"></li>
-            <li><img src="./images/upload/image2.jpg"></li>
-            <li><img src="./images/upload/image3.jpg"></li>
-        </ul>
+    <p>商品名：<?php echo $title ?></p>
+    <p>商品画像</p>
+    <ul>
+        <li><img src="./images/upload/image1.jpg"></li>
+        <li><img src="./images/upload/image2.jpg"></li>
+        <li><img src="./images/upload/image3.jpg"></li>
+    </ul>
 
-        <p>商品説明<br>
-            <textarea name="request" rows="4" cols="40"><?php echo $description ?></textarea>
-        </p>
+    <p>商品説明<br>
+        <textarea name="request" rows="4" cols="40"><?php echo $description ?></textarea>
+    </p>
 
-        <h3>商品価格：<?php echo $price ?>円</h3>
+    <h3>商品価格：<?php echo $price ?>円</h3>
 
-        <p><input type="submit" value="出品する" name="verification_to_done"></p>
-    </form>
-    <!-- <script> print("510"); </script> -->
-</body>
-
-</html>
+    <p><input type="submit" value="出品する" name="verification_to_done"></p>
+</form>
+<!-- <script> print("510"); </script> -->
