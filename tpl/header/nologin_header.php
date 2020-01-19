@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ホーム画面に追加時アドレスバー非表示 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="stylesheet" href="./css/reset.css">
     <!-- 未ログイン時のヘッダーCSS -->
     <link rel="stylesheet" href="./css/nologin_header_style.css">
@@ -38,7 +40,7 @@
                     <li><input type="password" name="password" placeholder="パスワード"></li>
                     <li><button type="submit">ログイン</button></li>
                 </ul>
-                <p id="sing_in">アカウントを持っていない場合&nbsp;<a href="<?php echo BASE_URL; ?>?singin=''">登録はこちら</a></p>
+                <p id="sing_in">アカウントを持っていない場合&nbsp;<a href="<?php echo BASE_URL; ?>index.php?singin=''">登録はこちら</a></p>
             </form>
         </div>
     </header>
