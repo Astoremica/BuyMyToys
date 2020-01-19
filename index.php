@@ -1,46 +1,48 @@
 <?php
-// ###関数ファイル紐付け
+// ###使用する関数ファイルの呼び出しです。
 require "./func/function.php";
 
-
-// 最初ヘッダー部分定義
-$header = 'header';
-// 最初タイトル格納
+// ①最初に、各変数ごとに使用するファイル名を格納します。
+// タイトル格納
 $title = 'Buy By Toys | Buy By Toys | おもちゃさがしをかんたんに フリマサイト';
-// 最初メイン部分定義
+// ヘッダー部分定義
+$header = 'header';
+// メイン部分定義
 $main = 'lineup';
-//  最初フッター部分定義
+//  フッター部分定義
 $footer = 'footer';
+// この変数の中身を変更することでページ切り替えを行なっています。
 
-// ###欲しがってるボタンクリック時
-// デモ時のみ
+//***こっから下のページ切り替えの処理って関数にしたらあかんかな？
+
+
+// ②次に、ボタンクリック時のページ変更を設定します。
+
+// ###欲しがってるボタンクリック時の動作
 if (isset($_POST['want'])) {
-  // タイトル格納
+  // タイトル変更
   $title = 'Buy By Toys | 欲しがってます';
-  // メイン部分定義
+  // メイン部分の書き換え
   $main = 'want';
 }
 
-// ###マイページボタンクリック時
-// デモ時のみ
+// ###マイページボタンクリック時の動作
 if (isset($_POST['mypage'])) {
-  // タイトル格納
+  // タイトル変更
   $title = 'Buy By Toys | マイページ';
-  // メイン部分定義
+  // メイン部分の書き換え
   $main = 'mypage';
 }
 
-// ###商品詳細ボタンクリック時
-// デモ時のみ
+// ###商品詳細ボタンクリック時の動作
 if (isset($_POST['product_detail'])) {
-  // タイトル格納
+  // タイトル変更
   $title = 'Buy By Toys | 商品詳細';
-  // メイン部分定義
+  // メイン部分の書き換え
   $main = 'product_detail';
 }
 
-// ###マイページボタンクリック時
-// デモ時のみ
+// ###マイページボタンクリック時の動作
 if (isset($_POST['enter_newuser'])) {
   //  ヘッダー部分定義
   $header = 'sing_login_header';
@@ -52,8 +54,7 @@ if (isset($_POST['enter_newuser'])) {
   $footer = 'sing_login_footer';
 }
 
-
-// ###会員登録ボタンクリック時
+// ###会員登録ボタンクリック時の動作
 if (isset($_POST['sing_in'])) {
   //  ヘッダー部分定義
   $header = 'sing_login_header';
@@ -64,7 +65,8 @@ if (isset($_POST['sing_in'])) {
   //  フッター部分定義
   $footer = 'sing_login_footer';
 }
-// ###ログインボタンクリック時
+
+// ###ログインボタンクリック時の動作
 if (isset($_POST['log_in'])) {
   //  ヘッダー部分定義
   $header = 'sing_login_header';
@@ -84,15 +86,28 @@ if (isset($_POST['exhibits_button'])) {
   $main = 'exhibits';
 }
 
+// ###出品画面から出品確認ボタンが押されたときの挙動
+if (isset($_POST['exhibits_to_verification'])) {
+  // タイトル格納
+  $title = 'Buy My Toys | 出品の確認';
+  // メイン部分定義
+  $main = 'verification_exhibits';
+}
+
+// ###出品確認画面から出品確定ボタンが押されたときの挙動
+if (isset($_POST['verification_to_done'])) {
+  // タイトル格納
+  $title = 'Buy My Toys | 出品完了';
+  // メイン部分定義
+  $main = 'done_exhibits';
+}
+
+// ③最後に格納されたファイル名のファイルを呼び出します。
 // ###ヘッダー呼び出し
 require_once "tpl/header/$header.php";
-
 // データ呼び出し格納
 $row = lineup();
-
 // ###メイン部分呼び出し
 require_once "tpl/main/$main.php";
-
-
 // ###フッター呼び出し
 require_once "tpl/footer/$footer.php";

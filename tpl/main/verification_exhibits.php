@@ -1,15 +1,19 @@
 <?php
 
 $title = $_POST['p_title'];
-// あんま覚えてないファイルの受け取り
+$image1 = $_FILES['image1'];
+$image2 = $_FILES['image2'];
+$image3 = $_FILES['image3'];
 $price = $_POST['p_price'];
 $description = $_POST['p_description'];
-// echo $title;
-// echo $price;
+
+// 表示価格の変更
 $price *= 1.1;
 $price += 500;
-// echo $description;
 
+move_uploaded_file($image1['tmp_name'], './images/upload/' .'image1.jpg');
+move_uploaded_file($image2['tmp_name'], './images/upload/' .'image2.jpg');
+move_uploaded_file($image3['tmp_name'], './images/upload/' .'image3.jpg');
 ?>
 <!doctype html>
 <html lang="ja">
@@ -25,14 +29,15 @@ $price += 500;
 </head>
 <body>
     <h1>出品の確認</h1>
-    <form action="DoneupforSale.php" method="post">
+    <form action="./index.php" method="post">
 
         <p>商品名：<?php echo $title ?></p>
-        <p>商品画像<br>
-            <img src="image1">
-            <img src="image2">
-            <img src="image3">
-        </p>
+        <p>商品画像</p>
+        <ul>
+            <li><img src="./images/upload/image1.jpg"></li>
+            <li><img src="./images/upload/image2.jpg"></li>
+            <li><img src="./images/upload/image3.jpg"></li>
+        </ul>
 
         <p>商品説明<br>
             <textarea name="request" rows="4" cols="40"><?php echo $description ?></textarea>
@@ -40,7 +45,7 @@ $price += 500;
 
         <h3>商品価格：<?php echo $price ?>円</h3>
 
-        <p><input type="submit" value="出品する"></p>
+        <p><input type="submit" value="出品する" name="verification_to_done"></p>
     </form>
     <!-- <script> print("510"); </script> -->
 </body>
