@@ -78,6 +78,8 @@ if (isset($_POST['log_in'])) {
   $footer = 'sing_login_footer';
 }
 
+// ################### 商品出品系 ##########################
+
 // ###出品ボタンクリック時
 if (isset($_POST['exhibits_button'])) {
   // タイトル格納
@@ -101,6 +103,30 @@ if (isset($_POST['verification_to_done'])) {
   // メイン部分定義
   $main = 'done_exhibits';
 }
+
+// ##################### 商品購入系 ########################
+
+// ###商品詳細画面から商品購入確認ボタンが押されたときの挙動
+if (isset($_POST['product_to_verification'])) {
+  // タイトル格納
+  $title = 'Buy My Toys | 購入の確認';
+  // メイン部分定義
+  $main = 'verification_buying';
+}
+
+// ###商品購入確認画面から商品購入確定ボタンが押されたときの挙動
+if (isset($_POST['verification_to_done_buying'])) {
+  //タイトル格納
+  $title = 'Buy My Toys | 購入完了';
+  // メイン部分定義
+  $main = 'done_buying';
+}
+
+
+
+
+
+
 
 // ③最後に格納されたファイル名のファイルを呼び出します。
 // ###ヘッダー呼び出し
