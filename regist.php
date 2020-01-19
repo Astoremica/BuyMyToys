@@ -105,6 +105,7 @@ if (isset($_POST['regist_mail'])) {
 if (isset($_POST['regist_member'])) {
     if ($_SESSION['token'] != $_POST['regist_member']['token']) {
         require_once './tpl/error';
+        echo 'erroer';
         exit;
     }
     // セッション初期化
