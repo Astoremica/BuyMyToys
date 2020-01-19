@@ -120,7 +120,7 @@ header #login_form_content ul li button {
     width: 95%;
     height: 40px;
     font-size: 1.3em;
-    background: rgb(224, 224, 224);
+    background: #EEEEEE;
     border-radius: 10px;
     border: 1px solid #000;
 }
@@ -139,6 +139,8 @@ header #login_form_content ul li button {
     background: #FF9900;
     margin-bottom: 20px;
     color: #FFFFFF;
+    border: 1px solid #B37212;
+    cursor: pointer;
 }
 
 header #login_form_content #sing_in {

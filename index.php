@@ -4,9 +4,16 @@ require_once "./func/function.php";
 require_once '../config.php';
 
 $header = 'nologin_header';
-$title = 'Buy My Toys | Buy My Toys | おもちゃさがしをかんたんに フリマサイト';
+$title = 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト';
 $main = 'lineup';
 $footer = 'nologin_footer';
+
+
+// ###会員登録ボタンクリック時
+if (isset($_GET['singin'])) {
+    header('Location:./regist.php');
+    exit;
+}
 
 // ###ヘッダー呼び出し
 require_once "tpl/header/$header.php";
@@ -68,11 +75,6 @@ require_once "tpl/footer/$footer.php";
 // }
 
 
-// ###会員登録ボタンクリック時
-if (isset($_GET['singin'])) {
-    header('Location:./regist.php');
-    exit;
-}
 // // ###ログインボタンクリック時
 // if (isset($_POST['log_in'])) {
 //   //  ヘッダー部分定義
