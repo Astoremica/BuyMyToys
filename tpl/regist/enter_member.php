@@ -21,7 +21,7 @@
     </header>
     <?php if (count($errors) === 0) : ?>
 
-        <form action="./regist.php" method="post">
+        <form id="enter_user_form" action="./regist.php" method="post">
             <ul>
                 <li>
                     <input type="text" name="regist_member[member_name]" placeholder="氏名">
@@ -30,23 +30,23 @@
                     <input type="text" name="regist_member[member_nickname]" placeholder="ニックネーム">
                 </li>
                 <li>
-                    <select name="regist_member[member_gender]">
+                    <select id="select_gender" name="regist_member[member_gender]">
                         <option value="0">性別</option>
                         <option value="男性">男性</option>
                         <option value="女性">女性</option>
                         <option value="オールジェンダー">オールジェンダー</option>
                     </select>
                 </li>
-                <li>メールアドレス：<?php echo $mail; ?></li>
+                <li id="user_mail">メールアドレス：<?php echo $mail; ?></li>
                 <li><input type="text" name="regist_member[member_id]" placeholder="メンバーID"></li>
                 <li><input type="password" name="regist_member[password]" placeholder="パスワード"></li>
                 <li><input type="text" name="regist_member[member_tel]" placeholder="電話番号"></li>
 
 
 
-                <li>生年月日：
-                    <select name="regist_member[year]">
-                        <option value="">-----</option>
+                <li>
+                    <select class="select_date" name="regist_member[year]">
+                        <option value="">年</option>
                         <option value="1900">1900</option>
                         <option value="1901">1901</option>
                         <option value="1902">1902</option>
@@ -179,9 +179,9 @@
                         <option value="2029">2029</option>
                         <option value="2030">2030</option>
 
-                    </select>年
-                    <select name="regist_member[month]">
-                        <option value="">--</option>
+                    </select>
+                    <select class="select_date" name="regist_member[month]">
+                        <option value="">月</option>
                         <option value="01">01</option>
                         <option value="02">02</option>
                         <option value="03">03</option>
@@ -194,10 +194,10 @@
                         <option value="10">10</option>
                         <option value="11">11</option>
                         <option value="12">12</option>
-                    </select>　月
+                    </select>
 
-                    <select name="regist_member[day]">
-                        <option value="">--</option>
+                    <select class="select_date" name="regist_member[day]">
+                        <option value="">日</option>
                         <option value="01">01</option>
                         <option value="02">02</option>
                         <option value="03">03</option>
@@ -229,10 +229,11 @@
                         <option value="29">29</option>
                         <option value="30">30</option>
                         <option value="31">31</option>
-                    </select>　日
+                    </select>
                 </li>
             </ul>
             <input type="hidden" name="regist_member[token]" value="<?php echo $token; ?>">
+            
             <button type="submit">確認する</button>
 
         </form>
