@@ -1,16 +1,13 @@
 <?php
 // ###使用する関数ファイルの呼び出しです。
-require "./func/function.php";
+require_once "./func/function.php";
+require_once '../config.php';
 
 // ①最初に、各変数ごとに使用するファイル名を格納します。
-// タイトル格納
-$title = 'Buy By Toys | Buy By Toys | おもちゃさがしをかんたんに フリマサイト';
-// ヘッダー部分定義
-$header = 'header';
-// メイン部分定義
+$header = 'nologin_header';
+$title = 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト';
 $main = 'lineup';
-//  フッター部分定義
-$footer = 'footer';
+$footer = 'nologin_footer';
 // この変数の中身を変更することでページ切り替えを行なっています。
 
 //***こっから下のページ切り替えの処理って関数にしたらあかんかな？
@@ -124,7 +121,11 @@ if (isset($_POST['verification_to_done_buying'])) {
 
 
 
-
+// ###会員登録ボタンクリック時
+if (isset($_GET['singin'])) {
+  header('Location:./regist.php');
+  exit;
+}
 
 
 
@@ -132,7 +133,7 @@ if (isset($_POST['verification_to_done_buying'])) {
 // ###ヘッダー呼び出し
 require_once "tpl/header/$header.php";
 // データ呼び出し格納
-$row = lineup();
+$products = lineup();
 // ###メイン部分呼び出し
 require_once "tpl/main/$main.php";
 // ###フッター呼び出し
