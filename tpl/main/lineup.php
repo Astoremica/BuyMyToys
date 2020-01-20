@@ -7,7 +7,7 @@
         <span class="product_title"><?php echo $reco['title'] ?></span>
           <div class="price_fav">
             <span class="price">&yen;<?php echo $reco['price']; ?></span>
-          <img src="./images/materials/heart.png" alt="ハート">
+          <img id="favo_icon" src="./images/materials/heart.png" alt="ハート">
         </div>
       </a>
     </div>
