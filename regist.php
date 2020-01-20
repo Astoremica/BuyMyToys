@@ -34,7 +34,7 @@ if (isset($_POST['regist_mail'])) {
     }
     if (count($errors) === 0) {
         $urltoken = hash('sha256', uniqid(rand(), 1));
-        $url = BASE_URL . "?urltoken=" . $urltoken;
+        $url = BASE_URL . "regist.php?urltoken=" . $urltoken;
 
         //仮会員用テーブルに登録
         add_pre_member($cn, $urltoken, $mail);
@@ -74,7 +74,7 @@ if (isset($_POST['regist_mail'])) {
             //セッションを破棄する
             session_destroy();
             
-            $message = "メールをお送りしました。24時間以内にメールに記載されたURLからご登録下さい。";
+            $message = "<span>$mailTo</span><br>認証メールが転送されました。<br> メールをチェックしてください。";
         } else {
             $errors['mail_error'] = "メールの送信に失敗しました。";
         }
@@ -93,7 +93,7 @@ if (isset($_POST['regist_mail'])) {
         $mail  = $valid_token_mail['mail'];
         $_SESSION['mail'] = $mail;
     } else {
-        $errors['urltoken_timeover'] = "このURLはご利用できません。有効期限が過ぎた等の問題があります。もう一度登録をやりなおして下さい。";
+        $errors['urltoken_timeover'] = "このURLはご利用できません。<br>有効期限が過ぎた等の問題があります。<br>もう一度登録をやりなおして下さい。";
     }
     //データベース接続切断
     mysqli_close($cn);
@@ -105,6 +105,7 @@ if (isset($_POST['regist_mail'])) {
 if (isset($_POST['regist_member'])) {
     if ($_SESSION['token'] != $_POST['regist_member']['token']) {
         require_once './tpl/error';
+        echo 'erroer';
         exit;
     }
     // セッション初期化
