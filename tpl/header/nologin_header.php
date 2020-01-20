@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- ホーム画面に追加時アドレスバー非表示 -->
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" sizes="180x180" href="./images/materials/toys_boy_icon.png">
     <link rel="stylesheet" href="./css/reset.css">
     <!-- 未ログイン時のヘッダーCSS -->
     <link rel="stylesheet" href="./css/nologin_header_style.css">
