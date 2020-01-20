@@ -33,11 +33,14 @@ $description_pre = '数年前にビアッジョブルーで定価7万円程で�
 ユナイテッドアローズ、オンワード、ジルスチュアート、グレースコンチネンタル';
 $value = 198000;
 $tax = '税込';
+
+// これらの情報はdbから引っ張る予定です。
+// 実際は前のページから商品IDだけPOSTで受け取って、商品詳細テーブルの同一IDのデータ一件を拾ってきて表示します。
 ?>
 
 <div id="details">
   <h1><?php echo $product_title ?></h1>
-  <form>
+  <form action="./index.php" method="post">
     <div id="intro" class="compose">
       <h2 id="intro"><?php echo $intro ?></h2>
     </div><!-- compose -->
@@ -101,7 +104,7 @@ $tax = '税込';
 
     <div class="compose">
     <h1>¥<?php echo $value ?>(<?php echo $tax ?>)</h1>
-      <input type="submit" value="購入画面に進む" id="submit">
+      <input type="submit" value="購入画面に進む" id="submit" name="product_to_verification">
     </div><!-- compose -->
   </form>
 

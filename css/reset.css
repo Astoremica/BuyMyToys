@@ -140,6 +140,9 @@ ins {
     text-decoration: none;
 }
 
+
+/* change colours to suit your needs */
+
 mark {
     background-color: #ff9;
     color: #000;
@@ -162,6 +165,9 @@ table {
     border-spacing: 0;
 }
 
+
+/* change border colour to suit your needs */
+
 hr {
     display: block;
     height: 1px;
@@ -177,9 +183,9 @@ select {
 }
 
 
-/* body */
+/* position: relative */
 
-body {
-    width: 100%;
+body,
+nav {
     position: relative;
 }

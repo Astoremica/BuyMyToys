@@ -1,6 +1,10 @@
+<?php
+// 本当はdbからデータを取り出して、名前も変える必要があると思うけど、
+// 試験的にその昨日は省いています。
+?>
 <div id="exhibits">
   <h1>商品の出品</h1>
-  <form action="./tpl/main/verification_upforSale.php" method="post">
+  <form action="./index.php" method="post" enctype="multipart/form-data">
 
   <div id="info" class="compose">
     <h2 id="image">商品画像を選択</h2>
@@ -23,7 +27,7 @@
       <h2>商品の詳細</h2>
       <div class="column">
         <p>カテゴリー</p>
-        <select name="blood" size="1">
+        <select name="genle" size="1">
           <option value="">--</option>
           <option value="A">ホビー</option>
           <option value="B">知育玩具</option>
@@ -34,7 +38,7 @@
           <option value="G">きらりんレボリューション</option>
         </select>
         <p>商品の状態</p>
-        <select name="blood" size="1">
+        <select name="status" size="1">
           <option value="">--</option>
           <option value="A">非常に良い</option>
           <option value="B">目立った傷なし</option>
@@ -49,13 +53,13 @@
       <h2>配送について</h2>
       <div class="column">
         <p>配送量の負担</p>
-        <select name="blood" size="1">
+        <select name="send_payment" size="1">
           <option value="">--</option>
           <option value="A">出品者</option>
           <option value="B">購入者</option>
         </select>
         <p>発送元の地域</p>
-        <select name="blood" size="1">
+        <select name="sending_point" size="1">
           <option value="">--</option>
           <option value="A">本州</option>
           <option value="B">四国</option>
@@ -75,7 +79,7 @@
 
     <div class="compose">
       <ul>
-        <li><input type="submit" value="確認画面へ" id="submit"></li<input>
+        <li><input type="submit" value="確認画面へ" id="submit" name="exhibits_to_verification"></li<input>
         <li><input type="reset" value="やり直す" id="reset"></li>
       </ul>
     </div><!-- compose -->
