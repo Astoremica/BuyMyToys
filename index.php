@@ -7,7 +7,7 @@ require_once '../config.php';
 $header = 'nologin_header';
 $title = 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト';
 $main = 'lineup';
-$footer = 'nologin_footer';
+$footer = 'top_footer';
 // この変数の中身を変更することでページ切り替えを行なっています。
 
 //***こっから下のページ切り替えの処理って関数にしたらあかんかな？
@@ -124,6 +124,23 @@ if (isset($_POST['verification_to_done_buying'])) {
 // ###会員登録ボタンクリック時
 if (isset($_GET['singin'])) {
   header('Location:./regist.php');
+  exit;
+}
+// ###ログインボタンクリック時 画面確認用の仮機能
+if (isset($_POST['loggin'])) {
+
+  $header = 'login_header';
+  $title = 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト';
+  $main = 'lineup';
+  $footer = 'top_footer';
+
+  require_once "tpl/header/$header.php";
+  // データ呼び出し格納
+  $products = lineup();
+  // ###メイン部分呼び出し
+  require_once "tpl/main/$main.php";
+  // ###フッター呼び出し
+  require_once "tpl/footer/$footer.php";
   exit;
 }
 
