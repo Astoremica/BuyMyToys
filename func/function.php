@@ -21,140 +21,140 @@ function lineup()
     //レゴブロックの人の画像が見つからなかったので英紀のトナカイ売ります。
     $products = [
         [
-            'id'=>'product_detail',
+            'id' => 'product_detail',
             'img' => "./images/materials/toys_boy.png",
             'title' => "おもちゃ１",
             'intro' => "ひでのりが作ったこのアイコンを売ります。",
             'price' => "1980",
         ],
         [
-            'id'=>'product_detail',
+            'id' => 'product_detail',
             'img' => "./images/materials/toys_boy.png",
             'title' => "おもちゃ２",
             'intro' => "ひでのりが作ったこのアイコンを売ります。",
             'price' => "19800",
         ],
         [
-            'id'=>'product_detail',
+            'id' => 'product_detail',
             'img' => "./images/materials/toys_boy.png",
             'title' => "おもちゃ３",
             'intro' => "ひでのりが作ったこのアイコンを売ります。",
             'price' => "198",
         ],
         [
-            'id'=>'product_detail',
+            'id' => 'product_detail',
             'img' => "./images/materials/toys_boy.png",
             'title' => "おもちゃ４",
             'intro' => "ひでのりが作ったこのアイコンを売ります。",
             'price' => "1980",
         ],
         [
-            'id'=>'product_detail',
+            'id' => 'product_detail',
             'img' => "./images/materials/toys_boy.png",
             'title' => "おもちゃ５",
             'intro' => "ひでのりが作ったこのアイコンを売ります。",
             'price' => "198000",
         ],
         [
-            'id'=>'product_detail',
+            'id' => 'product_detail',
             'img' => "./images/materials/toys_boy.png",
             'title' => "おもちゃ６",
             'intro' => "ひでのりが作ったこのアイコンを売ります。",
             'price' => "19800",
         ],
         [
-            'id'=>'product_detail',
+            'id' => 'product_detail',
             'img' => "./images/materials/toys_boy.png",
             'title' => "おもちゃ７",
             'intro' => "ひでのりが作ったこのアイコンを売ります。",
             'price' => "198000",
         ],
         [
-            'id'=>'product_detail',
+            'id' => 'product_detail',
             'img' => "./images/materials/toys_boy.png",
             'title' => "おもちゃ８",
             'intro' => "ひでのりが作ったこのアイコンを売ります。",
             'price' => "1980",
         ],
         [
-            'id'=>'product_detail',
+            'id' => 'product_detail',
             'img' => "./images/materials/toys_boy.png",
             'title' => "おもちゃ９",
             'intro' => "ひでのりが作ったこのアイコンを売ります。",
             'price' => "198",
         ],
         [
-            'id'=>'product_detail',
+            'id' => 'product_detail',
             'img' => "./images/materials/toys_boy.png",
             'title' => "おもちゃ１０",
             'intro' => "ひでのりが作ったこのアイコンを売ります。",
             'price' => "198",
         ],
         [
-            'id'=>'product_detail',
+            'id' => 'product_detail',
             'img' => "./images/materials/toys_boy.png",
             'title' => "おもちゃ１",
             'intro' => "ひでのりが作ったこのアイコンを売ります。",
             'price' => "198",
         ],
         [
-            'id'=>'product_detail',
+            'id' => 'product_detail',
             'img' => "./images/materials/toys_boy.png",
             'title' => "おもちゃ２",
             'intro' => "ひでのりが作ったこのアイコンを売ります。",
             'price' => "198",
         ],
         [
-            'id'=>'product_detail',
+            'id' => 'product_detail',
             'img' => "./images/materials/toys_boy.png",
             'title' => "おもちゃ３",
             'intro' => "ひでのりが作ったこのアイコンを売ります。",
             'price' => "198",
         ],
         [
-            'id'=>'product_detail',
+            'id' => 'product_detail',
             'img' => "./images/materials/toys_boy.png",
             'title' => "おもちゃ４",
             'intro' => "ひでのりが作ったこのアイコンを売ります。",
             'price' => "198",
         ],
         [
-            'id'=>'product_detail',
+            'id' => 'product_detail',
             'img' => "./images/materials/toys_boy.png",
             'title' => "おもちゃ５",
             'intro' => "ひでのりが作ったこのアイコンを売ります。",
             'price' => "19800",
         ],
         [
-            'id'=>'product_detail',
+            'id' => 'product_detail',
             'img' => "./images/materials/toys_boy.png",
             'title' => "おもちゃ６",
             'intro' => "ひでのりが作ったこのアイコンを売ります。",
             'price' => "198",
         ],
         [
-            'id'=>'product_detail',
+            'id' => 'product_detail',
             'img' => "./images/materials/toys_boy.png",
             'title' => "おもちゃ７",
             'intro' => "ひでのりが作ったこのアイコンを売ります。",
             'price' => "198",
         ],
         [
-            'id'=>'product_detail',
+            'id' => 'product_detail',
             'img' => "./images/materials/toys_boy.png",
             'title' => "おもちゃ８",
             'intro' => "ひでのりが作ったこのアイコンを売ります。",
             'price' => "198",
         ],
         [
-            'id'=>'product_detail',
+            'id' => 'product_detail',
             'img' => "./images/materials/toys_boy.png",
             'title' => "おもちゃ９",
             'intro' => "ひでのりが作ったこのアイコンを売ります。",
             'price' => "198",
         ],
         [
-            'id'=>'product_detail',
+            'id' => 'product_detail',
             'img' => "./images/materials/toys_boy.png",
             'title' => "おもちゃ１０",
             'intro' => "ひでのりが作ったこのアイコンを売ります。",
@@ -300,7 +300,7 @@ function alredy_member_id_check($cn, $member_id)
     return $db_data['count'];
 }
 
-function add_member($cn, $member_id, $member_name, $member_nickname, $member_gender, $member_mail, $password_hash,$member_tel, $member_birthday)
+function add_member($cn, $member_id, $member_name, $member_nickname, $member_gender, $member_mail, $password_hash, $member_tel, $member_birthday)
 {
     $sql = "INSERT INTO members(member_id,member_name,member_nickname,member_gender,member_mail,member_password,member_tel,member_birthday) VALUES('$member_id','$member_name','$member_nickname','$member_gender','$member_mail','$password_hash','$member_tel','$member_birthday')";
     mysqli_query($cn, $sql);
@@ -311,4 +311,11 @@ function update_pre_member($cn, $mail)
     $sql = "UPDATE pre_member SET flag=1 WHERE mail='$mail'";
     mysqli_query($cn, $sql);
     return;
+}
+function create_csrf_token()
+{
+    //クロスサイトリクエスフォージェリ（CSRF）対策
+    $_SESSION['token'] = base64_encode(openssl_random_pseudo_bytes(32));
+    $token = $_SESSION['token'];
+    return $token;
 }
