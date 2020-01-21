@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <body>
+    <h1>お探しのページはありません</h1>
     <!-- お探しのページはありません的なやつね -->
 </body>
 </html>

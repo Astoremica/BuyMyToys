@@ -35,16 +35,18 @@
         </nav>
         <div id="login_form">
             <p id="close_icon"><img src="./images/materials/close.png" alt="閉じる"></p>
-            <form id="login_form_content" action="" method="post">
+            <form id="login_form_content" action="./index.php" method="post">
                 <p id="loginform_logo">
                     <img src="./images/materials/toys_boy.png" alt="ロゴ">
                     <span>Buy My Toys</span>
                 </p>
                 <ul>
-                    <li><input type="text" name="email" placeholder="メールアドレス"></li>
-                    <li><input type="password" name="password" placeholder="パスワード"></li>
-                    <li><button type="submit" name="login">ログイン</button></li>
+                    <li><input type="text" name="login[id_mail]" placeholder="メールアドレス"></li>
+                    <li><input type="password" name="login[password]" placeholder="パスワード"></li>
+                    <input type="hidden" name="login[token]" value="<?php echo $token; ?>">
+                    <li><button type="submit">ログイン</button></li>
                 </ul>
+                <a href="<?php echo BASE_URL; ?>index.php?login='">仮ログイン機能</a>
                 <p id="sing_in">アカウントを持っていない場合&nbsp;<a href="<?php echo BASE_URL; ?>index.php?singin=''">登録はこちら</a></p>
             </form>
         </div>

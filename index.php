@@ -3,6 +3,8 @@
 require_once "./func/function.php";
 require_once '../config.php';
 
+
+
 // ①最初に、各変数ごとに使用するファイル名を格納します。
 $header = 'nologin_header';
 $title = 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト';
@@ -16,23 +18,23 @@ $footer = 'top_footer';
 // ②次に、ボタンクリック時のページ変更を設定します。
 
 // ###欲しがってるボタンクリック時の動作
-if (isset($_POST['want'])) {
-  // タイトル変更
-  $title = 'Buy By Toys | 欲しがってます';
-  // メイン部分の書き換え
-  $main = 'want';
-}
+// if (isset($_POST['want'])) {
+//   // タイトル変更
+//   $title = 'Buy By Toys | 欲しがってます';
+//   // メイン部分の書き換え
+//   $main = 'want';
+// }
 
 // ###マイページボタンクリック時の動作
-if (isset($_POST['mypage'])) {
-  // タイトル変更
-  $title = 'Buy By Toys | マイページ';
-  // メイン部分の書き換え
-  $main = 'mypage';
-}
+// if (isset($_POST['mypage'])) {
+//   // タイトル変更
+//   $title = 'Buy By Toys | マイページ';
+//   // メイン部分の書き換え
+//   $main = 'mypage';
+// }
 
 // ###商品詳細ボタンクリック時の動作
-if (isset($_POST['product_detail'])) {
+if (isset($_GET['product_detail'])) {
   // タイトル変更
   $title = 'Buy By Toys | 商品詳細';
   // メイン部分の書き換え
@@ -51,29 +53,29 @@ if (isset($_POST['enter_newuser'])) {
   $footer = 'sing_login_footer';
 }
 
-// ###会員登録ボタンクリック時の動作
-if (isset($_POST['sing_in'])) {
-  //  ヘッダー部分定義
-  $header = 'sing_login_header';
-  // タイトル格納
-  $title = 'Buy By Toys | 新規会員登録';
-  // メイン部分定義
-  $main = 'create_account';
-  //  フッター部分定義
-  $footer = 'sing_login_footer';
-}
+// // ###会員登録ボタンクリック時の動作
+// if (isset($_POST['sing_in'])) {
+//   //  ヘッダー部分定義
+//   $header = 'sing_login_header';
+//   // タイトル格納
+//   $title = 'Buy By Toys | 新規会員登録';
+//   // メイン部分定義
+//   $main = 'create_account';
+//   //  フッター部分定義
+//   $footer = 'sing_login_footer';
+// }
 
-// ###ログインボタンクリック時の動作
-if (isset($_POST['log_in'])) {
-  //  ヘッダー部分定義
-  $header = 'sing_login_header';
-  // タイトル格納
-  $title = 'Buy By Toys | ログイン';
-  // メイン部分定義
-  $main = 'login';
-  //  フッター部分定義
-  $footer = 'sing_login_footer';
-}
+// // ###ログインボタンクリック時の動作
+// if (isset($_POST['log_in'])) {
+//   //  ヘッダー部分定義
+//   $header = 'sing_login_header';
+//   // タイトル格納
+//   $title = 'Buy By Toys | ログイン';
+//   // メイン部分定義
+//   $main = 'login';
+//   //  フッター部分定義
+//   $footer = 'sing_login_footer';
+// }
 
 // ################### 商品出品系 ##########################
 
@@ -121,13 +123,25 @@ if (isset($_POST['verification_to_done_buying'])) {
 
 
 
-// ###会員登録ボタンクリック時
+// 会員登録ボタンクリック時
 if (isset($_GET['singin'])) {
   header('Location:./regist.php');
   exit;
 }
-// ###ログインボタンクリック時 画面確認用の仮機能
+// ###ログイン機能
 if (isset($_POST['login'])) {
+  if ($_SESSION['token'] != $_POST['login']['token']) {
+    require_once './tpl/error';
+    exit;
+  }
+  $mail = isset($_POST['login']['id_mail']) ? htmlspecialchars($_POST['login']['id_mail'], ENT_QUOTES)  : '';
+  $password = isset($_POST['login']['password']) ? htmlspecialchars($_POST['login']['password'], ENT_QUOTES)  : '';
+  // ログイン認証
+  exit;
+}
+
+// ログイン状態Topページ確認用仮機能
+if (isset($_GET['login'])) {
 
   $header = 'login_header';
   $title = 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト';
@@ -135,18 +149,16 @@ if (isset($_POST['login'])) {
   $footer = 'top_footer';
 
   require_once "tpl/header/$header.php";
-  // データ呼び出し格納
   $products = lineup();
-  // ###メイン部分呼び出し
   require_once "tpl/main/$main.php";
-  // ###フッター呼び出し
   require_once "tpl/footer/$footer.php";
   exit;
 }
 
+// CSRF対策関数
+$token = create_csrf_token();
 
 
-// ③最後に格納されたファイル名のファイルを呼び出します。
 // ###ヘッダー呼び出し
 require_once "tpl/header/$header.php";
 // データ呼び出し格納
