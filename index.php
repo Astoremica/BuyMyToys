@@ -127,7 +127,7 @@ if (isset($_GET['singin'])) {
   exit;
 }
 // ###ログインボタンクリック時 画面確認用の仮機能
-if (isset($_POST['loggin'])) {
+if (isset($_POST['login'])) {
 
   $header = 'login_header';
   $title = 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト';
