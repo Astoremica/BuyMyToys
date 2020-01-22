@@ -1,9 +1,28 @@
 <?php
-// ###使用する関数ファイルの呼び出しです。
+session_start();
+// 関数ファイル
 require_once "./func/function.php";
+// configファイル
 require_once '../config.php';
 
+// ログアウト
+if (isset($_GET['logout'])) {
+  unset($_SESSION['user_id']);
+  header('Location:./index.php');
+  exit;
+}
 
+// ログイン状態か判定
+if (isset($_SESSION['user_id'])) {
+  // ログイン状態ならログイン後のTOPページへ
+  call_tamplate('login_header', 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト', 'lineup', 'top_footer');
+  exit;
+}
+
+// if (!isset($_SESSION['user_id'])) {
+//   call_tamplate('nologin_header', 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト', 'lineup', 'top_footer');
+//   exit;
+// }
 
 // ①最初に、各変数ごとに使用するファイル名を格納します。
 $header = 'nologin_header';
@@ -128,37 +147,30 @@ if (isset($_GET['singin'])) {
   header('Location:./regist.php');
   exit;
 }
+
 // ###ログイン機能
 if (isset($_POST['login'])) {
   if ($_SESSION['token'] != $_POST['login']['token']) {
     require_once './tpl/error';
     exit;
   }
-  $mail = isset($_POST['login']['id_mail']) ? htmlspecialchars($_POST['login']['id_mail'], ENT_QUOTES)  : '';
+  $id_mail = isset($_POST['login']['id_mail']) ? htmlspecialchars($_POST['login']['id_mail'], ENT_QUOTES)  : '';
   $password = isset($_POST['login']['password']) ? htmlspecialchars($_POST['login']['password'], ENT_QUOTES)  : '';
-  // ログイン認証
-  exit;
-}
-
-// ログイン状態Topページ確認用仮機能
-if (isset($_GET['login'])) {
-
-  $header = 'login_header';
-  $title = 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト';
-  $main = 'lineup';
-  $footer = 'top_footer';
-
-  require_once "tpl/header/$header.php";
-  $products = lineup();
-  require_once "tpl/main/$main.php";
-  require_once "tpl/footer/$footer.php";
-  exit;
+  // IDもしくはメールアドレスをもとにハッシュ値取得
+  $hash_user = get_hash_user($id_mail);
+  if (password_verify($password, $hash_user['member_password'])) {
+    $_SESSION['user_id'] = $hash_user['member_id'];
+    call_tamplate('login_header', 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト', 'lineup', 'top_footer');
+    exit;
+  } else {
+    $errors = "入力されたIDもしくはメールアドレスまたはパスワードが違います。";
+    call_tamplate('nologin_header', 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト', 'lineup', 'top_footer');
+    exit;
+  }
 }
 
 // CSRF対策関数
 $token = create_csrf_token();
-
-
 // ###ヘッダー呼び出し
 require_once "tpl/header/$header.php";
 // データ呼び出し格納
