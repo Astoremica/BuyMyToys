@@ -46,7 +46,6 @@
                     <input type="hidden" name="login[token]" value="<?php echo $token; ?>">
                     <li><button type="submit">ログイン</button></li>
                 </ul>
-                <a href="<?php echo BASE_URL; ?>index.php?login='">仮ログイン機能</a>
                 <p id="sing_in">アカウントを持っていない場合&nbsp;<a href="<?php echo BASE_URL; ?>index.php?singin=''">登録はこちら</a></p>
             </form>
         </div>

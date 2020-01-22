@@ -257,6 +257,14 @@ function lineup()
 
 
 //------------------------------------------------ 会員登録機能 ------------------------------------------------//
+function create_csrf_token()
+{
+    //クロスサイトリクエスフォージェリ（CSRF）対策
+    $_SESSION['token'] = base64_encode(openssl_random_pseudo_bytes(32));
+    $token = $_SESSION['token'];
+    return $token;
+}
+
 function alredy_member_check($cn, $mail)
 {
     $sql = "SELECT COUNT(*) as count FROM members WHERE member_mail = '$mail'";
@@ -312,10 +320,36 @@ function update_pre_member($cn, $mail)
     mysqli_query($cn, $sql);
     return;
 }
-function create_csrf_token()
+
+function get_hash_user($id_mail)
+{
+    //データベース接続
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    // IDかメールか
+    if (strpos($id_mail, '@') === false) {
+        // ID
+        $sql = "SELECT member_id,member_password FROM members WHERE member_id = '$id_mail'";
+    } else {
+        // mail
+        $sql = "SELECT member_id,member_password FROM members WHERE member_mail = '$id_mail'";
+    }
+    $result = mysqli_query($cn, $sql);
+    $db_data = mysqli_fetch_assoc($result);
+    return $db_data;
+}
+function call_tamplate($header, $title, $main, $footer)
 {
     //クロスサイトリクエスフォージェリ（CSRF）対策
     $_SESSION['token'] = base64_encode(openssl_random_pseudo_bytes(32));
     $token = $_SESSION['token'];
-    return $token;
+    // ###ヘッダー呼び出し
+    require_once "tpl/header/$header.php";
+    // データ呼び出し格納
+    $products = lineup();
+    // ###メイン部分呼び出し
+    require_once "tpl/main/$main.php";
+    // ###フッター呼び出し
+    require_once "tpl/footer/$footer.php";
+    return;
 }

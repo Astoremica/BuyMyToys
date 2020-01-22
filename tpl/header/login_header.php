@@ -31,7 +31,7 @@
                     <img src="./images/materials/toys_boy_white.png" alt="Buy My Toys">
                 </a>
             </h1>
-            <p id="search_icon"><img src="./images/materials/search.png" alt="商品検索"></p>
+            <p id="search_icon"><a href="<?php echo BASE_URL; ?>index.php?logout=''"><img src="./images/materials/search.png" alt="商品検索"></a></p>
         </nav>
         <div id="system_list">
             <form action="" method="post">
