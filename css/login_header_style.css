@@ -78,3 +78,61 @@ header #system_list #cart_icon {
 header #system_list img {
     width: 100%;
 }
+
+
+/* 商品一覧スタイル */
+
+#main {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 60px;
+}
+
+#main .product {
+    width: calc(100%/3);
+}
+
+#main .product a {
+    display: block;
+    color: #000;
+    text-decoration: none;
+}
+
+#main .product a img {
+    width: 100%;
+}
+
+#main .product a .product_title {
+    display: inline-block;
+    width: 100%;
+}
+
+#main .product a .product_title,
+#main .product a .price {
+    font-size: 14px;
+}
+
+#main .product .price_fav {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#main .product .price_fav img {
+    width: 30px;
+    height: 30px;
+}
+
+
+/* 上下の要素分開ける */
+
+#exhibits,
+#verification_exhibits,
+#done_exhibits,
+#details,
+#verification_buying,
+#done_buying {
+    padding: 60px 0;
+}

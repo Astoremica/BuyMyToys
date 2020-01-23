@@ -14,8 +14,6 @@
     <link rel="stylesheet" href="./css/reset.css">
     <!-- ログイン時のヘッダーCSS -->
     <link rel="stylesheet" href="./css/login_header_style.css">
-    <!-- 商品一覧表示用のCSS -->
-    <link rel="stylesheet" href="./css/lineup_style.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,500,900&amp;subset=japanese" rel="stylesheet">
     <link href="./images/materials/toys_boy_white.png">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
@@ -34,11 +32,11 @@
             <p id="search_icon"><a href="<?php echo BASE_URL; ?>index.php?logout=''"><img src="./images/materials/search.png" alt="商品検索"></a></p>
         </nav>
         <div id="system_list">
-            <form action="" method="post">
-                <button id="home_icon"><img src="./images/materials/home_icon.png"></button>
-                <button id="camera_icon"><img src="./images/materials/camera_icon.png"></button>
-                <button id="favorite_icon"><img src="./images/materials/favorite_white_icon.png"></button>
-                <button id="cart_icon"><img src="./images/materials/cart_icon.png"></button>
+            <form action="./index.php" method="get">
+                <button type="submit" id="home_icon"><img src="./images/materials/home_icon.png"></button>
+                <button type="submit" id="camera_icon" name="exhibits_button" value="aaa"><img src="./images/materials/camera_icon.png"></button>
+                <button type="submit" id="favorite_icon"><img src="./images/materials/favorite_white_icon.png"></button>
+                <button type="submit" id="cart_icon"><img src="./images/materials/cart_icon.png"></button>
             </form>
         </div>
     </header>

@@ -5,6 +5,12 @@ require_once "./func/function.php";
 // configファイル
 require_once '../config.php';
 
+// ①最初に、各変数ごとに使用するファイル名を格納します。
+$header = 'nologin_header';
+$title = 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト';
+$main = 'lineup';
+$footer = 'top_footer';
+
 // ログアウト
 if (isset($_GET['logout'])) {
   unset($_SESSION['user_id']);
@@ -14,9 +20,7 @@ if (isset($_GET['logout'])) {
 
 // ログイン状態か判定
 if (isset($_SESSION['user_id'])) {
-  // ログイン状態ならログイン後のTOPページへ
-  call_tamplate('login_header', 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト', 'lineup', 'top_footer');
-  exit;
+  $header ='login_header';
 }
 
 // if (!isset($_SESSION['user_id'])) {
@@ -24,11 +28,6 @@ if (isset($_SESSION['user_id'])) {
 //   exit;
 // }
 
-// ①最初に、各変数ごとに使用するファイル名を格納します。
-$header = 'nologin_header';
-$title = 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト';
-$main = 'lineup';
-$footer = 'top_footer';
 // この変数の中身を変更することでページ切り替えを行なっています。
 
 //***こっから下のページ切り替えの処理って関数にしたらあかんかな？
@@ -54,6 +53,7 @@ $footer = 'top_footer';
 
 // ###商品詳細ボタンクリック時の動作
 if (isset($_GET['product_detail'])) {
+  $header = 'login_header';
   // タイトル変更
   $title = 'Buy By Toys | 商品詳細';
   // メイン部分の書き換え
@@ -63,7 +63,7 @@ if (isset($_GET['product_detail'])) {
 // ###マイページボタンクリック時の動作
 if (isset($_POST['enter_newuser'])) {
   //  ヘッダー部分定義
-  $header = 'sing_login_header';
+  $header = 'login_header';
   // タイトル格納
   $title = 'Buy By Toys | 会員情報入力';
   // メイン部分定義
@@ -99,15 +99,19 @@ if (isset($_POST['enter_newuser'])) {
 // ################### 商品出品系 ##########################
 
 // ###出品ボタンクリック時
-if (isset($_POST['exhibits_button'])) {
+if (isset($_GET['exhibits_button'])) {
+  
+  $header='login_header';
   // タイトル格納
   $title = 'Buy By Toys | 出品';
   // メイン部分定義
   $main = 'exhibits';
 }
 
+
 // ###出品画面から出品確認ボタンが押されたときの挙動
 if (isset($_POST['exhibits_to_verification'])) {
+  $header='login_header';
   // タイトル格納
   $title = 'Buy My Toys | 出品の確認';
   // メイン部分定義
@@ -116,6 +120,7 @@ if (isset($_POST['exhibits_to_verification'])) {
 
 // ###出品確認画面から出品確定ボタンが押されたときの挙動
 if (isset($_POST['verification_to_done'])) {
+  $header='login_header';
   // タイトル格納
   $title = 'Buy My Toys | 出品完了';
   // メイン部分定義
@@ -126,6 +131,7 @@ if (isset($_POST['verification_to_done'])) {
 
 // ###商品詳細画面から商品購入確認ボタンが押されたときの挙動
 if (isset($_POST['product_to_verification'])) {
+  $header='login_header';
   // タイトル格納
   $title = 'Buy My Toys | 購入の確認';
   // メイン部分定義
@@ -134,6 +140,7 @@ if (isset($_POST['product_to_verification'])) {
 
 // ###商品購入確認画面から商品購入確定ボタンが押されたときの挙動
 if (isset($_POST['verification_to_done_buying'])) {
+  $header='login_header';
   //タイトル格納
   $title = 'Buy My Toys | 購入完了';
   // メイン部分定義
