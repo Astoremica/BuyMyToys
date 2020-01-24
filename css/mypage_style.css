@@ -1,0 +1,51 @@
+@charset "UTF-8";
+#mypage {
+    padding-top: 60px;
+}
+
+#profile_area {
+    position: relative;
+    padding-top: 50px;
+    background: rgb(206, 206, 206);
+    width: 100%;
+    height: calc(100vh - 120px);
+}
+
+#profile_area #profile_image {
+    width: 80px;
+    height: 80px;
+    top: 0;
+    left: 50%;
+    transform: translate(-43px, -50%);
+    position: absolute;
+    border: 3px solid #ffffff;
+    border-radius: 100%;
+    overflow: hidden;
+    /* background: none; */
+}
+
+#profile_area img {
+    width: 100%;
+}
+
+#user_name {
+    text-align: center;
+    font-size: 1.3em;
+    margin-bottom: 40px;
+}
+
+form {
+    width: 80%;
+    margin: 0 auto;
+}
+
+form button {
+    background: #FF9900;
+    margin-bottom: 20px;
+    color: #FFFFFF;
+    border: 1px solid #B37212;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.3em;
+}

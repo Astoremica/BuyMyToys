@@ -12,7 +12,7 @@ $main = 'lineup';
 $footer = 'top_footer';
 
 // ログアウト
-if (isset($_GET['logout'])) {
+if (isset($_POST['logout'])) {
   unset($_SESSION['user_id']);
   header('Location:./index.php');
   exit;
@@ -20,7 +20,7 @@ if (isset($_GET['logout'])) {
 
 // ログイン状態か判定
 if (isset($_SESSION['user_id'])) {
-  $header ='login_header';
+  $header = 'login_header';
 }
 
 // if (!isset($_SESSION['user_id'])) {
@@ -100,8 +100,8 @@ if (isset($_POST['enter_newuser'])) {
 
 // ###出品ボタンクリック時
 if (isset($_GET['exhibits_button'])) {
-  
-  $header='login_header';
+
+  $header = 'login_header';
   // タイトル格納
   $title = 'Buy By Toys | 出品';
   // メイン部分定義
@@ -111,7 +111,7 @@ if (isset($_GET['exhibits_button'])) {
 
 // ###出品画面から出品確認ボタンが押されたときの挙動
 if (isset($_POST['exhibits_to_verification'])) {
-  $header='login_header';
+  $header = 'login_header';
   // タイトル格納
   $title = 'Buy My Toys | 出品の確認';
   // メイン部分定義
@@ -120,7 +120,7 @@ if (isset($_POST['exhibits_to_verification'])) {
 
 // ###出品確認画面から出品確定ボタンが押されたときの挙動
 if (isset($_POST['verification_to_done'])) {
-  $header='login_header';
+  $header = 'login_header';
   // タイトル格納
   $title = 'Buy My Toys | 出品完了';
   // メイン部分定義
@@ -131,7 +131,7 @@ if (isset($_POST['verification_to_done'])) {
 
 // ###商品詳細画面から商品購入確認ボタンが押されたときの挙動
 if (isset($_POST['product_to_verification'])) {
-  $header='login_header';
+  $header = 'login_header';
   // タイトル格納
   $title = 'Buy My Toys | 購入の確認';
   // メイン部分定義
@@ -140,7 +140,7 @@ if (isset($_POST['product_to_verification'])) {
 
 // ###商品購入確認画面から商品購入確定ボタンが押されたときの挙動
 if (isset($_POST['verification_to_done_buying'])) {
-  $header='login_header';
+  $header = 'login_header';
   //タイトル格納
   $title = 'Buy My Toys | 購入完了';
   // メイン部分定義
@@ -176,6 +176,18 @@ if (isset($_POST['login'])) {
   }
 }
 
+// マイページ
+if ($_GET['mypage']) {
+  $member_id = $_SESSION['user_id'];
+  $user_data = get_member_info($member_id);
+  $header = 'mypage_header';
+  $main = 'mypage';
+}
+if ($_POST['address_setting']) {
+  
+  $header = 'mypage_header';
+  $main = '';
+}
 // CSRF対策関数
 $token = create_csrf_token();
 // ###ヘッダー呼び出し

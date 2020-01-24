@@ -23,13 +23,13 @@
 <body>
     <header>
         <nav>
-            <button id="mypage_icon"><img src="./images/user_icon/no_4/user_profile.jpg"></button>
+            <a href="<?php echo BASE_URL; ?>index.php?mypage=''" id="mypage_icon"><img src="./images/user_icon/no_4/user_profile.jpg"></a>
             <h1 id="page_top">
                 <a href="">
                     <img src="./images/materials/toys_boy_white.png" alt="Buy My Toys">
                 </a>
             </h1>
-            <p id="search_icon"><a href="<?php echo BASE_URL; ?>index.php?logout=''"><img src="./images/materials/search.png" alt="商品検索"></a></p>
+            <p id="search_icon"><a href="<?php echo BASE_URL; ?>index.php"><img src="./images/materials/search.png" alt="商品検索"></a></p>
         </nav>
         <div id="system_list">
             <form action="./index.php" method="get">
