@@ -53,6 +53,8 @@ if (isset($_SESSION['user_id'])) {
 
 // ###商品詳細ボタンクリック時の動作
 if (isset($_GET['product_detail'])) {
+  $product_id = $_GET['product_detail'];
+  $product = get_product_details($product_id);
   $header = 'login_header';
   // タイトル変更
   $title = 'Buy By Toys | 商品詳細';
