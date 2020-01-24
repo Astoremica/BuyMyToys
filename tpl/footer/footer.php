@@ -1,8 +1,4 @@
-<div id="exhibits_button">
-    <form action="./index.php" method="post">
-        <button name="exhibits_button">出品</button>
-    </form>
-</div>
+
 <footer id="footer">
     <div id="info_BuyMyToys" class="footer_flex">
         <ul>

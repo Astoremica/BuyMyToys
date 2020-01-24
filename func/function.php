@@ -66,7 +66,7 @@ function lineup()
 // }
 
 
-//------------------------------------------------ 会員登録機能 ------------------------------------------------//
+//------------------------------------------------ 会員機能 ------------------------------------------------//
 function create_csrf_token()
 {
     //クロスサイトリクエスフォージェリ（CSRF）対策
@@ -148,6 +148,7 @@ function get_hash_user($id_mail)
     $db_data = mysqli_fetch_assoc($result);
     return $db_data;
 }
+
 function call_tamplate($header, $title, $main, $footer)
 {
     //クロスサイトリクエスフォージェリ（CSRF）対策
@@ -162,4 +163,16 @@ function call_tamplate($header, $title, $main, $footer)
     // ###フッター呼び出し
     require_once "tpl/footer/$footer.php";
     return;
+}
+function get_member_info($member_id)
+{
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql = "SELECT member_key,member_name,member_nickname FROM members WHERE member_id = '$member_id'";
+    $result = mysqli_query($cn,$sql);
+
+    $result = mysqli_query($cn, $sql);
+    $db_data = mysqli_fetch_assoc($result);
+
+    return $db_data;
 }
