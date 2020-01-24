@@ -3,21 +3,25 @@ function lineup()
 {
     // db接続 最新の出品商品、つまり出品日時の大きい方から30件取得するようにしたいね
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
-    mysqli_set_charset($cn,'utf8');
+    mysqli_set_charset($cn, 'utf8');
 
     $sql = "SELECT i.product_id AS id, i.product_name AS title, i.product_price AS price
             FROM product_information AS i
             ORDER BY i.product_regist_date DESC
             LIMIT 30;";
-    $result = mysqli_query($cn,$sql);
+    $result = mysqli_query($cn, $sql);
 
     mysqli_close($cn);
 
-//     i.product_id, i.product_name, i.product_price
+    //     i.product_id, i.product_name, i.product_price
 
-while ($db_data = mysqli_fetch_assoc($result)) {
-    $products[] = $db_data;
-}
+    while ($db_data = mysqli_fetch_assoc($result)) {
+        $products[] = [
+            'title' => $db_data['title'],
+            'price' => $db_data['price'],
+            'img' => "./images/upload/" . $db_data["id"] . "/image1.jpg"
+        ];
+    }
 
     // for($i = 0; $i < 30; $i ++){
     //     $products[] = [
@@ -163,7 +167,7 @@ function get_member_info($member_id)
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
     mysqli_set_charset($cn, 'utf8');
     $sql = "SELECT member_key,member_name,member_nickname FROM members WHERE member_id = '$member_id'";
-    $result = mysqli_query($cn,$sql);
+    $result = mysqli_query($cn, $sql);
 
     $result = mysqli_query($cn, $sql);
     $db_data = mysqli_fetch_assoc($result);
