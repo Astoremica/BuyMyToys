@@ -186,6 +186,7 @@ if (isset($_GET['mypage'])) {
   $main = 'mypage';
 }
 if (isset($_POST['address_setting'])) {
+  var_dump($_POST['address_setting']);
 
   $header = 'mypage_header';
   $main = '';
