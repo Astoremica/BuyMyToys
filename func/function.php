@@ -2,10 +2,10 @@
 function lineup()
 {
     // db接続 最新の出品商品、つまり出品日時の大きい方から30件取得するようにしたいね
-    $cn = mysqli_connect('127.0.0.1','root','root','buymytoys');
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
     mysqli_set_charset($cn,'utf8');
 
-    $sql = "SELECT i.product_id, i.product_name, i.product_price
+    $sql = "SELECT i.product_id AS id, i.product_name AS title, i.product_price AS price
             FROM product_information AS i
             ORDER BY i.product_regist_date DESC
             LIMIT 30;";
@@ -15,15 +15,9 @@ function lineup()
 
 //     i.product_id, i.product_name, i.product_price
 
-    for($i = 0; $i < 30; $i ++){
-        $row = mysqli_fetch_assoc($result);
-        $products[] = [
-            'id' => $row["product_id"],
-            'img' => "./images/upload/".$row["product_id"]."/image1.jpg",
-            'title' => $row["product_name"],
-            'price' => $row["product_price"],
-        ];
-    }
+while ($db_data = mysqli_fetch_assoc($result)) {
+    $products[] = $db_data;
+}
 
     // for($i = 0; $i < 30; $i ++){
     //     $products[] = [
