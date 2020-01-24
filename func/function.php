@@ -1,7 +1,42 @@
 <?php
+function get_product_details($product_id)
+{
+
+    // db接続
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+
+    $sql = "SELECT i.product_id, i.product_name, i.product_price, c.category_name, i.product_description
+        FROM product_information AS i, product_category AS c
+        WHERE product_id = '$product_id' AND category_id = 'K25';";
+    $result = mysqli_query($cn, $sql);
+    $row = mysqli_fetch_assoc($result);
+
+    mysqli_close($cn);
+
+    $file = "./images/upload/" . $row["product_id"] . "/";
+    $main_image = $file . "image1.jpg";
+    // $image1 = $file."image2.jpg";
+    // $image2 = $file."image3.jpg";
+
+    $product = array(
+        $row["product_name"],
+        $main_image,
+        $row["category_name"],
+        $row["product_description"],
+        $row["product_price"],
+    );
+    // 各情報の取り方
+    // 商品タイトル：product_nameから取得
+    // 商品説明文：product_descriptionから取得
+    // 商品カテゴリー：product_categoryから取得したidからcategory_nameを取得
+    // 出品者名：わかんね
+
+
+    return $product;
+}
 function lineup()
 {
-    // db接続 最新の出品商品、つまり出品日時の大きい方から30件取得するようにしたいね
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
     mysqli_set_charset($cn, 'utf8');
 
@@ -17,6 +52,7 @@ function lineup()
 
     while ($db_data = mysqli_fetch_assoc($result)) {
         $products[] = [
+            'id' => $db_data['id'],
             'title' => $db_data['title'],
             'price' => $db_data['price'],
             'img' => "./images/upload/" . $db_data["id"] . "/image1.jpg"
