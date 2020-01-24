@@ -1,69 +1,63 @@
 <?php
-// require_once('商品詳細情報');
-require_once './func/function.php';
-$product_title = '商品タイトル名';
-$intro = '商品説明文';
-$user_name = '出品者名';
-$category1 = 'カテゴリー１';
-$category2 = 'カテゴリー２';
-$maker = 'メーカー名';
-$status = '商品の状態';
-$how_send = '発送方法';
-$prefecture = '発送地域';
-$sendday = '同着予想日数';
-$main_image = './images/upload/image1.jpg';
-$description_pre = '商品詳細説明';
-$value = 100;
+
+// db接続
+$cn = mysqli_connect('127.0.0.1','root','root','buymytoys');
+mysqli_set_charset($cn,'utf8');
+
+$sql = "SELECT i.product_id, i.product_name, i.product_price, c.category_name, i.product_description
+        FROM product_information AS i, product_category AS c
+        WHERE product_id = '0000000' AND category_id = 'K25'
+        ;";
+$result = mysqli_query($cn,$sql);
+$row = mysqli_fetch_assoc($result);
+
+mysqli_close($cn);
+
+
+$file = "./images/upload/".$row["product_id"]."/";
+$main_image = $file."image1.jpg";
+// $image1 = $file."image2.jpg";
+// $image2 = $file."image3.jpg";
+
+$product = array(
+  $row["product_name"],
+  $main_image,
+  $row["category_name"],
+  $row["product_description"],
+  $row["product_price"],
+);
+
 $tax = '税込';
 
-// +---------------------+--------------+------+-----+---------+-------+
-// | Field               | Type         | Null | Key | Default | Extra |
-// +---------------------+--------------+------+-----+---------+-------+
-// | product_id          | varchar(7)   | NO   |     | NULL    |       |
-// | product_name        | varchar(255) | NO   |     | NULL    |       |
-// | product_price       | int(7)       | NO   |     | NULL    |       |
-// | product_category    | varchar(3)   | NO   |     | NULL    |       |
-// | product_description | varchar(255) | NO   |     | NULL    |       |
-// | product_regist_date | date         | NO   |     | NULL    |       |
-// | trade_flg           | int(1)       | NO   |     | NULL    |       |
-// | del_flg             | int(1)       | NO   |     | NULL    |       |
-// +---------------------+--------------+------+-----+---------+-------+
+// 各情報の取り方
+// 商品タイトル：product_nameから取得
+// 商品説明文：product_descriptionから取得
+// 商品カテゴリー：product_categoryから取得したidからcategory_nameを取得
+// 出品者名：わかんね
 
-// これらの情報はdbから引っ張る予定です。
-// 実際は前のページから商品IDだけPOSTで受け取って、商品詳細テーブルの同一IDのデータ一件を拾ってきて表示します。
 ?>
 
 <div id="details">
 
-  <h1><?php echo $product_title; ?></h1>
+  <h1><?php echo $product[0]; ?></h1>
+  <h2><img src=<?php echo $product[1]; ?>></h2>
+
+  <ul>
+    <li>カテゴリ:<?php echo $product[2]; ?></li>
+    <li>配送方法:まさる堂らくらくパック</li>
+    <li>商品説明<br>
+      <pre><?php echo $product[3]; ?><pre>
+    </li>
+    <li>&yen;<?php echo $product[4]; ?>(<?php echo $tax; ?>)</li>
+  </ul>
+
   <form action="./index.php" method="post">
-    <h2 id="intro"><?php echo $intro ?></h2>
-    <h2><img src="<?php echo $main_image; ?>"></h2>
-
-    <ul>
-      <li>出品者:<?php echo $user_name; ?></li>
-      <li>カテゴリ:<?php echo $category1.','. $category2; ?></li>
-      <li>メーカー:<?php echo $maker; ?></li>
-      <li>商品の状態:<?php echo $status; ?></li>
-      <li>配送料の負担:<?php echo $how_send; ?></li>
-      <li>配送方法:まさる堂らくらくパック</li>
-      <li>配送元地域:<?php echo $prefecture; ?></li>
-      <li>大まかな発送日:<?php echo $sendday; ?></li>
-      <li>&yen;<?php echo $value; ?>(<?php echo $tax; ?>)</li>
-    </ul>
-
+    <input type="hidden" value="<?php echo $product_id ?>" name="product_id">
     <input type="submit" value="購入画面に進む" id="submit" name="product_to_verification">
     <input type="submit" value="TOPに戻る" id="submit" name="lineup">
-
   </form>
 
-  <div id="description" class="compose">
-    <pre><?php echo $description_pre; ?><pre>
-      <!-- preタグで改行とかも込み込み表示-->
-  </div>
 
-  <div class="compose">
-    <div class="goods">
     <?php foreach ($row as $reco) : ?>
         <article>
           <form action="./index.php" method="post">
@@ -77,6 +71,4 @@ $tax = '税込';
         </form>
         </article>
     <?php endforeach; ?>
-    </div><!-- goods -->
-  </div><!-- compose -->
 </div>

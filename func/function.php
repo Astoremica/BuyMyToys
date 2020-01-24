@@ -1,262 +1,69 @@
 <?php
 function lineup()
 {
-    // print("***** you call lineup *****");
-    // DBに接続
-    // $cn = mysqli_connect('HOST_NAME','USER','PASSWORD','DB_NAME');
+    // db接続 最新の出品商品、つまり出品日時の大きい方から30件取得するようにしたいね
+    $cn = mysqli_connect('127.0.0.1','root','root','buymytoys');
+    mysqli_set_charset($cn,'utf8');
 
-    // DBでの文字コードを指定
-    // mysqli_set_charset($cn,'utf8');
+    $sql = "SELECT i.product_id, i.product_name, i.product_price
+            FROM product_information AS i
+            ORDER BY i.product_regist_date DESC
+            LIMIT 30;";
+    $result = mysqli_query($cn,$sql);
 
-    //SQL文を設定する(今回は先頭から30件)
+    mysqli_close($cn);
 
-    //SQL文を元にクエリ実行、結果を$resultに格納
-    // $result = mysqli_query($cn,$sql);
+//     i.product_id, i.product_name, i.product_price
 
-    // 情報を配列に格納
-    // while ($db_data = mysqli_fetch_assoc($result)) {
-    //     $output_array[] = $db_data;
+    for($i = 0; $i < 30; $i ++){
+        $row = mysqli_fetch_assoc($result);
+        $products[] = [
+            'id' => $row["product_id"],
+            'img' => "./images/upload/".$row["product_id"]."/image1.jpg",
+            'title' => $row["product_name"],
+            'price' => $row["product_price"],
+        ];
+    }
+
+    // for($i = 0; $i < 30; $i ++){
+    //     $products[] = [
+    //         'id' => $i."表示はしない？",
+    //         'img' => "./images/upload/0000000/image1.jpg",
+    //         'title' => "おもちゃ".$i,
+    //         'price' => "100",
+    //     ];
     // }
-
-    // 配列を返す
-    // return $output_array
-
-
-    //レゴブロックの人の画像が見つからなかったので英紀のトナカイ売ります。
-    $products = [
-        [
-            'id' => 'product_detail',
-            'img' => "./images/materials/toys_boy.png",
-            'title' => "おもちゃ１",
-            'intro' => "ひでのりが作ったこのアイコンを売ります。",
-            'price' => "1980",
-        ],
-        [
-            'id' => 'product_detail',
-            'img' => "./images/materials/toys_boy.png",
-            'title' => "おもちゃ２",
-            'intro' => "ひでのりが作ったこのアイコンを売ります。",
-            'price' => "19800",
-        ],
-        [
-            'id' => 'product_detail',
-            'img' => "./images/materials/toys_boy.png",
-            'title' => "おもちゃ３",
-            'intro' => "ひでのりが作ったこのアイコンを売ります。",
-            'price' => "198",
-        ],
-        [
-            'id' => 'product_detail',
-            'img' => "./images/materials/toys_boy.png",
-            'title' => "おもちゃ４",
-            'intro' => "ひでのりが作ったこのアイコンを売ります。",
-            'price' => "1980",
-        ],
-        [
-            'id' => 'product_detail',
-            'img' => "./images/materials/toys_boy.png",
-            'title' => "おもちゃ５",
-            'intro' => "ひでのりが作ったこのアイコンを売ります。",
-            'price' => "198000",
-        ],
-        [
-            'id' => 'product_detail',
-            'img' => "./images/materials/toys_boy.png",
-            'title' => "おもちゃ６",
-            'intro' => "ひでのりが作ったこのアイコンを売ります。",
-            'price' => "19800",
-        ],
-        [
-            'id' => 'product_detail',
-            'img' => "./images/materials/toys_boy.png",
-            'title' => "おもちゃ７",
-            'intro' => "ひでのりが作ったこのアイコンを売ります。",
-            'price' => "198000",
-        ],
-        [
-            'id' => 'product_detail',
-            'img' => "./images/materials/toys_boy.png",
-            'title' => "おもちゃ８",
-            'intro' => "ひでのりが作ったこのアイコンを売ります。",
-            'price' => "1980",
-        ],
-        [
-            'id' => 'product_detail',
-            'img' => "./images/materials/toys_boy.png",
-            'title' => "おもちゃ９",
-            'intro' => "ひでのりが作ったこのアイコンを売ります。",
-            'price' => "198",
-        ],
-        [
-            'id' => 'product_detail',
-            'img' => "./images/materials/toys_boy.png",
-            'title' => "おもちゃ１０",
-            'intro' => "ひでのりが作ったこのアイコンを売ります。",
-            'price' => "198",
-        ],
-        [
-            'id' => 'product_detail',
-            'img' => "./images/materials/toys_boy.png",
-            'title' => "おもちゃ１",
-            'intro' => "ひでのりが作ったこのアイコンを売ります。",
-            'price' => "198",
-        ],
-        [
-            'id' => 'product_detail',
-            'img' => "./images/materials/toys_boy.png",
-            'title' => "おもちゃ２",
-            'intro' => "ひでのりが作ったこのアイコンを売ります。",
-            'price' => "198",
-        ],
-        [
-            'id' => 'product_detail',
-            'img' => "./images/materials/toys_boy.png",
-            'title' => "おもちゃ３",
-            'intro' => "ひでのりが作ったこのアイコンを売ります。",
-            'price' => "198",
-        ],
-        [
-            'id' => 'product_detail',
-            'img' => "./images/materials/toys_boy.png",
-            'title' => "おもちゃ４",
-            'intro' => "ひでのりが作ったこのアイコンを売ります。",
-            'price' => "198",
-        ],
-        [
-            'id' => 'product_detail',
-            'img' => "./images/materials/toys_boy.png",
-            'title' => "おもちゃ５",
-            'intro' => "ひでのりが作ったこのアイコンを売ります。",
-            'price' => "19800",
-        ],
-        [
-            'id' => 'product_detail',
-            'img' => "./images/materials/toys_boy.png",
-            'title' => "おもちゃ６",
-            'intro' => "ひでのりが作ったこのアイコンを売ります。",
-            'price' => "198",
-        ],
-        [
-            'id' => 'product_detail',
-            'img' => "./images/materials/toys_boy.png",
-            'title' => "おもちゃ７",
-            'intro' => "ひでのりが作ったこのアイコンを売ります。",
-            'price' => "198",
-        ],
-        [
-            'id' => 'product_detail',
-            'img' => "./images/materials/toys_boy.png",
-            'title' => "おもちゃ８",
-            'intro' => "ひでのりが作ったこのアイコンを売ります。",
-            'price' => "198",
-        ],
-        [
-            'id' => 'product_detail',
-            'img' => "./images/materials/toys_boy.png",
-            'title' => "おもちゃ９",
-            'intro' => "ひでのりが作ったこのアイコンを売ります。",
-            'price' => "198",
-        ],
-        [
-            'id' => 'product_detail',
-            'img' => "./images/materials/toys_boy.png",
-            'title' => "おもちゃ１０",
-            'intro' => "ひでのりが作ったこのアイコンを売ります。",
-            'price' => "198",
-        ],
-
-    ];
-
-
     return $products;
-
 }
 
+// function show_detail(){
+//     db接続 最新の出品商品、つまり出品日時の大きい方から30件取得するようにしたいね
+//     $cn = mysqli_connect('127.0.0.1','root','root','buymytoys');
+//     mysqli_set_charset($cn,'utf8');
 
-//sql系の操作を一括で管理するファイル(予定？)
-//---------------- SQL接続テンプレ ----------------//
-//  DB接続先のパラメータ設定（多分固定？）
-//  $cn = mysqli_connect($host_name,$user,$password,$db_name);
+//     $sql = "SELECT i.product_id, i.product_name, i.product_price, c.category_name, i.product_description
+//             FROM product_information AS i, product_category AS c
+//             WHERE product_id = '0000000' AND category_id = 'K25'
+//             ;";
+//     $result = mysqli_query($cn,$sql);
+//     $row = mysqli_fetch_assoc($result);
 
-//  ついでに文字型も指定しておく
-//  コネクトmysqli_set_charset($cn,'utf8');
-
-//  SQL文をセットする(入力値、<sqlの種類>)
-//  $sql = "SELECT link, title, FROM table_name;";
-//  $sql = "INSERT INTO table_name;
-//  $sql = "UPDATE row colmun = '***' ;";
-
-//  セットされたSQL文を実行、戻り値に指定
-//  return mysqli_query($cn,$sql);
-
-//---------------- SQL接続テンプレ ----------------//
+//     mysqli_close($cn);
 
 
+//     $file = "./images/upload/".$row["product_id"]."/";
+//     $main_image = $file."image1.jpg";
+//     // $image1 = $file."image2.jpg";
+//     // $image2 = $file."image3.jpg";
 
-//---------------- メッセージ全件取得 ----------------//
-//  DB接続先のパラメータ設定（多分固定？）
-//  $cn = mysqli_connect($host_name,$user,$password,$db_name);
-
-//  ついでに文字型も指定しておく
-//  コネクトmysqli_set_charset($cn,'utf8');
-
-//  SQL文をセットする(入力値、<sqlの種類>)
-
-//  $sql = "SELECT message, date, FROM table_name WHERE del_flg = 0;";
-
-//  セットされたSQL文を実行、戻り値にする
-//  return mysqli_query($cn,$sql);
-
-//---------------- メッセージ全件取得 ----------------//
-
-//---------------- 入力メッセージ送信 ----------------//
-//  DB接続先のパラメータ設定（多分固定？）
-//  $cn = mysqli_connect($host_name,$user,$password,$db_name);
-
-//  ついでに文字型も指定しておく
-//  コネクトmysqli_set_charset($cn,'utf8');
-
-//  SQL文をセットする(入力値、<sqlの種類>)
-
-//  $sql = "新しくメッセージとその日時を追加;";
-
-//  セットされたSQL文を実行
-//  mysqli_query($cn,$sql);
-
-//---------------- 入力メッセージ送信 ----------------//
-
-//---------------- 指定メッセージ削除 ----------------//
-//  DB接続先のパラメータ設定（多分固定？）
-//  $cn = mysqli_connect($host_name,$user,$password,$db_name);
-
-//  ついでに文字型も指定しておく
-//  コネクトmysqli_set_charset($cn,'utf8');
-
-//  SQL文をセットする(入力値、<sqlの種類>)
-//  $sql = "del_flg = 1;";
-
-//  セットされたSQL文を実行
-//  mysqli_query($cn,$sql);
-
-//指定したテキストの削除フラグを立てる関数 <削除>
-
-
-
-//---------------- チェック系関数 ----------------//
-//リミットチェック（文字数が規定の範囲で収まっているとpass）
-
-
-//フォーマットチェック（文字型や特殊文字が含まれていないとpass）
-
-
-//NGワード（ガイドラインに反する文字列がなければpass）
-
-
-//---------------- プロセスフロー ----------------//
-//<start><更新>
-//<process><追加> → <更新>
-//<process><削除> → <更新>
-//<end>
+//     $product = array(
+//     $row["product_name"],
+//     $main_image,
+//     $row["category_name"],
+//     $row["product_description"],
+//     $row["product_price"],
+//     );
+// }
 
 
 //------------------------------------------------ 会員機能 ------------------------------------------------//
