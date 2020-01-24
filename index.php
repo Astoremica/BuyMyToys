@@ -100,7 +100,7 @@ if (isset($_POST['enter_newuser'])) {
 
 // ###出品ボタンクリック時
 if (isset($_GET['exhibits_button'])) {
-  
+
   $header='login_header';
   // タイトル格納
   $title = 'Buy By Toys | 出品';
@@ -136,6 +136,7 @@ if (isset($_POST['product_to_verification'])) {
   $title = 'Buy My Toys | 購入の確認';
   // メイン部分定義
   $main = 'verification_buying';
+  $product_id = $_POST["product_id"];
 }
 
 // ###商品購入確認画面から商品購入確定ボタンが押されたときの挙動

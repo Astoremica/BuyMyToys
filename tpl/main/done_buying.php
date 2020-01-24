@@ -1,13 +1,28 @@
 <?php
-// この部分で確認画面からPOSTで商品IDを受け取り、
-// dbの状態を購入済み状態に変更します。
+require_once './func/function.php';
+$id = $_POST["product_id"];
+
+// update trade_flg = 1;
+
+$file = "./images/upload/".$id."/";
+$image1 = $file."/image1.jpg";
+// $image2 = $file."/image2.jpg";
+// $image3 = $file."/image3.jpg";
+
+// ブラウザバックされたら普通に戻れるけど今は放置で
 ?>
 <div id="done_buying">
-    <h1>購入が完了しました☆</h1>
-    
-    <form action="./index.php" method="post">
-        <button name="lineup">TOPページへ</button>
-        <button name="mypage">商品発送の手続きへ</button>
-        <!-- あとで出品者連絡画面に差し替えます -->
-    </form>
-</div id="">
+  <h1>購入が完了しました☆</h1>
+  <ul>
+    <li><img src="<?php echo $image1; ?>"></li>
+    <li><img src="<?php echo $image2; ?>"></li>
+    <li><img src="<?php echo $image3; ?>"></li>
+  </ul>
+
+
+  <form action="./index.php" method="post">
+    <button name="lineup">TOPページへ</button>
+    <button name="mypage">購入の確認</button>
+    <!-- あとで出品者連絡画面に差し替えます -->
+  </form>
+</div>
