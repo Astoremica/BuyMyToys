@@ -177,14 +177,14 @@ if (isset($_POST['login'])) {
 }
 
 // マイページ
-if ($_GET['mypage']) {
+if (isset($_GET['mypage'])) {
   $member_id = $_SESSION['user_id'];
   $user_data = get_member_info($member_id);
   $header = 'mypage_header';
   $main = 'mypage';
 }
-if ($_POST['address_setting']) {
-  
+if (isset($_POST['address_setting'])) {
+
   $header = 'mypage_header';
   $main = '';
 }
