@@ -1,8 +1,7 @@
 <?php
 function lineup()
 {
-    // db接続 最新の出品商品、つまり出品日時の大きい方から30件取得するようにしたいね
-    $cn = mysqli_connect('127.0.0.1','root','root','buymytoys');
+    $cn = mysqli_connect(HOST,DB_USER,DB_PASS,DB_NAME);
     mysqli_set_charset($cn,'utf8');
 
     $sql = "SELECT i.product_id, i.product_name, i.product_price
