@@ -1,10 +1,8 @@
 <?php
-require_once './func/function.php';
-$id = $_POST["product_id"];
 
 // update trade_flg = 1;
 
-$file = "./images/upload/".$id."/";
+$file = "./images/upload/".hoge."/";
 $image1 = $file."/image1.jpg";
 // $image2 = $file."/image2.jpg";
 // $image3 = $file."/image3.jpg";

@@ -51,17 +51,6 @@ if (isset($_SESSION['user_id'])) {
 //   $main = 'mypage';
 // }
 
-// ###商品詳細ボタンクリック時の動作
-if (isset($_GET['product_detail'])) {
-  $product_id = $_GET['product_detail'];
-  $product = get_product_details($product_id);
-  $header = 'login_header';
-  // タイトル変更
-  $title = 'Buy By Toys | 商品詳細';
-  // メイン部分の書き換え
-  $main = 'product_detail';
-}
-
 // ###マイページボタンクリック時の動作
 if (isset($_POST['enter_newuser'])) {
   //  ヘッダー部分定義
@@ -130,14 +119,26 @@ if (isset($_POST['verification_to_done'])) {
 
 // ##################### 商品購入系 ########################
 
-// ###商品詳細画面から商品購入確認ボタンが押されたときの挙動
+// ###商品詳細ボタンクリック時の動作
+if (isset($_GET['product_detail'])) {
+  $product_id = $_GET['product_detail'];
+  $product = get_product_details($product_id);
+  $header = 'login_header';
+  // タイトル変更
+  $title = 'Buy By Toys | 商品詳細';
+  // メイン部分の書き換え
+  $main = 'product_detail';
+}
+
+// ###商品詳細から商品購入確認が押されたときの動作
 if (isset($_POST['product_to_verification'])) {
+  $product_id = $_POST["product_to_verification"];
+  $product = verification_buying($product_id);
   $header = 'login_header';
   // タイトル格納
   $title = 'Buy My Toys | 購入の確認';
   // メイン部分定義
   $main = 'verification_buying';
-  $product_id = $_POST["product_id"];
 }
 
 // ###商品購入確認画面から商品購入確定ボタンが押されたときの挙動
