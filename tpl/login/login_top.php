@@ -12,9 +12,6 @@
     <!-- ホーム画面に表示されるアプリアイコン -->
     <link rel="apple-touch-icon" sizes="180x180" href="./images/materials/toys_boy_icon.png">
     <link rel="stylesheet" href="./css/reset.css">
-
-    <!-- 商品詳細画面での画像のサイズを横幅いっぱいの正方形に -->
-    <link rel="stylesheet" href="./css/buying_style.css">
     <!-- ログイン時のヘッダーCSS -->
     <link rel="stylesheet" href="./css/login_header_style.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,500,900&amp;subset=japanese" rel="stylesheet">
@@ -26,7 +23,6 @@
 <body>
     <header>
         <nav>
-            <a href="<?php echo BASE_URL; ?>index.php?mypage=''" id="mypage_icon"><img src="./images/user_icon/no_4/user_profile.jpg"></a>
             <h1 id="page_top">
                 <a href="./index.php">
                     <img src="./images/materials/toys_boy_white.png" alt="Buy My Toys">
@@ -34,29 +30,27 @@
             </h1>
             <p id="search_icon"><a href="<?php echo BASE_URL; ?>index.php"><img src="./images/materials/search.png" alt="商品検索"></a></p>
         </nav>
-        <div id="system_list">
-            <form action="./index.php" method="get">
-                <button type="submit" id="home_icon"><img src="./images/materials/home_icon.png"></button>
-                <button type="submit" id="camera_icon" name="exhibits_button" value="aaa"><img src="./images/materials/camera_icon.png"></button>
-                <button type="submit" id="favorite_icon"><img src="./images/materials/favorite_white_icon.png"></button>
-                <button type="submit" id="cart_icon"><img src="./images/materials/cart_icon.png"></button>
-            </form>
-        </div>
     </header>
-    <div id="main">
+    <div id="lineup">
         <!-- データ内容表示 -->
         <?php foreach ($products as $reco) : ?>
             <div class="product">
-                <a href="<?php echo BASE_URL ?>index.php?product_detail=<?php echo $reco['id']; ?>">
-                    <img src="<?php echo $reco['img']; ?>" alt="商品"><img>
-                    <span class="product_title"><?php echo $reco['title'] ?></span>
-                    <div class="price">
-                        <span class="price">&yen;<?php echo $reco['price']; ?></span>
-                    </div>
+                <a href="<?php echo BASE_URL; ?>index.php?product_detail=<?php echo $reco['id']; ?>">
+                    <img src="<?php echo $reco['img']; ?>" alt="商品">
+                    <span class="price">&yen;&nbsp;<?php echo $reco['price']; ?></span>
                 </a>
             </div>
         <?php endforeach; ?>
     </div>
+    <footer>
+        <form action="./index.php" method="get">
+            <button type="submit" class="system_icon"><img src="./images/materials/home_icon.png"></button>
+            <button type="submit" class="system_icon" name="exhibits_button" value="aaa"><img src="./images/materials/camera_icon.png"></button>
+            <button type="submit" class="system_icon"><img src="./images/materials/favorite_white_icon.png"></button>
+            <button type="submit" class="system_icon"><img src="./images/materials/cart_icon.png"></button>
+            <a href="<?php echo BASE_URL; ?>index.php?mypage=''" id="mypage_icon"><img src="./images/user_icon/no_4/user_profile.jpg"></a>
+        </form>
+    </footer>
     <script src="./js/jquery-3.4.1.min.js"></script>
     <!-- その他の手書きjs -->
     <script src="./js/others.js"></script>
