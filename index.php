@@ -13,17 +13,17 @@ $footer = 'top_footer';
 
 // ログアウト
 if (isset($_POST['logout'])) {
-  unset($_SESSION['user_id']);
+  session_destroy();
   header('Location:./index.php');
   exit;
 }
 
 // ログイン状態か判定
-if (isset($_SESSION['user_id'])) {
+if (isset($_SESSION['member_id'])) {
   $header = 'login_header';
 }
 
-// if (!isset($_SESSION['user_id'])) {
+// if (!isset($_SESSION['member_id'])) {
 //   call_tamplate('nologin_header', 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト', 'lineup', 'top_footer');
 //   exit;
 // }
@@ -168,7 +168,7 @@ if (isset($_POST['login'])) {
   // IDもしくはメールアドレスをもとにハッシュ値取得
   $hash_user = get_hash_user($id_mail);
   if (password_verify($password, $hash_user['member_password'])) {
-    $_SESSION['user_id'] = $hash_user['member_id'];
+    $_SESSION['member_id'] = $hash_user['member_id'];
     call_tamplate('login_header', 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト', 'lineup', 'top_footer');
     exit;
   } else {
@@ -180,16 +180,127 @@ if (isset($_POST['login'])) {
 
 // マイページ
 if (isset($_GET['mypage'])) {
-  $member_id = $_SESSION['user_id'];
+  $member_id = $_SESSION['member_id'];
   $user_data = get_member_info($member_id);
   $header = 'mypage_header';
   $main = 'mypage';
 }
-if (isset($_POST['address_setting'])) {
-  var_dump($_POST['address_setting']);
+// 住所設定
+if (isset($_GET['address_info'])) {
+  $member_id = $_GET['address_info'];
+  $address_info = get_address($member_id);
+  if (empty($address_info)) {
+    $address_info = '住所は登録されていません。';
+  }
+  require_once './tpl/login/address_info.php';
+  exit;
+}
+if (isset($_POST['add_address'])) {
+  $member_id = $_SESSION['member_id'];
+  require_once './tpl/login/address_enter.php';
+  exit;
+}
+// 住所入力
+if (isset($_POST['enter_address'])) {
 
-  $header = 'mypage_header';
-  $main = '';
+  $member_id = $_POST['enter_address']['member_id'];
+  // 郵便番号に"-"を追加するため
+  $zipcode = isset($_POST['enter_address']['zipcode']) ? htmlspecialchars(mb_substr($_POST['enter_address']['zipcode'], 0, 3), ENT_QUOTES) : '';
+  $zipcode .= isset($_POST['enter_address']['zipcode']) ? '-' . htmlspecialchars(mb_substr($_POST['enter_address']['zipcode'], 3, 6), ENT_QUOTES) : '';
+  // 都道府県
+  $address = isset($_POST['enter_address']['addr01']) ? htmlspecialchars($_POST['enter_address']['addr01'], ENT_QUOTES) : '';
+  // 市区町村
+  $address .= isset($_POST['enter_address']['addr02']) ? htmlspecialchars($_POST['enter_address']['addr02'], ENT_QUOTES) : '';
+  // 番地
+  $address .= isset($_POST['enter_address']['house_number']) ? htmlspecialchars($_POST['enter_address']['house_number'], ENT_QUOTES) : '';
+  // マンション等
+  $address .= isset($_POST['enter_address']['building_name']) ? '　' . htmlspecialchars($_POST['enter_address']['building_name'], ENT_QUOTES) : '';
+  // 名義
+  $name = isset($_POST['enter_address']['name']) ? htmlspecialchars($_POST['enter_address']['name'], ENT_QUOTES) : '';
+  $add_address = [
+    'zip' => $zipcode,
+    'address' => $address,
+    'name' => $name
+  ];
+  $_SESSION['add_address'] = $add_address;
+  require_once './tpl/login/confirm_add_address.php';
+  exit;
+}
+// 住所登録
+if (isset($_POST['regist_address'])) {
+  $member_id = $_SESSION['member_id'];
+  $add_address = $_SESSION['add_address'];
+  add_address($member_id, $add_address['zip'], $add_address['address'], $add_address['name']);
+  unset($_SESSION['add_address']);
+  header("Location:./index.php?address_info=$member_id");
+  exit;
+}
+// 銀行口座情報表示ページ
+if (isset($_GET['bank_info'])) {
+  $member_id = $_GET['bank_info'];
+  $bank_info = get_bank($member_id);
+  if (empty($bank_info)) {
+    $bank_info = '口座は登録されていません。';
+  }
+  require_once './tpl/login/bank_info.php';
+  exit;
+}
+// 銀行口座情報入力ページ
+if (isset($_POST['add_bank'])) {
+  $member_id = $_SESSION['member_id'];
+  require_once './tpl/login/bank_enter.php';
+  exit;
+}
+// 銀行口座入力情報確認ページ
+
+if (isset($_POST['enter_bank'])) {
+  $member_id = $_POST['enter_bank']['member_id'];
+  // 金融機関名配列 
+  $bank_name_list_array=[
+    '三菱UFJ銀行',
+    'みずほ銀行',
+    'りそな銀行',
+    '埼玉りそな銀行',
+    '三井住友銀行',
+    'ジャパネット銀行',
+    '楽天銀行',
+    'ゆうちょ銀行'
+  ];
+  // 金融機関名
+  $bank_name_index = $_POST['enter_bank']['bank_name'];
+  $bank_name = $bank_name_list_array[$bank_name_index];
+  // 支店コード
+  $branch_number = isset($_POST['enter_bank']['branch_number']) ? htmlspecialchars($_POST['enter_bank']['branch_number'], ENT_QUOTES) : '';
+  // 支店名
+  $branch_name = isset($_POST['enter_bank']['branch_name']) ? htmlspecialchars($_POST['enter_bank']['branch_name'], ENT_QUOTES) : '';
+  // 口座番号
+  $bank_number = isset($_POST['enter_bank']['bank_number']) ? htmlspecialchars($_POST['enter_bank']['bank_number'], ENT_QUOTES) : '';
+  // 名義セイ
+  $bank_holder = isset($_POST['enter_bank']['bank_holder_last']) ? htmlspecialchars($_POST['enter_bank']['bank_holder_last'], ENT_QUOTES) : '';
+  // 名義セイ+メイ
+  $bank_holder .= isset($_POST['enter_bank']['bank_holder_first']) ? htmlspecialchars($_POST['enter_bank']['bank_holder_first'], ENT_QUOTES) : '';
+
+  $add_bank = [
+    'bank_name' => $bank_name,
+    'branch_number' => $branch_number,
+    'branch_name' => $branch_name,
+    'bank_number' => $bank_number,
+    'bank_holder' => $bank_holder
+  ];
+  $_SESSION['add_bank'] = $add_bank;
+  require_once './tpl/login/confirm_add_bank.php';
+  exit;
+}
+// 口座登録
+if (isset($_POST['regist_bank'])) {
+  $member_id = $_SESSION['member_id'];
+  $add_bank = $_SESSION['add_bank'];
+  var_dump($add_bank);
+  var_dump($_SESSION['add_bank']);
+  add_bank($member_id, $add_bank['bank_name'], (int)$add_bank['branch_number'], $add_bank['branch_name'],(int)$add_bank['bank_number'],$add_bank['bank_holder']);
+  unset($_SESSION['add_bank']);
+  header("Location:./index.php?bank_info=$member_id");
+  exit;
 }
 // CSRF対策関数
 $token = create_csrf_token();
