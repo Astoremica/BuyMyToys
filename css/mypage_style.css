@@ -39,7 +39,8 @@ form {
     margin: 0 auto;
 }
 
-form button {
+form button,
+form a {
     background: #FF9900;
     margin-bottom: 20px;
     color: #FFFFFF;
@@ -48,4 +49,12 @@ form button {
     cursor: pointer;
     width: 100%;
     font-size: 1.3em;
+    text-decoration: none;
+    padding: 5px 0;
+}
+
+form a {
+    padding: 5px 0;
+    display: block;
+    text-align: center;
 }

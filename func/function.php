@@ -35,6 +35,7 @@ function get_product_details($product_id)
 
     return $product;
 }
+
 function lineup()
 {
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
@@ -48,7 +49,6 @@ function lineup()
 
     mysqli_close($cn);
 
-    //     i.product_id, i.product_name, i.product_price
 
     while ($db_data = mysqli_fetch_assoc($result)) {
         $products[] = [
@@ -59,14 +59,6 @@ function lineup()
         ];
     }
 
-    // for($i = 0; $i < 30; $i ++){
-    //     $products[] = [
-    //         'id' => $i."表示はしない？",
-    //         'img' => "./images/upload/0000000/image1.jpg",
-    //         'title' => "おもちゃ".$i,
-    //         'price' => "100",
-    //     ];
-    // }
     return $products;
 }
 
@@ -179,6 +171,7 @@ function get_hash_user($id_mail)
         $sql = "SELECT member_id,member_password FROM members WHERE member_mail = '$id_mail'";
     }
     $result = mysqli_query($cn, $sql);
+    mysqli_close($cn);
     $db_data = mysqli_fetch_assoc($result);
     return $db_data;
 }
@@ -204,9 +197,55 @@ function get_member_info($member_id)
     mysqli_set_charset($cn, 'utf8');
     $sql = "SELECT member_key,member_name,member_nickname FROM members WHERE member_id = '$member_id'";
     $result = mysqli_query($cn, $sql);
-
-    $result = mysqli_query($cn, $sql);
+    mysqli_close($cn);
     $db_data = mysqli_fetch_assoc($result);
 
     return $db_data;
+}
+function get_address($member_id)
+{
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql = "SELECT zipcode,address,name FROM addresses WHERE member_id = '$member_id'";
+    $result = mysqli_query($cn, $sql);
+    mysqli_close($cn);
+    while ($db_data = mysqli_fetch_assoc($result)) {
+        $address[] =  $db_data;
+    }
+    return $address;
+}
+
+function add_address($member_id, $zipcode, $address, $name)
+{
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql = "INSERT INTO addresses(member_id,zipcode,address,name) VALUES('$member_id','$zipcode','$address','$name');";
+    mysqli_query($cn, $sql);
+    mysqli_close($cn);
+
+    return;
+}
+
+function get_bank($member_id)
+{
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql = "SELECT bank_name,bank_branch,bank_number,bank_holder FROM bank_accounts WHERE member_id = '$member_id'";
+    $result = mysqli_query($cn, $sql);
+    mysqli_close($cn);
+    while ($db_data = mysqli_fetch_assoc($result)) {
+        $banks[] =  $db_data;
+    }
+    return $banks;
+}
+
+function add_bank($member_id, $bank_name, $branch_number, $branch_name,$bank_number,$bank_holder)
+{
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql = "INSERT INTO bank_accounts(member_id,bank_name,branch_number,bank_branch,bank_number,bank_holder) VALUES('$member_id','$bank_name',$branch_number,'$branch_name',$bank_number,'$bank_holder');";
+    mysqli_query($cn, $sql);
+    mysqli_close($cn);
+
+    return;
 }

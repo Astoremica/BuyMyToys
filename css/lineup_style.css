@@ -7,7 +7,8 @@
 }
 
 #main .product {
-    width: calc(100%/3);
+    padding: 1px;
+    width: calc(100% / 3);
 }
 
 #main .product a {
@@ -30,14 +31,9 @@
     font-size: 14px;
 }
 
-#main .product .price_fav {
+#main .product .price {
     width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
-}
-
-#main .product .price_fav img {
-    width: 30px;
-    height: 30px;
 }
