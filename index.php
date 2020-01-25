@@ -18,25 +18,28 @@ if (isset($_GET['exhibits_button'])) {
 // ###出品画面から出品確認ボタンが押されたときの動作
 if (isset($_POST['exhibits_to_verification'])) {
   // DB
+  $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+  mysqli_set_charset($cn, 'utf8');
+  $sql = "select category_name
+          from product_category
+          where category_id = '".$_POST['category']."'";
+  $result = mysqli_query($cn, $sql);
+  $row = mysqli_fetch_assoc($result);
+  mysqli_close($cn);
+
   $name = $_POST['name'];
-  $category = $_POST['category'];
-  // DB接続して名前で表示
+  $member_id = "yukatili";
+  $category = $row["category_name"];
+  $category_id = $_POST['category'];
   $image1 = $_FILES['image1'];
   $image2 = $_FILES['image2'];
   $image3 = $_FILES['image3'];
   $price = $_POST['price'];
   $description = $_POST['description'];
-
-  // 表示価格の変更
   $price *= 1.1;
   $price += 500;
-
-  move_uploaded_file($image1['tmp_name'], './images/upload/' . 'tpl/' . 'image1.jpg');
-  move_uploaded_file($image2['tmp_name'], './images/upload/' . 'tpl/' . 'image2.jpg');
-  move_uploaded_file($image3['tmp_name'], './images/upload/' . 'tpl/' . 'image3.jpg');
-
-  // verification_exhibits();
-
+  unlink_if_isnot_uploaded($image1, $image2, $image3);
+  move_upload_file_if_is_upliaded($image1, $image2, $image3);
   require_once './tpl/login/product/verification_exhibits.php';
   exit;
 }
@@ -45,24 +48,45 @@ if (isset($_POST['exhibits_to_verification'])) {
 if (isset($_POST['verification_to_done'])) {
   // done_exhibits();
   // DB
+  $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+  mysqli_set_charset($cn, 'utf8');
+  $sql = " SELECT max(product_id)+1 AS num FROM product_information;";
+  $result = mysqli_query($cn, $sql);
+  $insert_num = mysqli_fetch_assoc($result);
+  mysqli_close($cn);
+
+  $product_id = $insert_num['num'];
+
+  // 新規フォルダ作成
+  mkdir("./images/upload/".$product_id."", 0700);
+
+  // 画像の移動
+  var_dump(rename("images/upload/tpl/image1.jpg", "./images/upload/".$product_id."/image1.jpg"));
+  var_dump(rename("images/upload/tpl/image2.jpg", "./images/upload/".$product_id."/image2.jpg"));
+  var_dump(rename("images/upload/tpl/image3.jpg", "./images/upload/".$product_id."/image3.jpg"));
+
+  $product_id = $insert_num['num'];
+  $member_id = "yukatili";
   $name = $_POST['name'];
-  $category = $_POST['category'];
-  // DB接続して名前で表示
-  $image1 = $_FILES['image1'];
-  $image2 = $_FILES['image2'];
-  $image3 = $_FILES['image3'];
   $price = $_POST['price'];
+  $category_id = $_POST['category_id'];
   $description = $_POST['description'];
 
-  // | product_id          | varchar(7)   | NO   | PRI | NULL    |       |
-  // | member_id           | varchar(255) | NO   |     | NULL    |       |
-  // | product_name        | varchar(255) | NO   |     | NULL    |       |
-  // | product_price       | int(7)       | NO   |     | NULL    |       |
-  // | product_category    | varchar(3)   | NO   |     | NULL    |       |
-  // | product_description | varchar(255) | NO   |     | NULL    |       |
-  // | product_regist_date | date         | NO   |     | NULL    |       |
-  // | trade_flg           | int(1)       | NO   |     | NULL    |       |
-  // | del_flg             | int(1)       | NO   |     | NULL    |       |
+  $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+  mysqli_set_charset($cn, 'utf8');
+  $sql = "INSERT INTO product_information VALUES(
+          '".$product_id."',
+          '".$member_id."',
+          '".$name."',
+          ".$price.",
+          '".$category_id."',
+          '".$description."',
+          DATE(NOW()),
+          0,
+          0);";
+  $result = mysqli_query($cn, $sql);
+  $row = mysqli_fetch_assoc($result);
+  mysqli_close($cn);
 
   require_once './tpl/login/product/done_exhibits.php';
   exit;

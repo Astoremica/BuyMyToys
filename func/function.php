@@ -88,6 +88,26 @@ function get_product_details($product_id)
     return $product;
 }
 
+function unlink_if_isnot_uploaded($filename1, $filename2, $filename3)
+{
+    if($filename1["error"]){
+        unlink('./images/upload/tpl/image1.jpg');
+      }
+      if($filename2["error"]){
+        unlink('./images/upload/tpl/image2.jpg');
+      }
+      if($filename3["error"]){
+        unlink('./images/upload/tpl/image3.jpg');
+      }
+}
+
+function move_upload_file_if_is_upliaded($filename1, $filename2, $filename3)
+{
+    move_uploaded_file($filename1['tmp_name'], './images/upload/' . 'tpl/' . 'image1.jpg');
+    move_uploaded_file($filename2['tmp_name'], './images/upload/' . 'tpl/' . 'image2.jpg');
+    move_uploaded_file($filename3['tmp_name'], './images/upload/' . 'tpl/' . 'image3.jpg');
+}
+
 //------------------------------------------------ 会員機能 ------------------------------------------------//
 
 // すでに登録済みの会員か

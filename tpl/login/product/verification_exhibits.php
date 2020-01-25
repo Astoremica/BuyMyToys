@@ -48,7 +48,9 @@
         <h1>出品の確認</h1>
         <form action="./index.php" method="post">
             <input type="hidden" name="name" value="<?php echo $name; ?>">
+            <input type="hidden" name="member_id" value="<?php echo $member_id; ?>">
             <input type="hidden" name="category" value="<?php echo $category; ?>">
+            <input type="hidden" name="category_id" value="<?php echo $category_id; ?>">
             <input type="hidden" name="image1" value="<?php echo $image1; ?>">
             <input type="hidden" name="image2" value="<?php echo $image2; ?>">
             <input type="hidden" name="image3" value="<?php echo $image3; ?>">
