@@ -36,12 +36,10 @@
         <ul>
             <li>商品名：<?php echo $name; ?></li>
             <li>商品ID：<?php echo $product_id; ?></li>
+            <li>出品者名：<?php echo $member_name ?></li>
             <li>商品カテゴリ：<?php echo $category; ?></li>
-            <li><?php echo $image1; ?></li>
-            <li><?php echo $image2; ?></li>
-            <li><?php echo $image3; ?></li>
+            <li>商品画像：<img src="./images/upload/<?php echo $product_id; ?>/image1.jpg"></li>
             <li>価格：&yen;<?php echo $price; ?>円</li>
-            <li>商品説明：<?php echo $description; ?></li>
         </ul>
         <form action="./index.php" method="post">
             <button name="lineup">TOPページへ</button>
