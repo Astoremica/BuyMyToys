@@ -119,10 +119,12 @@ if (isset($_POST['login'])) {
   $hash_user = get_hash_user($id_mail);
   if (password_verify($password, $hash_user['member_password'])) {
     $_SESSION['member_id'] = $hash_user['member_id'];
+    $products = lineup();
     require_once './tpl/login/login_top.php';
     exit;
   } else {
     // $errors = "入力されたIDもしくはメールアドレスまたはパスワードが違います。";
+    $products = lineup();
     require_once './tpl/nologin/nologin_top.php';
     exit;
   }
