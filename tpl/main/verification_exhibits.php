@@ -1,21 +1,21 @@
 <?php
-// DB
-$name = $_POST['name'];
-$category = $_POST['category'];
-// DB接続して名前で表示
-$image1 = $_FILES['image1'];
-$image2 = $_FILES['image2'];
-$image3 = $_FILES['image3'];
-$price = $_POST['price'];
-$description = $_POST['description'];
+// // DB
+// $name = $_POST['name'];
+// $category = $_POST['category'];
+// // DB接続して名前で表示
+// $image1 = $_FILES['image1'];
+// $image2 = $_FILES['image2'];
+// $image3 = $_FILES['image3'];
+// $price = $_POST['price'];
+// $description = $_POST['description'];
 
-// 表示価格の変更
-$price *= 1.1;
-$price += 500;
+// // 表示価格の変更
+// $price *= 1.1;
+// $price += 500;
 
-move_uploaded_file($image1['tmp_name'], './images/upload/'.'tpl/'.'image1.jpg');
-move_uploaded_file($image2['tmp_name'], './images/upload/'.'tpl/'.'image2.jpg');
-move_uploaded_file($image3['tmp_name'], './images/upload/'.'tpl/'.'image3.jpg');
+// move_uploaded_file($image1['tmp_name'], './images/upload/'.'tpl/'.'image1.jpg');
+// move_uploaded_file($image2['tmp_name'], './images/upload/'.'tpl/'.'image2.jpg');
+// move_uploaded_file($image3['tmp_name'], './images/upload/'.'tpl/'.'image3.jpg');
 ?>
 <div id="verification_exhibits">
     <h1>出品の確認</h1>

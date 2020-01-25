@@ -1,23 +1,23 @@
 <?php
-// DB
-$name = $_POST['name'];
-$category = $_POST['category'];
-// DB接続して名前で表示
-$image1 = $_FILES['image1'];
-$image2 = $_FILES['image2'];
-$image3 = $_FILES['image3'];
-$price = $_POST['price'];
-$description = $_POST['description'];
+// // DB
+// $name = $_POST['name'];
+// $category = $_POST['category'];
+// // DB接続して名前で表示
+// $image1 = $_FILES['image1'];
+// $image2 = $_FILES['image2'];
+// $image3 = $_FILES['image3'];
+// $price = $_POST['price'];
+// $description = $_POST['description'];
 
-// | product_id          | varchar(7)   | NO   | PRI | NULL    |       |
-// | member_id           | varchar(255) | NO   |     | NULL    |       |
-// | product_name        | varchar(255) | NO   |     | NULL    |       |
-// | product_price       | int(7)       | NO   |     | NULL    |       |
-// | product_category    | varchar(3)   | NO   |     | NULL    |       |
-// | product_description | varchar(255) | NO   |     | NULL    |       |
-// | product_regist_date | date         | NO   |     | NULL    |       |
-// | trade_flg           | int(1)       | NO   |     | NULL    |       |
-// | del_flg             | int(1)       | NO   |     | NULL    |       |
+// // | product_id          | varchar(7)   | NO   | PRI | NULL    |       |
+// // | member_id           | varchar(255) | NO   |     | NULL    |       |
+// // | product_name        | varchar(255) | NO   |     | NULL    |       |
+// // | product_price       | int(7)       | NO   |     | NULL    |       |
+// // | product_category    | varchar(3)   | NO   |     | NULL    |       |
+// // | product_description | varchar(255) | NO   |     | NULL    |       |
+// // | product_regist_date | date         | NO   |     | NULL    |       |
+// // | trade_flg           | int(1)       | NO   |     | NULL    |       |
+// // | del_flg             | int(1)       | NO   |     | NULL    |       |
 
 ?>
 <div id="done_exhibits">

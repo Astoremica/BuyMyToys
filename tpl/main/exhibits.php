@@ -66,6 +66,6 @@
         <p>※ 手数料 (10%) + 配送料 (500円) が 加算されます</p>
 
         <button type="submit" value="" name="exhibits_to_verification">かくにんする</button>
-        <button type="reset" value="" name="lineup">やめておく</button>
+        <button type="submit" value="" name="lineup">やめておく</button>
   </form>
   </div>

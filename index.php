@@ -10,6 +10,7 @@ require_once '../config.php';
 
 // ###出品ボタンクリック時の動作
 if (isset($_GET['exhibits_button'])) {
+  unlink('./images/tpl/*');
   require_once './tpl/login/product/exhibits.php';
   exit;
 }
