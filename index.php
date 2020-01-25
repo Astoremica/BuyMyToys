@@ -111,12 +111,22 @@ if (isset($_POST['product_to_verification'])) {
 
 // ###商品購入確認から商品購入確定が押されたときの動作
 if (isset($_POST['verification_to_done_buying'])) {
-  // update trade_flg = 1;
 
-  $file = "./images/upload/" . "hoge" . "/";
+  $product_id = $_POST['verification_to_done_buying'];
+
+  $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+  mysqli_set_charset($cn, 'utf8');
+  $sql = "UPDATE product_information
+          SET del_flg  = 1
+          WHERE product_id = ".$product_id.";";
+  $result = mysqli_query($cn, $sql);
+  $row = mysqli_fetch_assoc($result);
+  mysqli_close($cn);
+
+  $file = "./images/upload/" . $product_id . "/";
   $image1 = $file . "/image1.jpg";
-  // $image2 = $file."/image2.jpg";
-  // $image3 = $file."/image3.jpg";
+  $image2 = $file."/image2.jpg";
+  $image3 = $file."/image3.jpg";
 
   // ブラウザバックされたら普通に戻れるけど今は放置で
   require_once './tpl/login/product//done_buying.php';
