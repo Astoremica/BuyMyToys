@@ -32,15 +32,17 @@
         </nav>
     </header>
     <div id="lineup">
-        <!-- データ内容表示 -->
-        <?php foreach ($products as $reco) : ?>
-            <div class="product">
-                <a href="<?php echo BASE_URL; ?>index.php?product_detail=<?php echo $reco['id']; ?>">
-                    <img src="<?php echo $reco['img']; ?>" alt="商品">
-                    <span class="price">&yen;&nbsp;<?php echo $reco['price']; ?></span>
-                </a>
-            </div>
-        <?php endforeach; ?>
+        <div id="products">
+            <!-- データ内容表示 -->
+            <?php foreach ($products as $reco) : ?>
+                <div class="product">
+                    <a href="<?php echo BASE_URL; ?>index.php?product_detail=<?php echo $reco['id']; ?>">
+                        <img src="<?php echo $reco['img']; ?>" alt="商品">
+                        <span class="price">&yen;&nbsp;<?php echo $reco['price']; ?></span>
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        </div>
     </div>
     <footer>
         <form action="./index.php" method="get">

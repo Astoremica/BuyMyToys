@@ -61,28 +61,39 @@ header nav #search_icon img {
 
 #lineup {
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+    margin: 0 auto;
     padding: 60px 0;
     background: rgb(216, 216, 216);
 }
 
+#products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 373px;
+    margin: 0 auto;
+}
+
 #lineup .product {
-    width: calc((100% / 3) - 2px);
+    width: 120px;
     height: 120px;
-    padding: 2px;
     position: relative;
     overflow: hidden;
+    margin: 2px;
 }
 
 #lineup .product a {
+    width: 100%;
     display: block;
     color: #FF9900;
     text-decoration: none;
 }
 
 #lineup .product a img {
-    width: 100%;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    background: #ff0;
 }
 
 #lineup .product a .price {

@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="./css/reset.css">
     <!-- ログイン時のヘッダーCSS -->
     <link rel="stylesheet" href="./css/login_header_style.css">
+
+    <!-- 商品詳細画面での画像のサイズを横幅いっぱいに -->
+    <link rel="stylesheet" href="./css/product_style.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,500,900&amp;subset=japanese" rel="stylesheet">
     <link href="./images/materials/toys_boy_white.png">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
@@ -38,7 +41,7 @@
             <li>商品ID：<?php echo $product_id; ?></li>
             <li>出品者名：<?php echo $member_name ?></li>
             <li>商品カテゴリ：<?php echo $category; ?></li>
-            <li>商品画像：<img src="./images/upload/<?php echo $product_id; ?>/image1.jpg"></li>
+            <li  id="product_image">商品画像：<img src="./images/upload/<?php echo $product_id; ?>/image1.jpg"></li>
             <li>価格：&yen;<?php echo $price; ?>円</li>
         </ul>
         <form action="./index.php" method="post">

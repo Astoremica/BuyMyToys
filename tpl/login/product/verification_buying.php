@@ -15,7 +15,7 @@
     <!-- ログイン時のヘッダーCSS -->
     <link rel="stylesheet" href="./css/login_header_style.css">
     <!-- 商品詳細画面での画像のサイズを横幅いっぱいに -->
-    <link rel="stylesheet" href="./css/product_img_style.css">
+    <link rel="stylesheet" href="./css/product_style.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,500,900&amp;subset=japanese" rel="stylesheet">
     <link href="./images/materials/toys_boy_white.png">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
