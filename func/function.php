@@ -7,6 +7,7 @@ function lineup()
     mysqli_set_charset($cn, 'utf8');
     $sql = "SELECT i.product_id AS id, i.product_name AS title, i.product_price AS price
             FROM product_information AS i
+            WHERE del_flg = 0 AND trade_flg = 0
             ORDER BY i.product_regist_date DESC
             LIMIT 60;";
     $result = mysqli_query($cn, $sql);
@@ -23,10 +24,8 @@ function lineup()
     return $products;
 }
 
-function verification_buying($product_id)
-{   " 商品確認画面でのmysql接続 ";
-    // print("------ you call verification_buying ----------");
-    // db接続
+function select_product_detail($product_id)
+{
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
     mysqli_set_charset($cn, 'utf8');
     $sql = "SELECT i.product_name, m.member_name, c.category_name, i.product_description, i.product_price
@@ -45,10 +44,18 @@ function verification_buying($product_id)
     $row = mysqli_fetch_assoc($result);
     mysqli_close($cn);
 
+    return $row;
+}
+
+function verification_buying($product_id)
+{   " 商品確認画面でのmysql接続 ";
+
+    $row = select_product_detail($product_id);
     $file = "./images/upload/".$product_id."/";
     $main_image = $file."image1.jpg";
     // $image1 = $file."image2.jpg";
     // $image2 = $file."image3.jpg";
+
     $product = [
         'title' => $row['product_name'],
         'image' => $main_image,
@@ -62,27 +69,8 @@ function verification_buying($product_id)
 
 function get_product_details($product_id)
 {   " 商品詳細画面でのmysql接続 ";
-    // print("------ you call get_product_details ----------");
-    // db接続
-    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
-    mysqli_set_charset($cn, 'utf8');
-    // 商品IDから商品名、出品者名、カテゴリ名、商品詳細、商品価格を抽出
-    $sql = "SELECT i.product_name, m.member_name, c.category_name, i.product_description, i.product_price
-            FROM product_information AS i, members AS m, product_category AS c
-            WHERE i.product_id = ".$product_id."
-            AND m.member_id = (
-                SELECT member_id
-                FROM product_information
-                WHERE product_id = ".$product_id."
-            ) AND c.category_id = (
-                SELECT product_category
-                FROM product_information
-                WHERE product_id = ".$product_id."
-            );";
-    $result = mysqli_query($cn, $sql);
-    $row = mysqli_fetch_assoc($result);
-    mysqli_close($cn);
 
+    $row = select_product_detail($product_id);
     $file = "./images/upload/" . $product_id . "/";
     $main_image = $file . "image1.jpg";
     // $image1 = $file."image2.jpg";

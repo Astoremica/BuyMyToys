@@ -23,34 +23,6 @@ if (isset($_SESSION['user_id'])) {
   $header = 'login_header';
 }
 
-// if (!isset($_SESSION['user_id'])) {
-//   call_tamplate('nologin_header', 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト', 'lineup', 'top_footer');
-//   exit;
-// }
-
-// この変数の中身を変更することでページ切り替えを行なっています。
-
-//***こっから下のページ切り替えの処理って関数にしたらあかんかな？
-
-
-// ②次に、ボタンクリック時のページ変更を設定します。
-
-// ###欲しがってるボタンクリック時の動作
-// if (isset($_POST['want'])) {
-//   // タイトル変更
-//   $title = 'Buy By Toys | 欲しがってます';
-//   // メイン部分の書き換え
-//   $main = 'want';
-// }
-
-// ###マイページボタンクリック時の動作
-// if (isset($_POST['mypage'])) {
-//   // タイトル変更
-//   $title = 'Buy By Toys | マイページ';
-//   // メイン部分の書き換え
-//   $main = 'mypage';
-// }
-
 // ###マイページボタンクリック時の動作
 if (isset($_POST['enter_newuser'])) {
   //  ヘッダー部分定義
@@ -63,33 +35,9 @@ if (isset($_POST['enter_newuser'])) {
   $footer = 'sing_login_footer';
 }
 
-// // ###会員登録ボタンクリック時の動作
-// if (isset($_POST['sing_in'])) {
-//   //  ヘッダー部分定義
-//   $header = 'sing_login_header';
-//   // タイトル格納
-//   $title = 'Buy By Toys | 新規会員登録';
-//   // メイン部分定義
-//   $main = 'create_account';
-//   //  フッター部分定義
-//   $footer = 'sing_login_footer';
-// }
-
-// // ###ログインボタンクリック時の動作
-// if (isset($_POST['log_in'])) {
-//   //  ヘッダー部分定義
-//   $header = 'sing_login_header';
-//   // タイトル格納
-//   $title = 'Buy By Toys | ログイン';
-//   // メイン部分定義
-//   $main = 'login';
-//   //  フッター部分定義
-//   $footer = 'sing_login_footer';
-// }
-
 // ################### 商品出品系 ##########################
 
-// ###出品ボタンクリック時
+// ###出品ボタンクリック時の動作
 if (isset($_GET['exhibits_button'])) {
   $header = 'login_header';
   // タイトル格納
@@ -98,8 +46,7 @@ if (isset($_GET['exhibits_button'])) {
   $main = 'exhibits';
 }
 
-
-// ###出品画面から出品確認ボタンが押されたときの挙動
+// ###出品画面から出品確認ボタンが押されたときの動作
 if (isset($_POST['exhibits_to_verification'])) {
   $header = 'login_header';
   // タイトル格納
@@ -108,7 +55,7 @@ if (isset($_POST['exhibits_to_verification'])) {
   $main = 'verification_exhibits';
 }
 
-// ###出品確認画面から出品確定ボタンが押されたときの挙動
+// ###出品確認画面から出品確定ボタンが押されたときの動作
 if (isset($_POST['verification_to_done'])) {
   $header = 'login_header';
   // タイトル格納
@@ -141,7 +88,7 @@ if (isset($_POST['product_to_verification'])) {
   $main = 'verification_buying';
 }
 
-// ###商品購入確認画面から商品購入確定ボタンが押されたときの挙動
+// ###商品購入確認から商品購入確定が押されたときの動作
 if (isset($_POST['verification_to_done_buying'])) {
   $header = 'login_header';
   //タイトル格納
@@ -149,8 +96,6 @@ if (isset($_POST['verification_to_done_buying'])) {
   // メイン部分定義
   $main = 'done_buying';
 }
-
-
 
 // 会員登録ボタンクリック時
 if (isset($_GET['singin'])) {
