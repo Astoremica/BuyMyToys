@@ -12,6 +12,9 @@
     <!-- ホーム画面に表示されるアプリアイコン -->
     <link rel="apple-touch-icon" sizes="180x180" href="./images/materials/toys_boy_icon.png">
     <link rel="stylesheet" href="./css/reset.css">
+
+    <!-- 商品詳細画面での画像のサイズを横幅いっぱいの正方形に -->
+    <link rel="stylesheet" href="./css/buying_style.css">
     <!-- ログイン時のヘッダーCSS -->
     <link rel="stylesheet" href="./css/login_header_style.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,500,900&amp;subset=japanese" rel="stylesheet">

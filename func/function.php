@@ -1,54 +1,16 @@
 <?php
-function get_product_details($product_id)
-{
-
-    // db接続
-    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
-    mysqli_set_charset($cn, 'utf8');
-
-    $sql = "SELECT i.product_id, i.product_name, i.product_price, c.category_name, i.product_description
-        FROM product_information AS i, product_category AS c
-        WHERE product_id = '$product_id' AND category_id = 'K25';";
-    $result = mysqli_query($cn, $sql);
-    $row = mysqli_fetch_assoc($result);
-
-    mysqli_close($cn);
-
-    $file = "./images/upload/" . $row["product_id"] . "/";
-    $main_image = $file . "image1.jpg";
-    // $image1 = $file."image2.jpg";
-    // $image2 = $file."image3.jpg";
-
-    $product = array(
-        $row["product_name"],
-        $main_image,
-        $row["category_name"],
-        $row["product_description"],
-        $row["product_price"],
-    );
-    // 各情報の取り方
-    // 商品タイトル：product_nameから取得
-    // 商品説明文：product_descriptionから取得
-    // 商品カテゴリー：product_categoryから取得したidからcategory_nameを取得
-    // 出品者名：わかんね
-
-
-    return $product;
-}
-
+//------------------------------------------------ 商品購入 ------------------------------------------------//
 function lineup()
-{
+{   " 販売中の商品を一覧表示 ";
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
     mysqli_set_charset($cn, 'utf8');
-
     $sql = "SELECT i.product_id AS id, i.product_name AS title, i.product_price AS price
             FROM product_information AS i
+            WHERE del_flg = 0 AND trade_flg = 0
             ORDER BY i.product_regist_date DESC
-            LIMIT 30;";
+            LIMIT 60;";
     $result = mysqli_query($cn, $sql);
-
     mysqli_close($cn);
-
 
     while ($db_data = mysqli_fetch_assoc($result)) {
         $products[] = [
@@ -58,39 +20,70 @@ function lineup()
             'img' => "./images/upload/" . $db_data["id"] . "/image1.jpg"
         ];
     }
-
     return $products;
 }
 
-// function show_detail(){
-//     db接続 最新の出品商品、つまり出品日時の大きい方から30件取得するようにしたいね
-//     $cn = mysqli_connect('127.0.0.1','root','root','buymytoys');
-//     mysqli_set_charset($cn,'utf8');
+function select_product_detail($product_id)
+{
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql = "SELECT i.product_name, m.member_name, c.category_name, i.product_description, i.product_price
+            FROM product_information AS i, members AS m, product_category AS c
+            WHERE i.product_id = ".$product_id."
+            AND m.member_id = (
+                SELECT member_id
+                FROM product_information
+                WHERE product_id = ".$product_id."
+            ) AND c.category_id = (
+                SELECT product_category
+                FROM product_information
+                WHERE product_id = ".$product_id."
+            );";
+    $result = mysqli_query($cn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    mysqli_close($cn);
 
-//     $sql = "SELECT i.product_id, i.product_name, i.product_price, c.category_name, i.product_description
-//             FROM product_information AS i, product_category AS c
-//             WHERE product_id = '0000000' AND category_id = 'K25'
-//             ;";
-//     $result = mysqli_query($cn,$sql);
-//     $row = mysqli_fetch_assoc($result);
+    return $row;
+}
 
-//     mysqli_close($cn);
+function verification_buying($product_id)
+{   " 商品確認画面でのmysql接続 ";
 
+    $row = select_product_detail($product_id);
+    $file = "./images/upload/".$product_id."/";
+    $main_image = $file."image1.jpg";
+    // $image1 = $file."image2.jpg";
+    // $image2 = $file."image3.jpg";
 
-//     $file = "./images/upload/".$row["product_id"]."/";
-//     $main_image = $file."image1.jpg";
-//     // $image1 = $file."image2.jpg";
-//     // $image2 = $file."image3.jpg";
+    $product = [
+        'title' => $row['product_name'],
+        'image' => $main_image,
+        'member_name' => $row['member_name'],
+        'category' =>  $row["category_name"],
+        'description' => $row["product_description"],
+        'price' => $row["product_price"],
+    ];
+    return $product;
+}
 
-//     $product = array(
-//     $row["product_name"],
-//     $main_image,
-//     $row["category_name"],
-//     $row["product_description"],
-//     $row["product_price"],
-//     );
-// }
+function get_product_details($product_id)
+{   " 商品詳細画面でのmysql接続 ";
 
+    $row = select_product_detail($product_id);
+    $file = "./images/upload/" . $product_id . "/";
+    $main_image = $file . "image1.jpg";
+    // $image1 = $file."image2.jpg";
+    // $image2 = $file."image3.jpg";
+    $product = [
+        'title' => $row['product_name'],
+        'image' => $main_image,
+        'member_name' => $row['member_name'],
+        'category' =>  $row["category_name"],
+        'description' => $row["product_description"],
+        'price' => $row["product_price"],
+    ];
+    return $product;
+}
 
 //------------------------------------------------ 会員機能 ------------------------------------------------//
 function create_csrf_token()
