@@ -86,8 +86,6 @@ function get_product_details($product_id)
     return $product;
 }
 
-
-
 //------------------------------------------------ 会員機能 ------------------------------------------------//
 function create_csrf_token()
 {

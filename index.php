@@ -48,6 +48,7 @@ if (isset($_GET['exhibits_button'])) {
 
 // ###出品画面から出品確認ボタンが押されたときの動作
 if (isset($_POST['exhibits_to_verification'])) {
+  // verification_exhibits();
   $header = 'login_header';
   // タイトル格納
   $title = 'Buy My Toys | 出品の確認';
@@ -57,6 +58,7 @@ if (isset($_POST['exhibits_to_verification'])) {
 
 // ###出品確認画面から出品確定ボタンが押されたときの動作
 if (isset($_POST['verification_to_done'])) {
+  // done_exhibits();
   $header = 'login_header';
   // タイトル格納
   $title = 'Buy My Toys | 出品完了';
@@ -71,9 +73,9 @@ if (isset($_GET['product_detail'])) {
   $product_id = $_GET['product_detail'];
   $product = get_product_details($product_id);
   $header = 'login_header';
-  // タイトル変更
+  // タイトル格納
   $title = 'Buy By Toys | 商品詳細';
-  // メイン部分の書き換え
+  // メイン部分定義
   $main = 'product_detail';
 }
 

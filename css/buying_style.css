@@ -3,5 +3,5 @@
     max-width: 100vw;
 }
 li img {
-    max-width: calc(100vw / 3);
+    /* max-width: calc(100vw / 3); */
 }
