@@ -17,6 +17,7 @@ if (isset($_GET['exhibits_button'])) {
 
 // ###出品画面から出品確認ボタンが押されたときの動作
 if (isset($_POST['exhibits_to_verification'])) {
+  // verification_exhibits();
   // DB
   $name = $_POST['name'];
   $category = $_POST['category'];
@@ -35,7 +36,6 @@ if (isset($_POST['exhibits_to_verification'])) {
   move_uploaded_file($image2['tmp_name'], './images/upload/' . 'tpl/' . 'image2.jpg');
   move_uploaded_file($image3['tmp_name'], './images/upload/' . 'tpl/' . 'image3.jpg');
 
-  // verification_exhibits();
 
   require_once './tpl/login/product/verification_exhibits.php';
   exit;
