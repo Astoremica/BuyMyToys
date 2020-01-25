@@ -2,7 +2,7 @@
 <html lang="ja">
 
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- ホーム画面に追加時アドレスバー非表示 -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -29,7 +29,6 @@
 
         <input type="text" name="regist_mail[mail]" size="50" placeholder="メールアドレス">
 
-        <input type="hidden" name="regist_mail[token]" value="<?php echo $token; ?>">
         <button type="submit">送信</button>
 
     </form>

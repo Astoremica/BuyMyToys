@@ -31,16 +31,17 @@
                         <li><?php echo $roco; ?></li>
                     <?php endif; ?>
                 </ul>
-                <?php endforeach; ?>
-            <?php else : ?>
-                <ul id="bank_message">
-                    <li><?php echo $bank_info; ?></li>
-                </ul>
-            <?php endif; ?>
-            <form action="./index.php" method="post">
-                <button type="submit" value="<?php echo $member_id; ?>" name="add_bank">口座を追加する</button>
-            </form>
+            <?php endforeach; ?>
+        <?php else : ?>
+            <ul id="bank_message">
+                <li><?php echo $bank_info; ?></li>
+            </ul>
+        <?php endif; ?>
+        <form action="./index.php" method="post">
+            <button type="submit" value="<?php echo $member_id; ?>" name="add_bank">口座を追加する</button>
+        </form>
     </div>
+    <a href="./index.php">TOP（仮）</a>
     <script src="./js/jquery-3.4.1.min.js"></script>
     <!-- その他の手書きjs -->
     <script src="./js/others.js"></script>

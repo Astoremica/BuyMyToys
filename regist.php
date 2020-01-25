@@ -7,10 +7,6 @@ require_once './func/function.php';
 $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
 mysqli_set_charset($cn, 'utf8');
 if (isset($_POST['regist_mail'])) {
-    if ($_SESSION['token'] != $_POST['regist_mail']['token']) {
-        require_once './tpl/error';
-        exit;
-    }
     // エラーメッセージ初期化
     $errors = [];
 
@@ -40,50 +36,50 @@ if (isset($_POST['regist_mail'])) {
         add_pre_member($cn, $urltoken, $mail);
         //データベース接続切断
         mysqli_close($cn);
-        
+
         // メール送信
         mb_language('ja');
         mb_internal_encoding('UTF-8');
         //メールの宛先
         $mailTo = $mail;
-        
+
         //Return-Pathに指定するメールアドレス
         $returnMail = 'web@example.com';
-        
+
         $name = "BuyMyToys";
         $mail = 'web@example.com';
         $subject = "【BuyMyToys】新規会員登録用URLのお知らせ";
-        
+
         $body = <<< EOM
         24時間以内に下記のURLからご登録下さい。
         {$url}
         EOM;
         //Fromヘッダーを作成
         $header = 'From: ' . mb_encode_mimeheader($name) . ' <' . $mail . '>';
-        
+
         if (mb_send_mail($mailTo, $subject, $body, $header, '-f' . $returnMail)) {
-            
+
             //セッション変数を全て解除
             $_SESSION = array();
-            
+
             //クッキーの削除
             if (isset($_COOKIE["PHPSESSID"])) {
                 setcookie("PHPSESSID", '', time() - 1800, '/');
             }
-            
+
             //セッションを破棄する
             session_destroy();
-            
+
             $message = "<span>$mailTo</span><br>認証メールが転送されました。<br> メールをチェックしてください。";
         } else {
             $errors['mail_error'] = "メールの送信に失敗しました。";
         }
     }
-        require_once './tpl/regist/send_mail.php';
-        exit;
-    }
-    // メールリンククリック
-    if (isset($_GET['urltoken'])) {
+    require_once './tpl/nologin/regist/send_mail.php';
+    exit;
+}
+// メールリンククリック
+if (isset($_GET['urltoken'])) {
     //GETデータを変数に入れる
     $urltoken = isset($_GET['urltoken']) ? htmlspecialchars($_GET['urltoken'], ENT_QUOTES) : '';
 
@@ -97,17 +93,12 @@ if (isset($_POST['regist_mail'])) {
     }
     //データベース接続切断
     mysqli_close($cn);
-    $_SESSION['token'] = base64_encode(openssl_random_pseudo_bytes(32));
-    $token = $_SESSION['token'];
-    require_once './tpl/regist/enter_member.php';
+
+    require_once './tpl/nologin/regist/enter_member.php';
     exit;
 }
 if (isset($_POST['regist_member'])) {
-    if ($_SESSION['token'] != $_POST['regist_member']['token']) {
-        require_once './tpl/error';
-        echo 'erroer';
-        exit;
-    }
+
     // セッション初期化
     $_SESSION['member_id'] = '';
     $_SESSION['password'] = '';
@@ -185,19 +176,12 @@ if (isset($_POST['regist_member'])) {
         $_SESSION['member_tel'] = $member_tel;
         $_SESSION['member_birthday'] = $member_birthday;
     }
-    $_SESSION['token'] = base64_encode(openssl_random_pseudo_bytes(32));
-    $token = $_SESSION['token'];
-    require_once './tpl/regist/confirm_member.php';
+    require_once './tpl/nologin/regist/confirm_member.php';
     exit;
 }
 
 // 登録
 if (isset($_POST['add_member'])) {
-    echo $_POST['token'];
-    if ($_SESSION['token'] != $_POST['add_member']['token']) {
-        require_once './tpl/error';
-        exit;
-    }
     // エラーメッセージ初期化
     $errors = [];
 
@@ -210,9 +194,9 @@ if (isset($_POST['add_member'])) {
     $password_hash =  password_hash($_SESSION['password'], PASSWORD_DEFAULT);
     $member_tel = $_SESSION['member_tel'];
     $member_birthday = $_SESSION['member_birthday'];
-    add_member($cn, $member_id, $member_name, $member_nickname, $member_gender, $member_mail, $password_hash,$member_tel, $member_birthday);
+    add_member($cn, $member_id, $member_name, $member_nickname, $member_gender, $member_mail, $password_hash, $member_tel, $member_birthday);
     update_pre_member($cn, $member_mail);
-    
+
     //データベース接続切断
     mysqli_close($cn);
 
@@ -222,12 +206,9 @@ if (isset($_POST['add_member'])) {
     }
     //セッションを破棄する
     session_destroy();
-    require_once './tpl/regist/complete.php';
+    require_once './tpl/nologin/regist/complete.php';
     exit;
 }
-
-//クロスサイトリクエスフォージェリ（CSRF）対策
-$_SESSION['token'] = base64_encode(openssl_random_pseudo_bytes(32));
-$token = $_SESSION['token'];
-require_once './tpl/regist/enter_mail.php';
+// 会員登録最初に表示
+require_once './tpl/nologin/regist/enter_mail.php';
 exit;

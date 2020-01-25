@@ -1,7 +1,8 @@
 <?php
 //------------------------------------------------ 商品購入 ------------------------------------------------//
 function lineup()
-{   " 販売中の商品を一覧表示 ";
+{
+    // " 販売中の商品を一覧表示 ";
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
     mysqli_set_charset($cn, 'utf8');
     $sql = "SELECT i.product_id AS id, i.product_name AS title, i.product_price AS price
@@ -29,15 +30,15 @@ function select_product_detail($product_id)
     mysqli_set_charset($cn, 'utf8');
     $sql = "SELECT i.product_name, m.member_name, c.category_name, i.product_description, i.product_price
             FROM product_information AS i, members AS m, product_category AS c
-            WHERE i.product_id = ".$product_id."
+            WHERE i.product_id = " . $product_id . "
             AND m.member_id = (
                 SELECT member_id
                 FROM product_information
-                WHERE product_id = ".$product_id."
+                WHERE product_id = " . $product_id . "
             ) AND c.category_id = (
                 SELECT product_category
                 FROM product_information
-                WHERE product_id = ".$product_id."
+                WHERE product_id = " . $product_id . "
             );";
     $result = mysqli_query($cn, $sql);
     $row = mysqli_fetch_assoc($result);
@@ -47,11 +48,12 @@ function select_product_detail($product_id)
 }
 
 function verification_buying($product_id)
-{   " 商品確認画面でのmysql接続 ";
+{
+    // " 商品確認画面でのmysql接続 ";
 
     $row = select_product_detail($product_id);
-    $file = "./images/upload/".$product_id."/";
-    $main_image = $file."image1.jpg";
+    $file = "./images/upload/" . $product_id . "/";
+    $main_image = $file . "image1.jpg";
     // $image1 = $file."image2.jpg";
     // $image2 = $file."image3.jpg";
 
@@ -67,7 +69,8 @@ function verification_buying($product_id)
 }
 
 function get_product_details($product_id)
-{   " 商品詳細画面でのmysql接続 ";
+{
+    // " 商品詳細画面でのmysql接続 ";
 
     $row = select_product_detail($product_id);
     $file = "./images/upload/" . $product_id . "/";
@@ -86,14 +89,8 @@ function get_product_details($product_id)
 }
 
 //------------------------------------------------ 会員機能 ------------------------------------------------//
-function create_csrf_token()
-{
-    //クロスサイトリクエスフォージェリ（CSRF）対策
-    $_SESSION['token'] = base64_encode(openssl_random_pseudo_bytes(32));
-    $token = $_SESSION['token'];
-    return $token;
-}
 
+// すでに登録済みの会員か
 function alredy_member_check($cn, $mail)
 {
     $sql = "SELECT COUNT(*) as count FROM members WHERE member_mail = '$mail'";
@@ -102,6 +99,7 @@ function alredy_member_check($cn, $mail)
 
     return $db_data['count'];
 }
+// 仮会員DB登録
 function add_pre_member($cn, $urltoken, $mail)
 {
     $sql = "INSERT INTO pre_member (urltoken,mail,date) VALUES ('$urltoken','$mail',now())";
@@ -109,6 +107,7 @@ function add_pre_member($cn, $urltoken, $mail)
 
     return;
 }
+// メールのゆうこ期限チェック
 function check_token($cn, $urltoken)
 {
     //flagが0の未登録者・仮登録日から24時間以内
@@ -128,6 +127,7 @@ function spaceTrim($str)
     $str = preg_replace('/[　]+$/u', '', $str);
     return $str;
 }
+// すでに使用中のID出ないか
 function alredy_member_id_check($cn, $member_id)
 {
     $sql = "SELECT COUNT(*) as count FROM members WHERE member_id = '$member_id'";
@@ -136,20 +136,21 @@ function alredy_member_id_check($cn, $member_id)
 
     return $db_data['count'];
 }
-
+// 会員DB追加
 function add_member($cn, $member_id, $member_name, $member_nickname, $member_gender, $member_mail, $password_hash, $member_tel, $member_birthday)
 {
     $sql = "INSERT INTO members(member_id,member_name,member_nickname,member_gender,member_mail,member_password,member_tel,member_birthday) VALUES('$member_id','$member_name','$member_nickname','$member_gender','$member_mail','$password_hash','$member_tel','$member_birthday')";
     mysqli_query($cn, $sql);
     return;
 }
+// 仮会員状態無効化
 function update_pre_member($cn, $mail)
 {
     $sql = "UPDATE pre_member SET flag=1 WHERE mail='$mail'";
     mysqli_query($cn, $sql);
     return;
 }
-
+// ログイン人粗油用のパスワードハッシュ取得
 function get_hash_user($id_mail)
 {
     //データベース接続
@@ -168,22 +169,7 @@ function get_hash_user($id_mail)
     $db_data = mysqli_fetch_assoc($result);
     return $db_data;
 }
-
-function call_tamplate($header, $title, $main, $footer)
-{
-    //クロスサイトリクエスフォージェリ（CSRF）対策
-    $_SESSION['token'] = base64_encode(openssl_random_pseudo_bytes(32));
-    $token = $_SESSION['token'];
-    // ###ヘッダー呼び出し
-    require_once "tpl/header/$header.php";
-    // データ呼び出し格納
-    $products = lineup();
-    // ###メイン部分呼び出し
-    require_once "tpl/main/$main.php";
-    // ###フッター呼び出し
-    require_once "tpl/footer/$footer.php";
-    return;
-}
+// マイページ用表示情報取得
 function get_member_info($member_id)
 {
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
@@ -195,6 +181,7 @@ function get_member_info($member_id)
 
     return $db_data;
 }
+// 会員の住所取得
 function get_address($member_id)
 {
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
@@ -207,7 +194,7 @@ function get_address($member_id)
     }
     return $address;
 }
-
+// 会員の住所登録
 function add_address($member_id, $zipcode, $address, $name)
 {
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
@@ -219,6 +206,7 @@ function add_address($member_id, $zipcode, $address, $name)
     return;
 }
 
+// 会員の口座取得
 function get_bank($member_id)
 {
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
@@ -231,8 +219,8 @@ function get_bank($member_id)
     }
     return $banks;
 }
-
-function add_bank($member_id, $bank_name, $branch_number, $branch_name,$bank_number,$bank_holder)
+// 会員に口座登録
+function add_bank($member_id, $bank_name, $branch_number, $branch_name, $bank_number, $bank_holder)
 {
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
     mysqli_set_charset($cn, 'utf8');

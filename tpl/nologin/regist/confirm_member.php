@@ -35,7 +35,6 @@
             <p>電話番号：<?php echo  $member_tel; ?></p>
             <p id="last">生年月日：<?php echo  $member_birthday; ?></p>
 
-            <input type="hidden" name="add_member[token]" value="<?php echo $token; ?>">
             <button type="submit" name="add_member[regist]">登録する</button>
 
         </form>
