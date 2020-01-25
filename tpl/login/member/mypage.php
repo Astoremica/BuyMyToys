@@ -24,7 +24,6 @@
 <body>
     <header>
         <nav>
-            <a href="<?php echo BASE_URL; ?>index.php?mypage=''" id="mypage_icon"><img src="./images/user_icon/no_4/user_profile.jpg"></a>
             <h1 id="page_top">
                 <a href="./index.php">
                     <img src="./images/materials/toys_boy_white.png" alt="Buy My Toys">
@@ -32,26 +31,27 @@
             </h1>
             <p id="search_icon"><a href="<?php echo BASE_URL; ?>index.php"><img src="./images/materials/search.png" alt="商品検索"></a></p>
         </nav>
-        <div id="system_list">
-            <form action="./index.php" method="get">
-                <button type="submit" id="home_icon"><img src="./images/materials/home_icon.png"></button>
-                <button type="submit" id="camera_icon" name="exhibits_button" value="aaa"><img src="./images/materials/camera_icon.png"></button>
-                <button type="submit" id="favorite_icon"><img src="./images/materials/favorite_white_icon.png"></button>
-                <button type="submit" id="cart_icon"><img src="./images/materials/cart_icon.png"></button>
-            </form>
-        </div>
     </header>
     <div id="mypage">
         <div id="profile_area">
             <p id="profile_image"><img src="./images/user_icon/no_<?php echo $user_data['member_key']; ?>/user_profile.jpg"></p>
-            <p id="user_name"><?php echo $user_data['member_name']; ?></p>
+            <p id="user_name"><?php echo $user_data['member_nickname']; ?></p>
             <form action="./index.php" method="post">
-                <a href="<?php echo BASE_URL; ?>index.php?address_info=<?php echo $member_id; ?>" value="<?php echo $member_id; ?>">住所情報</a>
-                <a href="<?php echo BASE_URL; ?>index.php?bank_info=<?php echo $member_id; ?>">銀行口座情報</a>
+                <p><a href="<?php echo BASE_URL; ?>index.php?address_info=<?php echo $member_id; ?>" value="<?php echo $member_id; ?>">住所情報</a></p>
+                <p><a href="<?php echo BASE_URL; ?>index.php?bank_info=<?php echo $member_id; ?>">銀行口座情報</a></p>
                 <button type="submit" name="logout">ログアウト</button>
             </form>
         </div>
     </div>
+    <footer>
+        <form action="./index.php" method="get">
+            <button type="submit" class="system_icon"><img src="./images/materials/home_icon.png"></button>
+            <button type="submit" class="system_icon" name="exhibits_button" value="aaa"><img src="./images/materials/camera_icon.png"></button>
+            <button type="submit" class="system_icon"><img src="./images/materials/favorite_white_icon.png"></button>
+            <button type="submit" class="system_icon"><img src="./images/materials/cart_icon.png"></button>
+            <a href="<?php echo BASE_URL; ?>index.php?mypage=''" id="mypage_icon"><img src="./images/user_icon/no_4/user_profile.jpg"></a>
+        </form>
+    </footer>
     <script src="./js/jquery-3.4.1.min.js"></script>
     <!-- その他の手書きjs -->
     <script src="./js/others.js"></script>

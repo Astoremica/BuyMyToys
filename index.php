@@ -17,6 +17,7 @@ if (isset($_GET['exhibits_button'])) {
 
 // ###出品画面から出品確認ボタンが押されたときの動作
 if (isset($_POST['exhibits_to_verification'])) {
+  // verification_exhibits();
   // DB
   $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
   mysqli_set_charset($cn, 'utf8');
@@ -153,10 +154,12 @@ if (isset($_POST['login'])) {
   $hash_user = get_hash_user($id_mail);
   if (password_verify($password, $hash_user['member_password'])) {
     $_SESSION['member_id'] = $hash_user['member_id'];
+    $products = lineup();
     require_once './tpl/login/login_top.php';
     exit;
   } else {
     // $errors = "入力されたIDもしくはメールアドレスまたはパスワードが違います。";
+    $products = lineup();
     require_once './tpl/nologin/nologin_top.php';
     exit;
   }

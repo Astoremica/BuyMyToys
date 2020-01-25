@@ -1,61 +1,65 @@
 @charset "UTF-8";
 #mypage {
+    width: 100%;
+    position: relative;
+    height: calc(100vh - 120px);
     padding-top: 60px;
-    background: #f0f;
+    /* margin-top: 60px; */
+    /* background: #EEE; */
 }
 
 #profile_area {
-    position: relative;
-    padding: 60px 0;
-    background: rgb(206, 206, 206);
+    padding-top: 60px;
     width: 100%;
-    height: calc(100vh - 120px);
+    height: 100%;
 }
 
-#profile_area #profile_image {
+#profile_image {
     width: 80px;
     height: 80px;
-    top: 0;
-    left: 50%;
-    transform: translate(-43px, -50%);
-    position: absolute;
-    border: 3px solid #ffffff;
+    border: 3px solid #FFF;
+    margin: 0 auto;
+    transform: translateY(-50%);
     border-radius: 100%;
     overflow: hidden;
-    /* background: none; */
 }
 
-#profile_area img {
+#profile_image img {
     width: 100%;
 }
 
 #user_name {
+    font-size: 1.3em;
     text-align: center;
-    font-size: 1.3em;
-    margin-bottom: 40px;
 }
 
-form {
-    width: 80%;
-    margin: 0 auto;
+#profile_area form {
+    text-align: center;
 }
 
-form button,
-form a {
-    background: #FF9900;
-    margin-bottom: 20px;
-    color: #FFFFFF;
-    border: 1px solid #B37212;
-    border-radius: 10px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 1.3em;
-    text-decoration: none;
-    padding: 5px 0;
-}
-
-form a {
-    padding: 5px 0;
+#profile_area form p a {
+    color: #FFF;
     display: block;
+    text-decoration: none;
+}
+
+#profile_area form button {
+    color: #FFF;
+    border: none;
+    background: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+#profile_area form p,
+#profile_area form button {
+    width: 60%;
+    font-size: 1.3em;
+    background: #F90;
+    border: 1px solid #B37212;
     text-align: center;
+    border-radius: 10px;
+    margin: 10px auto;
+    padding: 5px;
 }
