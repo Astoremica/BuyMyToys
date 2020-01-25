@@ -5,76 +5,66 @@ require_once "./func/function.php";
 // configファイル
 require_once '../config.php';
 
-// ①最初に、各変数ごとに使用するファイル名を格納します。
-$header = 'nologin_header';
-$title = 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト';
-$main = 'lineup';
-$footer = 'top_footer';
-
-// ログアウト
-if (isset($_POST['logout'])) {
-  session_destroy();
-  header('Location:./index.php');
-  exit;
-}
-
-// ログイン状態か判定
-if (isset($_SESSION['member_id'])) {
-  $header = 'login_header';
-}
-
-// ###商品詳細ボタンクリック時の動作
-if (isset($_GET['product_detail'])) {
-  $product_id = $_GET['product_detail'];
-  $product = get_product_details($product_id);
-  $header = 'login_header';
-  // タイトル変更
-  $title = 'Buy By Toys | 商品詳細';
-  // メイン部分の書き換え
-  $main = 'product_detail';
-}
-
-// ###マイページボタンクリック時の動作
-if (isset($_POST['enter_newuser'])) {
-  //  ヘッダー部分定義
-  $header = 'login_header';
-  // タイトル格納
-  $title = 'Buy By Toys | 会員情報入力';
-  // メイン部分定義
-  $main = 'enter_newuser';
-  //  フッター部分定義
-  $footer = 'sing_login_footer';
-}
 
 // ################### 商品出品系 ##########################
 
 // ###出品ボタンクリック時の動作
 if (isset($_GET['exhibits_button'])) {
-  $header = 'login_header';
-  // タイトル格納
-  $title = 'Buy By Toys | 出品';
-  // メイン部分定義
-  $main = 'exhibits';
+  require_once './tpl/login/product/exhibits.php';
+  exit;
 }
 
 // ###出品画面から出品確認ボタンが押されたときの動作
 if (isset($_POST['exhibits_to_verification'])) {
+  // DB
+  $name = $_POST['name'];
+  $category = $_POST['category'];
+  // DB接続して名前で表示
+  $image1 = $_FILES['image1'];
+  $image2 = $_FILES['image2'];
+  $image3 = $_FILES['image3'];
+  $price = $_POST['price'];
+  $description = $_POST['description'];
+
+  // 表示価格の変更
+  $price *= 1.1;
+  $price += 500;
+
+  move_uploaded_file($image1['tmp_name'], './images/upload/' . 'tpl/' . 'image1.jpg');
+  move_uploaded_file($image2['tmp_name'], './images/upload/' . 'tpl/' . 'image2.jpg');
+  move_uploaded_file($image3['tmp_name'], './images/upload/' . 'tpl/' . 'image3.jpg');
+
   // verification_exhibits();
-  $header = 'login_header';
-  // タイトル格納
-  $title = 'Buy My Toys | 出品の確認';
-  // メイン部分定義
-  $main = 'verification_exhibits';
+
+  require_once './tpl/login/product/verification_exhibits.php';
+  exit;
 }
 
 // ###出品確認画面から出品確定ボタンが押されたときの動作
 if (isset($_POST['verification_to_done'])) {
   // done_exhibits();
-  $header = 'login_header';
-  // タイトル格納
-  $title = 'Buy My Toys | 出品完了';
-  // メイン部分定義
-  $main = 'done_exhibits';
+  // DB
+  $name = $_POST['name'];
+  $category = $_POST['category'];
+  // DB接続して名前で表示
+  $image1 = $_FILES['image1'];
+  $image2 = $_FILES['image2'];
+  $image3 = $_FILES['image3'];
+  $price = $_POST['price'];
+  $description = $_POST['description'];
+
+  // | product_id          | varchar(7)   | NO   | PRI | NULL    |       |
+  // | member_id           | varchar(255) | NO   |     | NULL    |       |
+  // | product_name        | varchar(255) | NO   |     | NULL    |       |
+  // | product_price       | int(7)       | NO   |     | NULL    |       |
+  // | product_category    | varchar(3)   | NO   |     | NULL    |       |
+  // | product_description | varchar(255) | NO   |     | NULL    |       |
+  // | product_regist_date | date         | NO   |     | NULL    |       |
+  // | trade_flg           | int(1)       | NO   |     | NULL    |       |
+  // | del_flg             | int(1)       | NO   |     | NULL    |       |
+
+  require_once './tpl/login/product/done_exhibits.php';
+  exit;
 }
 
 // ##################### 商品購入系 ########################
@@ -83,32 +73,32 @@ if (isset($_POST['verification_to_done'])) {
 if (isset($_GET['product_detail'])) {
   $product_id = $_GET['product_detail'];
   $product = get_product_details($product_id);
-  $header = 'login_header';
-  // タイトル格納
-  $title = 'Buy By Toys | 商品詳細';
-  // メイン部分定義
-  $main = 'product_detail';
+  require_once './tpl/login/product/product_detail.php';
+  exit;
 }
-
 // ###商品詳細から商品購入確認が押されたときの動作
 if (isset($_POST['product_to_verification'])) {
   $product_id = $_POST["product_to_verification"];
   $product = verification_buying($product_id);
-  $header = 'login_header';
-  // タイトル格納
-  $title = 'Buy My Toys | 購入の確認';
-  // メイン部分定義
-  $main = 'verification_buying';
+  require_once './tpl/login/product/verification_buying.php';
+  exit;
 }
 
 // ###商品購入確認から商品購入確定が押されたときの動作
 if (isset($_POST['verification_to_done_buying'])) {
-  $header = 'login_header';
-  //タイトル格納
-  $title = 'Buy My Toys | 購入完了';
-  // メイン部分定義
-  $main = 'done_buying';
+  // update trade_flg = 1;
+
+  $file = "./images/upload/" . "hoge" . "/";
+  $image1 = $file . "/image1.jpg";
+  // $image2 = $file."/image2.jpg";
+  // $image3 = $file."/image3.jpg";
+
+  // ブラウザバックされたら普通に戻れるけど今は放置で
+  require_once './tpl/login/product//done_buying.php';
+  exit;
 }
+
+// ##################### 会員系 ########################
 
 // 会員登録ボタンクリック時
 if (isset($_GET['singin'])) {
@@ -128,11 +118,11 @@ if (isset($_POST['login'])) {
   $hash_user = get_hash_user($id_mail);
   if (password_verify($password, $hash_user['member_password'])) {
     $_SESSION['member_id'] = $hash_user['member_id'];
-    call_tamplate('login_header', 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト', 'lineup', 'top_footer');
+    require_once './tpl/login/login_top.php';
     exit;
   } else {
-    $errors = "入力されたIDもしくはメールアドレスまたはパスワードが違います。";
-    call_tamplate('nologin_header', 'Buy My Toys | おもちゃさがしをかんたんに フリマサイト', 'lineup', 'top_footer');
+    // $errors = "入力されたIDもしくはメールアドレスまたはパスワードが違います。";
+    require_once './tpl/nologin/nologin_top.php';
     exit;
   }
 }
@@ -141,8 +131,8 @@ if (isset($_POST['login'])) {
 if (isset($_GET['mypage'])) {
   $member_id = $_SESSION['member_id'];
   $user_data = get_member_info($member_id);
-  $header = 'mypage_header';
-  $main = 'mypage';
+  require_once './tpl/login/member/mypage.php';
+  exit;
 }
 // 住所設定
 if (isset($_GET['address_info'])) {
@@ -151,12 +141,12 @@ if (isset($_GET['address_info'])) {
   if (empty($address_info)) {
     $address_info = '住所は登録されていません。';
   }
-  require_once './tpl/login/address_info.php';
+  require_once './tpl/login/member/address_info.php';
   exit;
 }
 if (isset($_POST['add_address'])) {
   $member_id = $_SESSION['member_id'];
-  require_once './tpl/login/address_enter.php';
+  require_once './tpl/login/member/address_enter.php';
   exit;
 }
 // 住所入力
@@ -182,7 +172,7 @@ if (isset($_POST['enter_address'])) {
     'name' => $name
   ];
   $_SESSION['add_address'] = $add_address;
-  require_once './tpl/login/confirm_add_address.php';
+  require_once './tpl/login/member/confirm_add_address.php';
   exit;
 }
 // 住所登録
@@ -201,13 +191,13 @@ if (isset($_GET['bank_info'])) {
   if (empty($bank_info)) {
     $bank_info = '口座は登録されていません。';
   }
-  require_once './tpl/login/bank_info.php';
+  require_once './tpl/login/member/bank_info.php';
   exit;
 }
 // 銀行口座情報入力ページ
 if (isset($_POST['add_bank'])) {
   $member_id = $_SESSION['member_id'];
-  require_once './tpl/login/bank_enter.php';
+  require_once './tpl/login/member/bank_enter.php';
   exit;
 }
 // 銀行口座入力情報確認ページ
@@ -215,7 +205,7 @@ if (isset($_POST['add_bank'])) {
 if (isset($_POST['enter_bank'])) {
   $member_id = $_POST['enter_bank']['member_id'];
   // 金融機関名配列
-  $bank_name_list_array=[
+  $bank_name_list_array = [
     '三菱UFJ銀行',
     'みずほ銀行',
     'りそな銀行',
@@ -247,7 +237,7 @@ if (isset($_POST['enter_bank'])) {
     'bank_holder' => $bank_holder
   ];
   $_SESSION['add_bank'] = $add_bank;
-  require_once './tpl/login/confirm_add_bank.php';
+  require_once './tpl/login/member/confirm_add_bank.php';
   exit;
 }
 // 口座登録
@@ -256,18 +246,31 @@ if (isset($_POST['regist_bank'])) {
   $add_bank = $_SESSION['add_bank'];
   var_dump($add_bank);
   var_dump($_SESSION['add_bank']);
-  add_bank($member_id, $add_bank['bank_name'], (int)$add_bank['branch_number'], $add_bank['branch_name'],(int)$add_bank['bank_number'],$add_bank['bank_holder']);
+  add_bank($member_id, $add_bank['bank_name'], (int) $add_bank['branch_number'], $add_bank['branch_name'], (int) $add_bank['bank_number'], $add_bank['bank_holder']);
   unset($_SESSION['add_bank']);
   header("Location:./index.php?bank_info=$member_id");
   exit;
 }
-// CSRF対策関数
-$token = create_csrf_token();
-// ###ヘッダー呼び出し
-require_once "tpl/header/$header.php";
-// データ呼び出し格納
-$products = lineup();
-// ###メイン部分呼び出し
-require_once "tpl/main/$main.php";
-// ###フッター呼び出し
-require_once "tpl/footer/$footer.php";
+
+// ログアウト
+if (isset($_POST['logout'])) {
+  session_destroy();
+  header('Location:./index.php');
+  exit;
+}
+
+// TOPページ
+
+// ログイン状態のTOPページ：SESSIONにログイン情報がある状態で
+// 一番最初に表示されるページ
+if (isset($_SESSION['member_id'])) {
+  $products = lineup();
+  require_once './tpl/login/login_top.php';
+  exit;
+}
+// 未ログイン状態のTOPページ：一番最初に表示されるページ
+if (!isset($_SESSION['member_id'])) {
+  $products = lineup();
+  require_once './tpl/nologin/nologin_top.php';
+  exit;
+}

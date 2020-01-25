@@ -40,6 +40,7 @@
             <form action="./index.php" method="post">
                 <button type="submit" value="<?php echo $member_id; ?>" name="add_address">住所を追加する</button>
             </form>
+            <a href="./index.php">TOP（仮）</a>
     </div>
     <script src="./js/jquery-3.4.1.min.js"></script>
     <!-- その他の手書きjs -->

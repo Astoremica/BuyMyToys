@@ -1,11 +1,12 @@
 @charset "UTF-8";
 #mypage {
     padding-top: 60px;
+    background: #f0f;
 }
 
 #profile_area {
     position: relative;
-    padding-top: 50px;
+    padding: 60px 0;
     background: rgb(206, 206, 206);
     width: 100%;
     height: calc(100vh - 120px);
