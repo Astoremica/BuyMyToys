@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="./css/reset.css">
     <!-- ログイン時のヘッダーCSS -->
     <link rel="stylesheet" href="./css/login_header_style.css">
+    <!-- 商品詳細画面での画像のサイズを横幅いっぱいに -->
+    <link rel="stylesheet" href="./css/product_style.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,500,900&amp;subset=japanese" rel="stylesheet">
     <link href="./images/materials/toys_boy_white.png">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
@@ -34,12 +36,10 @@
     <div id="done_buying">
         <h1>購入が完了しました</h1>
         <ul>
-            <li><img src="<?php echo $image1; ?>"></li>
-            <li><img src="<?php echo $image2; ?>"></li>
-            <li><img src="<?php echo $image3; ?>"></li>
+            <li class="product_image"><img src="<?php echo $image1; ?>"></li>
+            <li class="product_image"><img src="<?php echo $image2; ?>"></li>
+            <li class="product_image"><img src="<?php echo $image3; ?>"></li>
         </ul>
-
-
         <form action="./index.php" method="post">
             <button name="lineup">ホームにもどる</button>
             <button name="lineup">おねだりリストのかくにん</button>

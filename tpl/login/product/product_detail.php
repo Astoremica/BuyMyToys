@@ -15,7 +15,7 @@
     <!-- ログイン時のヘッダーCSS -->
     <link rel="stylesheet" href="./css/login_header_style.css">
     <!-- 商品詳細画面での画像のサイズを横幅いっぱいに -->
-    <link rel="stylesheet" href="./css/product_img_style.css">
+    <link rel="stylesheet" href="./css/product_style.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,500,900&amp;subset=japanese" rel="stylesheet">
     <link href="./images/materials/toys_boy_white.png">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
@@ -46,14 +46,14 @@
             <li>&yen;<?php echo $product["price"]; ?>(税込)</li>
         </ul>
         <form action="./index.php" method="post">
-            <button type="submit" value="<?php echo $product_id ?>" name="product_to_verification">こうにゅう画面へ！</button>
-            <button type="submit" id="submit" name="lineup">ちがうおもちゃをみる</button>
+            <button type="submit" value="<?php echo $product_id ?>" name="product_to_verification" id="confirm">こうにゅう画面へ！</button>
+            <button type="submit" id="back" name="lineup">ちがうおもちゃをみる</button>
         </form>
         <?php foreach ($row as $reco) : ?>
         <article>
             <form action="./index.php" method="post">
                 <button name="product_detail">
-                    <h2><img src="<?php echo $reco['img']; ?>" alt="商品"></h2>
+                    <h2><img src="<?php echo $reco['image']; ?>" alt="商品"></h2>
                     <p class="price">&yen;<?php echo $reco['price']; ?></p>
                     <p class="about"><?php echo $reco['intro']; ?></p>
                 </button>
