@@ -23,7 +23,7 @@ if (isset($_POST['exhibits_to_verification'])) {
   mysqli_set_charset($cn, 'utf8');
   $sql = "select category_name
           from product_category
-          where category_id = '".$_POST['category']."'";
+          where category_id = '" . $_POST['category'] . "'";
   $result = mysqli_query($cn, $sql);
   $row = mysqli_fetch_assoc($result);
   mysqli_close($cn);
@@ -59,12 +59,12 @@ if (isset($_POST['verification_to_done'])) {
   $product_id = $insert_num['num'];
 
   // 新規フォルダ作成
-  mkdir("./images/upload/".$product_id."", 0700);
+  mkdir("./images/upload/" . $product_id . "", 0700);
 
   // 画像の移動
-  var_dump(rename("images/upload/tpl/image1.jpg", "./images/upload/".$product_id."/image1.jpg"));
-  var_dump(rename("images/upload/tpl/image2.jpg", "./images/upload/".$product_id."/image2.jpg"));
-  var_dump(rename("images/upload/tpl/image3.jpg", "./images/upload/".$product_id."/image3.jpg"));
+  var_dump(rename("images/upload/tpl/image1.jpg", "./images/upload/" . $product_id . "/image1.jpg"));
+  var_dump(rename("images/upload/tpl/image2.jpg", "./images/upload/" . $product_id . "/image2.jpg"));
+  var_dump(rename("images/upload/tpl/image3.jpg", "./images/upload/" . $product_id . "/image3.jpg"));
 
   $product_id = $insert_num['num'];
   $member_id = "yukatili";
@@ -76,12 +76,12 @@ if (isset($_POST['verification_to_done'])) {
   $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
   mysqli_set_charset($cn, 'utf8');
   $sql = "INSERT INTO product_information VALUES(
-          '".$product_id."',
-          '".$member_id."',
-          '".$name."',
-          ".$price.",
-          '".$category_id."',
-          '".$description."',
+          '" . $product_id . "',
+          '" . $member_id . "',
+          '" . $name . "',
+          " . $price . ",
+          '" . $category_id . "',
+          '" . $description . "',
           DATE(NOW()),
           0,
           0);";
@@ -119,15 +119,15 @@ if (isset($_POST['verification_to_done_buying'])) {
   mysqli_set_charset($cn, 'utf8');
   $sql = "UPDATE product_information
           SET del_flg  = 1
-          WHERE product_id = ".$product_id.";";
+          WHERE product_id = " . $product_id . ";";
   $result = mysqli_query($cn, $sql);
   $row = mysqli_fetch_assoc($result);
   mysqli_close($cn);
 
   $file = "./images/upload/" . $product_id . "/";
   $image1 = $file . "/image1.jpg";
-  $image2 = $file."/image2.jpg";
-  $image3 = $file."/image3.jpg";
+  $image2 = $file . "/image2.jpg";
+  $image3 = $file . "/image3.jpg";
 
   // ブラウザバックされたら普通に戻れるけど今は放置で
   require_once './tpl/login/product//done_buying.php';
