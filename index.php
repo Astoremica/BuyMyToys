@@ -55,9 +55,11 @@ if (isset($_POST['verification_to_done'])) {
   $price = $_POST['price'];
   $category_id = $_POST['category_id'];
   $description = $_POST['description'];
+
   add_product($product_id, $member_id, $name, $price, $category_id, $description);
   $category = get_category_name($category_id);
   $member_name = get_member_name($member_id);
+
   require_once './tpl/login/product/done_exhibits.php';
   exit;
 }
