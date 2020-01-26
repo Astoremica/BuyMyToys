@@ -31,39 +31,31 @@
         <form action="./index.php" method="post" enctype="multipart/form-data">
             <div id="select_image">
                 <label for="image1">
-                    <img src="./images/materials/camera_icon_exhibits.png">
+                    <img id="image1_preview" src="./images/materials/camera_icon_exhibits.png">
                     <input type="file" name="image1" class="product_image" id="image1">
-                </label>
-                <label for="image2">
-                    <img src="./images/materials/camera_icon_exhibits.png">
-                    <input type="file" name="image2" class="product_image" id="image2">
-                </label>
-                <label for="image3">
-                    <img src="./images/materials/camera_icon_exhibits.png">
-                    <input type="file" name="image3" class="product_image" id="image3">
                 </label>
             </div>
 
-            <select class="classic" name="category" size="1">
+            <select class="classic" name="enter_exhibits[category]" size="1">
                 <option value="0">カテゴリ選択</option>
                 <?php foreach ($categorys as $reco) : ?>
                     <option value="<?php echo $reco['category_id']; ?>"><?php echo $reco['category_name']; ?></option>
                 <?php endforeach; ?>
             </select>
-            <p id="product_name"><input type="text" name="name" placeholder="商品名"></p>
+            <p id="product_name"><input type="text" name="enter_exhibits[name]" placeholder="商品名"></p>
 
-            <textarea rows="10" cols="20" name="description" placeholder="商品の説明"></textarea>
+            <textarea rows="10" cols="20" name="enter_exhibits[description]" placeholder="商品の説明"></textarea>
 
             <p id="details">商品の詳細</p>
 
             <p>配送方法：まさる堂らくらくパック</p>
 
-            <p id="price"><input type="text" name="price" placeholder="商品価格">&nbsp;円</p>
+            <p id="price"><input type="text" name="enter_exhibits[price]" placeholder="商品価格">&nbsp;円</p>
             <p id="comment">※ 手数料 (10%) + 配送料 (500円) が 加算されます</p>
 
             <div id="button">
-                <button type="reset" name="lineup">やめておく</button>
-                <button type="submit" name="exhibits_to_verification" id="confirm">かくにんする</button>
+                <button type="submit" name="lineup">やめておく</button>
+                <button type="submit" id="confirm">かくにんする</button>
             </div>
         </form>
     </div>

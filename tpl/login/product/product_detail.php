@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="./css/back_header_style.css">
     <!-- 商品詳細画面での画像のサイズを横幅いっぱいに -->
     <link rel="stylesheet" href="./css/product_style.css">
+    <!-- 購入系スタイル -->
+    <link rel="stylesheet" href="./css/buy_style.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,500,900&amp;subset=japanese" rel="stylesheet">
     <link href="./images/materials/toys_boy_white.png">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
@@ -29,32 +31,20 @@
     </header>
     <div id="details">
 
-        <p><?php echo $product["title"]; ?></p>
-        <p><img src="<?php echo $product["image"]; ?>"></p>
+        <p id="product_name"><?php echo $product["title"]; ?></p>
+        <p id="product_img"><img src="<?php echo $product["image"]; ?>"></p>
 
         <ul>
-            <li>出品者名：<?php echo $product["member_name"]; ?></li>
+            <li>出品者名：<?php echo $product["member_nickname"]; ?></li>
             <li>カテゴリ：<?php echo $product["category"]; ?></li>
             <li>配送方法：まさる堂らくらくパック</li>
-            <li>商品説明：
+            <li>商品説明
                 <pre><?php echo $product["description"]; ?><pre></li>
-            <li>&yen;<?php echo $product["price"]; ?>(税込)</li>
+            <li id="price">&yen;<?php echo $product["price"]; ?>(税込)</li>
         </ul>
         <form action="./index.php" method="post">
-            <button type="submit" value="<?php echo $product_id ?>" name="product_to_verification" id="confirm">こうにゅう画面へ！</button>
-            <button type="submit" id="back" name="lineup">ちがうおもちゃをみる</button>
+            <button type="submit" value="<?php echo $product_id ?>" name="product_to_verification" id="confirm_butotn">かくにん画面へ！</button>
         </form>
-        <?php foreach ($row as $reco) : ?>
-        <article>
-            <form action="./index.php" method="post">
-                <button name="product_detail">
-                    <h2><img src="<?php echo $reco['image']; ?>" alt="商品"></h2>
-                    <p class="price">&yen;<?php echo $reco['price']; ?></p>
-                    <p class="about"><?php echo $reco['intro']; ?></p>
-                </button>
-            </form>
-        </article>
-    <?php endforeach; ?>
     </div>
     <script src="./js/jquery-3.4.1.min.js"></script>
     <!-- その他の手書きjs -->

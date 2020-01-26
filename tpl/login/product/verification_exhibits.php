@@ -15,6 +15,8 @@
     <!-- ログイン時のヘッダーCSS -->
     <!-- 左上に戻るがあるヘッダー用スタイル -->
     <link rel="stylesheet" href="./css/back_header_style.css">
+    <!-- 出品用スタイル -->
+    <link rel="stylesheet" href="./css/exhibits_style.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,500,900&amp;subset=japanese" rel="stylesheet">
     <link href="./images/materials/toys_boy_white.png">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
@@ -22,7 +24,7 @@
 </head>
 
 <body>
-<header>
+    <header>
         <h1> 出品確認</h1>
         <p id="back_button"><a href="#" onclick="history.back(); return false;"><img src="./images/materials/back_arrow.png" alt="戻る"></a></p>
     </header>
@@ -34,25 +36,19 @@
             <input type="hidden" name="category" value="<?php echo $category; ?>">
             <input type="hidden" name="category_id" value="<?php echo $category_id; ?>">
             <input type="hidden" name="image1" value="<?php echo $image1; ?>">
-            <input type="hidden" name="image2" value="<?php echo $image2; ?>">
-            <input type="hidden" name="image3" value="<?php echo $image3; ?>">
             <input type="hidden" name="description" value="<?php echo $description; ?>">
             <input type="hidden" name="price" value="<?php echo $price; ?>">
 
-            <h2>商品名：<?php echo $name; ?></h2>
-            <h2>商品画像</h2>
-            <ul>
-                <li><img src="./images/upload/tpl/image1.jpg"></li>
-                <li><img src="./images/upload/tpl/image2.jpg"></li>
-                <li><img src="./images/upload/tpl/image3.jpg"></li>
-            </ul>
-
-            <h2>商品説明</h2>
+            <p id="product_name"><?php echo $name; ?></p>
+                <p id="produc_img"><img src="./images/upload/tpl/image1.jpg"></p>
+            <p id="prodct_description">商品説明</p>
             <pre><?php echo $description; ?></pre>
-            <h2>出品価格：<?php echo $price; ?>円</h2>
+            <p id="price">出品価格：<?php echo $price; ?>円</p>
 
-            <button type="submit" value="" name="verification_to_done">出品する</button>
-            <button type="submit" value="" name="lineup">やめておく</button>
+            <div id="button">
+                <button type="submit" name="lineup">やめておく</button>
+                <button type="submit" name="verification_to_done" id="confirm">出品する</button>
+            </div>
         </form>
     </div>
     <!-- <script> print("510"); </script> -->

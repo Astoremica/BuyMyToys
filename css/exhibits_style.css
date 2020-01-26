@@ -37,7 +37,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 50%;
+    width: 100%;
 }
 
 .classic {
@@ -118,14 +118,18 @@ textarea {
     margin-bottom: 20px;
 }
 
-#exhibits #button {
+#exhibits #button,
+#verification_exhibits #button,
+#done_exhibits form {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-#exhibits button {
+#exhibits button,
+#verification_exhibits button,
+#done_exhibits button {
     width: 45%;
     font-size: 1.3em;
     border: 1px solid #000;
@@ -133,8 +137,78 @@ textarea {
     padding: 0;
 }
 
-#exhibits #confirm {
+#exhibits #confirm,
+#verification_exhibits #confirm {
     background: #FF9900;
     border: 2px solid #B37212;
     color: #FFF;
+}
+
+#verification_exhibits {
+    padding-top: 30px;
+}
+
+#verification_exhibits form {
+    width: 90%;
+    margin: 0 auto;
+}
+
+#verification_exhibits #product_name {
+    height: 30px;
+    font-size: 1.3em;
+    line-height: 30px;
+    text-align: center;
+}
+
+#verification_exhibits #produc_img {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#verification_exhibits #produc_img img {
+    width: 100%;
+}
+
+#verification_exhibits #prodct_description {
+    margin-bottom: 10px;
+}
+
+#verification_exhibits pre {
+    width: 100%;
+    word-break: break-all;
+    white-space: pre-line;
+    /* CSS 3.0 */
+    margin-bottom: 10px;
+}
+
+#verification_exhibits #price {
+    text-align: right;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+#done_exhibits {
+    background: #f0f;
+}
+
+#done_exhibits div {
+    padding-top: 30px;
+    width: 90%;
+    margin: 0 auto;
+    background: #0ff;
+}
+
+#done_exhibits ul {
+    background: #ff0;
+    margin-bottom: 30px;
+}
+
+#done_exhibits ul li {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+}
+
+#done_exhibits ul li:last-child {
+    text-align: right;
 }
