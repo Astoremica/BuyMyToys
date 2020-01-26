@@ -29,7 +29,7 @@ if (isset($_POST['exhibits_to_verification'])) {
   mysqli_close($cn);
 
   $name = $_POST['name'];
-  $member_id = "yukatili";
+  $member_id = $_SESSION['member_id'];
   $category = $row["category_name"];
   $category_id = $_POST['category'];
   $image1 = $_FILES['image1'];
@@ -67,7 +67,7 @@ if (isset($_POST['verification_to_done'])) {
   rename("images/upload/tpl/image3.jpg", "./images/upload/" . $product_id . "/image3.jpg");
 
   $product_id = $insert_num['num'];
-  $member_id = "yukatili";
+  $member_id = $_SESSION['member_id'];
   $name = $_POST['name'];
   $price = $_POST['price'];
   $category_id = $_POST['category_id'];
