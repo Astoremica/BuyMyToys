@@ -130,7 +130,7 @@ if (isset($_POST['verification_to_done_buying'])) {
   $image3 = $file . "/image3.jpg";
 
   // ブラウザバックされたら普通に戻れるけど今は放置で
-  require_once './tpl/login/product//done_buying.php';
+  require_once './tpl/login/product/done_buying.php';
   exit;
 }
 
