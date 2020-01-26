@@ -24,7 +24,7 @@
 
 <body>
     <header>
-        <h1> <?php echo $product["title"]; ?></h1>
+        <h1> 商品詳細</h1>
         <p id="back_button"><a href="#" onclick="history.back(); return false;"><img src="./images/materials/back_arrow.png" alt="戻る"></a></p>
     </header>
     <div id="verification_buying">
