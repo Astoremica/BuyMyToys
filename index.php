@@ -136,6 +136,12 @@ if (isset($_POST['verification_to_done_buying'])) {
 
 // ##################### 会員系 ########################
 
+
+if (isset($_GET['login_form'])) {
+  require_once './tpl/nologin/login_form.php';
+  exit;
+}
+
 // 会員登録ボタンクリック時
 if (isset($_GET['singin'])) {
   header('Location:./regist.php');

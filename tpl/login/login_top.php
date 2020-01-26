@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="./css/reset.css">
     <!-- ログイン時のヘッダーCSS -->
     <link rel="stylesheet" href="./css/login_header_style.css">
+    <!-- 商品一覧表示用のCSS -->
+    <link rel="stylesheet" href="./css/lineup_style.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,500,900&amp;subset=japanese" rel="stylesheet">
     <link href="./images/materials/toys_boy_white.png">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">

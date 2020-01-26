@@ -25,7 +25,9 @@
 <body>
     <header>
         <nav>
-            <button id="login_icon" type="submit"><img src="./images/materials/login.png"></button>
+            <form action="./index.php" method="get">
+                <button id="login_icon" type="submit" name="login_form"><img src="./images/materials/login.png"></button>
+            </form>
             <h1 id="page_top">
                 <a href="./index.php">
                     <img src="./images/materials/toys_boy_white.png" alt="Buy My Toys">
@@ -33,36 +35,19 @@
             </h1>
             <p id="search_icon"><img src="./images/materials/search.png" alt="商品検索"></p>
         </nav>
-        <div id="login_form">
-            <p id="close_icon"><img src="./images/materials/close.png" alt="閉じる"></p>
-            <form id="login_form_content" action="./index.php" method="post">
-                <p id="loginform_logo">
-                    <img src="./images/materials/toys_boy.png" alt="ロゴ">
-                    <span>Buy My Toys</span>
-                </p>
-                <ul>
-                    <li><input type="text" name="login[id_mail]" placeholder="メールアドレス"></li>
-                    <li><input type="password" name="login[password]" placeholder="パスワード"></li>
-                    <input type="hidden" name="login[token]" value="<?php echo $token; ?>">
-                    <li><button type="submit">ログイン</button></li>
-                </ul>
-                <p id="sing_in">アカウントを持っていない場合&nbsp;<a href="<?php echo BASE_URL; ?>index.php?singin=''">登録はこちら</a></p>
-            </form>
-        </div>
     </header>
-    <div id="main">
-        <!-- データ内容表示 -->
-        <?php foreach ($products as $reco) : ?>
-            <div class="product">
-                <a href="<?php echo BASE_URL ?>index.php?product_detail=<?php echo $reco['id']; ?>">
-                    <img src="<?php echo $reco['img']; ?>" alt="商品"><img>
-                    <span class="product_title"><?php echo $reco['title'] ?></span>
-                    <div class="price">
-                        <span class="price">&yen;<?php echo $reco['price']; ?></span>
-                    </div>
-                </a>
-            </div>
-        <?php endforeach; ?>
+    <div id="lineup">
+        <div id="products">
+            <!-- データ内容表示 -->
+            <?php foreach ($products as $reco) : ?>
+                <div class="product">
+                    <a href="<?php echo BASE_URL; ?>index.php?product_detail=<?php echo $reco['id']; ?>">
+                        <img src="<?php echo $reco['img']; ?>" alt="商品">
+                        <span class="price">&yen;&nbsp;<?php echo $reco['price']; ?></span>
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        </div>
     </div>
     <script src="./js/jquery-3.4.1.min.js"></script>
     <!-- その他の手書きjs -->
