@@ -24,6 +24,31 @@ function lineup()
     return $products;
 }
 
+function get_category_name($category_id)
+{
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql = "select category_name
+            from product_category
+            where category_id = '" . $category_id . "'";
+    $result = mysqli_query($cn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    mysqli_close($cn);
+
+    return $row;
+}
+
+function get_new_exhibits_product_id()
+{
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql = "SELECT max(product_id)+1 AS num
+            FROM product_information;";
+    $result = mysqli_query($cn, $sql);
+    $insert_num = mysqli_fetch_assoc($result);
+    mysqli_close($cn);
+
+    return $insert_num;
 // 商品カテゴリ情報取得
 function get_product_category(){
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
@@ -35,7 +60,7 @@ function get_product_category(){
         $categorys[] =  $db_data;
     }
 
-    return $categorys;
+    return $categorys;＼
 }
 
 function select_product_detail($product_id)
@@ -173,7 +198,7 @@ function alredy_member_id_check($cn, $member_id)
 // 会員DB追加
 function add_member($cn, $member_id, $member_name, $member_nickname, $member_gender, $member_mail, $password_hash, $member_tel, $member_birthday)
 {
-    $sql = "INSERT INTO members(member_id,member_name,member_nickname,member_gender,member_mail,member_password,member_tel,member_birthday) 
+    $sql = "INSERT INTO members(member_id,member_name,member_nickname,member_gender,member_mail,member_password,member_tel,member_birthday)
     VALUES('$member_id','$member_name','$member_nickname','$member_gender','$member_mail','$password_hash','$member_tel','$member_birthday')";
     mysqli_query($cn, $sql);
     return;

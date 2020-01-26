@@ -19,6 +19,8 @@ if (isset($_GET['exhibits_button'])) {
 
 // ###出品画面から出品確認ボタンが押されたときの動作
 if (isset($_POST['exhibits_to_verification'])) {
+  // DB connection
+  $row = get_category_name($_POST['category']);
   // verification_exhibits();
   // DB
   $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
@@ -31,7 +33,7 @@ if (isset($_POST['exhibits_to_verification'])) {
   mysqli_close($cn);
 
   $name = $_POST['name'];
-  $member_id = "yukatili";
+  $member_id = $_SESSION['member_id'];
   $category = $row["category_name"];
   $category_id = $_POST['category'];
   $image1 = $_FILES['image1'];
@@ -49,14 +51,8 @@ if (isset($_POST['exhibits_to_verification'])) {
 
 // ###出品確認画面から出品確定ボタンが押されたときの動作
 if (isset($_POST['verification_to_done'])) {
-  // done_exhibits();
-  // DB
-  $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
-  mysqli_set_charset($cn, 'utf8');
-  $sql = " SELECT max(product_id)+1 AS num FROM product_information;";
-  $result = mysqli_query($cn, $sql);
-  $insert_num = mysqli_fetch_assoc($result);
-  mysqli_close($cn);
+  // DB connection
+  $insert_num = get_new_exhibits_product_id();
 
   $product_id = $insert_num['num'];
 
@@ -69,7 +65,7 @@ if (isset($_POST['verification_to_done'])) {
   rename("images/upload/tpl/image3.jpg", "./images/upload/" . $product_id . "/image3.jpg");
 
   $product_id = $insert_num['num'];
-  $member_id = "yukatili";
+  $member_id = $_SESSION['member_id'];
   $name = $_POST['name'];
   $price = $_POST['price'];
   $category_id = $_POST['category_id'];
