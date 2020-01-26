@@ -118,7 +118,6 @@ if (isset($_POST['verification_to_done_buying'])) {
   $member_id = $_SESSION['member_id'];
   cheng_trade_flg($product_id);
   add_favotite($product_id, $member_id);
-
   $file = "./images/upload/" . $product_id . "/";
   $image1 = $file . "/image1.jpg";
 
@@ -131,6 +130,13 @@ if (isset($_POST['verification_to_done_buying'])) {
 if (isset($_POST['fav']) || isset($_GET['favorite'])) {
   $member_id = $_SESSION['member_id'];
   $favorites_id = get_favorite_list($member_id);
+  if (is_array($favorites_id)) {
+    foreach ($favorites_id as $reco) {
+      $product[]=get_favo_product($reco['product_id']);
+    }
+  }else{
+    $product=get_favo_product($favorites_id['product_id']);
+  }
   require_once './tpl/login/product/favotite_list.php';
   exit;
 }
