@@ -95,5 +95,7 @@ footer #mypage_icon {
 }
 
 footer #mypage_icon img {
-    width: 100%;
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
 }

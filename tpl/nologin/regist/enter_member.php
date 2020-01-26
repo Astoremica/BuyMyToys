@@ -26,7 +26,7 @@
     </header>
     <?php if (count($errors) === 0) : ?>
 
-        <form id="enter_user_form" action="./regist.php" method="post">
+        <form id="enter_user_form" action="./regist.php" method="post" enctype="multipart/form-data">
             <ul>
                 <li>
                     <input type="text" name="regist_member[member_name]" placeholder="氏名">
@@ -46,9 +46,6 @@
                 <li><input type="text" name="regist_member[member_id]" placeholder="メンバーID"></li>
                 <li><input type="password" name="regist_member[password]" placeholder="パスワード"></li>
                 <li><input type="text" name="regist_member[member_tel]" placeholder="電話番号"></li>
-
-
-
                 <li>
                     <select class="select_date" name="regist_member[year]">
                         <option value="">年</option>
@@ -236,9 +233,14 @@
                         <option value="31">31</option>
                     </select>
                 </li>
+                <input type="hidden" name="MAX_FILE_SIZE" value="2000000000">
+                <li>
+                    <label for="file_upload" id="file_upload_label">プロフィール画像<br>ファイルを選択して下さい
+                        <input type="file" name="profile_icon" id="file_upload">
+                    </label>
+                </li>
             </ul>
-            <input type="hidden" name="regist_member[token]" value="<?php echo $token; ?>">
-            
+
             <button type="submit">確認する</button>
 
         </form>

@@ -33,8 +33,8 @@
             <p>メンバーID：<?php echo  $member_id; ?></p>
             <p>パスワード：<?php echo  $password_hide; ?></p>
             <p>電話番号：<?php echo  $member_tel; ?></p>
-            <p id="last">生年月日：<?php echo  $member_birthday; ?></p>
-
+            <p>生年月日：<?php echo  $member_birthday; ?></p>
+            <p id="last">画像ファイル名：<?php echo  $profile_icon['name']; ?></p>
             <button type="submit" name="add_member[regist]">登録する</button>
 
         </form>

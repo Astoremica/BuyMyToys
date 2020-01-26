@@ -90,15 +90,15 @@ function get_product_details($product_id)
 
 function unlink_if_isnot_uploaded($filename1, $filename2, $filename3)
 {
-    if($filename1["error"]){
+    if ($filename1["error"]) {
         unlink('./images/upload/tpl/image1.jpg');
-      }
-      if($filename2["error"]){
+    }
+    if ($filename2["error"]) {
         unlink('./images/upload/tpl/image2.jpg');
-      }
-      if($filename3["error"]){
+    }
+    if ($filename3["error"]) {
         unlink('./images/upload/tpl/image3.jpg');
-      }
+    }
 }
 
 function move_upload_file_if_is_upliaded($filename1, $filename2, $filename3)
@@ -127,7 +127,7 @@ function add_pre_member($cn, $urltoken, $mail)
 
     return;
 }
-// メールのゆうこ期限チェック
+// メールの有効期限チェック
 function check_token($cn, $urltoken)
 {
     //flagが0の未登録者・仮登録日から24時間以内
@@ -159,7 +159,8 @@ function alredy_member_id_check($cn, $member_id)
 // 会員DB追加
 function add_member($cn, $member_id, $member_name, $member_nickname, $member_gender, $member_mail, $password_hash, $member_tel, $member_birthday)
 {
-    $sql = "INSERT INTO members(member_id,member_name,member_nickname,member_gender,member_mail,member_password,member_tel,member_birthday) VALUES('$member_id','$member_name','$member_nickname','$member_gender','$member_mail','$password_hash','$member_tel','$member_birthday')";
+    $sql = "INSERT INTO members(member_id,member_name,member_nickname,member_gender,member_mail,member_password,member_tel,member_birthday) 
+    VALUES('$member_id','$member_name','$member_nickname','$member_gender','$member_mail','$password_hash','$member_tel','$member_birthday')";
     mysqli_query($cn, $sql);
     return;
 }
@@ -170,7 +171,15 @@ function update_pre_member($cn, $mail)
     mysqli_query($cn, $sql);
     return;
 }
-// ログイン人粗油用のパスワードハッシュ取得
+// プロフィール画像アップロード
+function upload_profile_icon($member_key)
+{
+    mkdir(PROFILE_UPLOAD_PATH . 'no_' . $member_key);
+    chmod(PROFILE_UPLOAD_PATH . 'no_' . $member_key . '/', 0777);
+    rename(PRE_PROFILE_UPLOAD_NAME,PROFILE_UPLOAD_PATH . 'no_' . $member_key . '/user_profile.jpg');
+    return;
+}
+// ログイン認証用のパスワードハッシュ取得
 function get_hash_user($id_mail)
 {
     //データベース接続
@@ -179,16 +188,29 @@ function get_hash_user($id_mail)
     // IDかメールか
     if (strpos($id_mail, '@') === false) {
         // ID
-        $sql = "SELECT member_id,member_password FROM members WHERE member_id = '$id_mail'";
+        $sql = "SELECT member_id,member_password FROM members WHERE member_id = '$id_mail' AND del_flg=0";
     } else {
         // mail
-        $sql = "SELECT member_id,member_password FROM members WHERE member_mail = '$id_mail'";
+        $sql = "SELECT member_id,member_password FROM members WHERE member_mail = '$id_mail' AND del_flg=0";
     }
     $result = mysqli_query($cn, $sql);
     mysqli_close($cn);
     $db_data = mysqli_fetch_assoc($result);
     return $db_data;
 }
+
+// メンバーキー取得
+function get_member_key($member_id)
+{
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql = "SELECT member_key FROM members WHERE member_id = '$member_id'";
+    $result = mysqli_query($cn, $sql);
+    mysqli_close($cn);
+    $db_data = mysqli_fetch_assoc($result);
+    return $db_data['member_key'];
+}
+
 // マイページ用表示情報取得
 function get_member_info($member_id)
 {

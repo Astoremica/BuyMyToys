@@ -67,7 +67,7 @@
             <button type="submit" class="system_icon" name="exhibits_button" value="aaa"><img src="./images/materials/camera_icon.png"></button>
             <button type="submit" class="system_icon"><img src="./images/materials/favorite_white_icon.png"></button>
             <button type="submit" class="system_icon"><img src="./images/materials/cart_icon.png"></button>
-            <a href="<?php echo BASE_URL; ?>index.php?mypage=''" id="mypage_icon"><img src="./images/user_icon/no_4/user_profile.jpg"></a>
+            <a href="<?php echo BASE_URL; ?>index.php?mypage=''" id="mypage_icon"><img src="./images/user_icon/no_<?php echo $member_key; ?>/user_profile.jpg"></a>
         </form>
     </footer>
     <!-- <script> print("510"); </script> -->

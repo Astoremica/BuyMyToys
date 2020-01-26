@@ -18,7 +18,6 @@
 
     <header>
         <h1>会員登録</h1>
-        <p id="back_button"><a href="#" onclick="history.back(); return false;"><img src="./images/materials/back_arrow.png" alt="戻る"></a></p>
     </header>
     <div id="message">
         <?php if (count($errors) === 0) : ?>
@@ -35,4 +34,3 @@
     </div>
 </body>
 
-</html>
