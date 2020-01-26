@@ -62,9 +62,9 @@ if (isset($_POST['verification_to_done'])) {
   mkdir("./images/upload/" . $product_id . "", 0700);
 
   // 画像の移動
-  var_dump(rename("images/upload/tpl/image1.jpg", "./images/upload/" . $product_id . "/image1.jpg"));
-  var_dump(rename("images/upload/tpl/image2.jpg", "./images/upload/" . $product_id . "/image2.jpg"));
-  var_dump(rename("images/upload/tpl/image3.jpg", "./images/upload/" . $product_id . "/image3.jpg"));
+  rename("images/upload/tpl/image1.jpg", "./images/upload/" . $product_id . "/image1.jpg");
+  rename("images/upload/tpl/image2.jpg", "./images/upload/" . $product_id . "/image2.jpg");
+  rename("images/upload/tpl/image3.jpg", "./images/upload/" . $product_id . "/image3.jpg");
 
   $product_id = $insert_num['num'];
   $member_id = "yukatili";
