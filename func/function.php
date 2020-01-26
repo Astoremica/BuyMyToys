@@ -272,13 +272,13 @@ function get_favorite_list($member_id)
 {
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
     mysqli_set_charset($cn, 'utf8');
-    $sql = "SELECT product_name,product_price FROM product_information AS p,favorites WHERE p.del_flg = 0 AND p.trade_flg=1 AND p.member_id = (SELECT member_id FROM favorites WHERE member_id = '$member_id')";
+    $sql = "SELECT product_id FROM favorites WHERE member_id = '$member_id'";
     $result = mysqli_query($cn, $sql);
     while ($db_data = mysqli_fetch_assoc($result)) {
         $favorites[] =  $db_data;
     }
     mysqli_close($cn);
-    return $favorites;
+    return $favorites_id;
 }
 // おねだり商品名
 function get_favo_product_id($product_name)
