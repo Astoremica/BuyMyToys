@@ -24,6 +24,80 @@ function lineup()
     return $products;
 }
 
+function search_contents($product_name, $category_id, $under_price, $top_price, $member_name)
+{
+    if($product_name == ''){
+        $product_name = NULL;
+    }
+    if($category_id == ''){
+        $category_id = NULL;
+    }
+    if($member_name == ''){
+        $member_name = NULL;
+    }
+    // sql文を実行して結果を配列型にします
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql =  sql_line_generator($product_name, $category_id, $under_price, $top_price, $member_name);
+    $result = mysqli_query($cn, $sql);
+    mysqli_close($cn);
+
+    while ($db_data = mysqli_fetch_assoc($result)) {
+        $products[] = [
+            'id' => $db_data['id'],
+            'title' => $db_data['title'],
+            'price' => $db_data['price'],
+            'img' => "./images/upload/" . $db_data["id"] . "/image1.jpg"
+        ];
+    }
+    return $products;
+}
+
+function sql_line_generator($product_name, $category_id, $under_price, $top_price, $member_name)
+{
+    // この関数は５つの引数を元にsql文を生成します
+    $sql_head = "SELECT  i.product_id AS id,
+                    i.product_name AS title,
+                    i.product_price AS price
+            FROM product_information AS i, members AS m
+            WHERE   i.del_flg = 0 AND
+                    i.trade_flg = 0 ";
+
+
+    $sql_bottom =   "ORDER BY i.product_regist_date DESC
+                    LIMIT 60;";
+
+    if(isset($product_name)){
+        $sql_head .= "AND i.product_name LIKE '%".$product_name."%'";
+    }
+
+    if(isset($category_id)){
+        $sql_head .="AND product_category = '".$category_id."'";
+    }
+
+    if(isset($under_price)){
+        $sql_head .= "AND " . $under_price . " <= i.product_price ";
+    }
+
+    if(isset($top_price)){
+        $sql_head .= "AND i.product_price <= " . $top_price . "";
+    }
+
+    if(isset($member_name)){
+        $sql_head .= "AND
+        i.member_id = (
+            SELECT m.member_id
+            FROM members AS m
+            WHERE m.member_name LIKE '%" . $member_name . "%') AND
+        m.member_id = (
+            SELECT m.member_id
+            FROM members AS m
+            WHERE m.member_name LIKE '%" . $member_name . "%')";
+    }
+
+    return $sql_head .= $sql_bottom ;
+}
+
 function get_category_name($category_id)
 {
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
