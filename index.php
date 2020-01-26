@@ -188,6 +188,10 @@ if (isset($_GET['buy'])) {
 if (isset($_POST['buy'])) {
   $product_id = $_POST['buy'];
   buy_product($product_id);
+  $member_key = get_member_key($_SESSION['member_id']);
+  $products = lineup();
+  require_once './tpl/login/login_top.php';
+  exit;
 }
 if (isset($_POST['no'])) {
   $product_id = $_POST['no'];
