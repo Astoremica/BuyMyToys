@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="./css/back_header_style.css">
     <!-- 商品詳細画面での画像のサイズを横幅いっぱいに -->
     <link rel="stylesheet" href="./css/product_style.css">
+    <!-- 購入系スタイル -->
+    <link rel="stylesheet" href="./css/buy_style.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,500,900&amp;subset=japanese" rel="stylesheet">
     <link href="./images/materials/toys_boy_white.png">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
@@ -27,19 +29,19 @@
         <h1> 商品詳細</h1>
         <p id="back_button"><a href="#" onclick="history.back(); return false;"><img src="./images/materials/back_arrow.png" alt="戻る"></a></p>
     </header>
-    <div id="verification_buying">
+    <div id="details">
 
-    <p><?php echo $product["title"]; ?></p>
-        <p><img src=<?php echo $product["image"]; ?>></p>
+    <p id="product_name"><?php echo $product["title"]; ?></p>
+        <p id="product_img"><img src=<?php echo $product["image"]; ?>></p>
 
         <ul>
-            <li>出品者名：<?php echo $product["member_name"] ?></li>
-            <li>&yen;<?php echo $product["price"]; ?>(税込)</li>
+            <li>出品者名：<?php echo $product["member_nickname"] ?></li>
+            <li id="price">&yen;<?php echo $product["price"]; ?>(税込)</li>
         </ul>
 
         <form action="./index.php" method="post">
-            <button type="submit" value="<?php echo $product_id ?>" name="verification_to_done_buying">おねだりする！</button>
-            <button type="submit" name="lineup">やめておく</button>
+        <button type="submit" name="lineup">やめておく</button>
+            <button type="submit" value="<?php echo $product_id ?>" name="verification_to_done_buying" id="confirm">おねだりする！</button>
         </form>
     </div>
     <script src="./js/jquery-3.4.1.min.js"></script>

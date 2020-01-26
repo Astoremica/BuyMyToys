@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="./css/back_header_style.css">
     <!-- 商品詳細画面での画像のサイズを横幅いっぱいに -->
     <link rel="stylesheet" href="./css/product_style.css">
+    <!-- 購入系スタイル -->
+    <link rel="stylesheet" href="./css/buy_style.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,500,900&amp;subset=japanese" rel="stylesheet">
     <link href="./images/materials/toys_boy_white.png">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
@@ -27,17 +29,13 @@
         <h1> おねだり完了！</h1>
         <p id="back_button"><a href="#" onclick="history.back(); return false;"><img src="./images/materials/back_arrow.png" alt="戻る"></a></p>
     </header>
-    <div id="done_buying">
+    <div id="details">
 
-    <p><?php echo $product["title"]; ?></p>
-        <ul>
-            <li class="product_image"><img src="<?php echo $image1; ?>"></li>
-            <li class="product_image"><img src="<?php echo $image2; ?>"></li>
-            <li class="product_image"><img src="<?php echo $image3; ?>"></li>
-        </ul>
+    <p id="product_name"><?php echo $product["title"]; ?></p>
+            <p id="product_img"><img src="<?php echo $image1; ?>"></p>
         <form action="./index.php" method="post">
             <button name="lineup">ホームにもどる</button>
-            <button name="lineup">おねだりリストのかくにん</button>
+            <button name="fav" id="confirm">おねだりリストのかくにん</button>
             <!-- あとで出品者連絡画面に差し替えます -->
         </form>
     </div>

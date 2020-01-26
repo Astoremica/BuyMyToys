@@ -18,33 +18,19 @@ if (isset($_GET['exhibits_button'])) {
 }
 
 // ###出品画面から出品確認ボタンが押されたときの動作
-if (isset($_POST['exhibits_to_verification'])) {
+if (isset($_POST['enter_exhibits'])) {
   // DB connection
-  $row = get_category_name($_POST['category']);
-  // verification_exhibits();
-  // DB
-  $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
-  mysqli_set_charset($cn, 'utf8');
-  $sql = "SELECT category_name
-          FROM product_category
-          WHERE category_id = '" . $_POST['category'] . "'";
-  $result = mysqli_query($cn, $sql);
-  $row = mysqli_fetch_assoc($result);
-  mysqli_close($cn);
-
-  $name = $_POST['name'];
+  $category_name = get_category_name($_POST['enter_exhibits']['category']);
+  $name = $_POST['enter_exhibits']['name'];
   $member_id = $_SESSION['member_id'];
-  $category = $row["category_name"];
-  $category_id = $_POST['category'];
+  $category = $category_name["category_name"];
+  $category_id = $_POST['enter_exhibits']['category'];
+  $price = $_POST['enter_exhibits']['price'];
+  $description = $_POST['enter_exhibits']['description'];
   $image1 = $_FILES['image1'];
-  $image2 = $_FILES['image2'];
-  $image3 = $_FILES['image3'];
-  $price = $_POST['price'];
-  $description = $_POST['description'];
   $price *= 1.1;
   $price += 500;
-  unlink_if_isnot_uploaded($image1, $image2, $image3);
-  move_upload_file_if_is_upliaded($image1, $image2, $image3);
+  move_uploaded_file($image1['tmp_name'], PRE_UPLOAD_PATH . 'image1.jpg');
   require_once './tpl/login/product/verification_exhibits.php';
   exit;
 }
@@ -60,9 +46,8 @@ if (isset($_POST['verification_to_done'])) {
   mkdir("./images/upload/" . $product_id . "", 0700);
 
   // 画像の移動
-  rename("images/upload/tpl/image1.jpg", "./images/upload/" . $product_id . "/image1.jpg");
-  rename("images/upload/tpl/image2.jpg", "./images/upload/" . $product_id . "/image2.jpg");
-  rename("images/upload/tpl/image3.jpg", "./images/upload/" . $product_id . "/image3.jpg");
+  rename(PRE_UPLOAD_PATH . "image1.jpg", UPLOAD_PATH . $product_id . "/image1.jpg");
+
 
   $product_id = $insert_num['num'];
   $member_id = $_SESSION['member_id'];
@@ -71,30 +56,9 @@ if (isset($_POST['verification_to_done'])) {
   $category_id = $_POST['category_id'];
   $description = $_POST['description'];
 
-  $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
-  mysqli_set_charset($cn, 'utf8');
-  $sql = "INSERT INTO product_information VALUES(
-          '" . $product_id . "',
-          '" . $member_id . "',
-          '" . $name . "',
-          " . $price . ",
-          '" . $category_id . "',
-          '" . $description . "',
-          CURRENT_TIMESTAMP,
-          0,
-          0);";
-  $result = mysqli_query($cn, $sql);
-  $row = mysqli_fetch_assoc($result);
-  mysqli_close($cn);
-
-  // 出品完了画面で表示する情報
-  $row = select_product_detail($product_id);
-  // $name = ''; すでに設定済み
-  // $product_id = ''; すでに設定済み
-  $member_name = $row['member_name'];
-  $category = $row['category_name'];
-  // $product_id = ''; すでに設定済み
-  // $price = ''; すでに設定済み
+  add_product($product_id, $member_id, $name, $price, $category_id, $description);
+  $category = get_category_name($category_id);
+  $member_name = get_member_name($member_id);
 
   require_once './tpl/login/product/done_exhibits.php';
   exit;
@@ -151,26 +115,89 @@ if (isset($_POST['product_to_verification'])) {
 if (isset($_POST['verification_to_done_buying'])) {
 
   $product_id = $_POST['verification_to_done_buying'];
-
-  $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
-  mysqli_set_charset($cn, 'utf8');
-  $sql = "UPDATE product_information
-          SET del_flg  = 1
-          WHERE product_id = " . $product_id . ";";
-  $result = mysqli_query($cn, $sql);
-  $row = mysqli_fetch_assoc($result);
-  mysqli_close($cn);
+  $member_id = $_SESSION['member_id'];
+  cheng_trade_flg($product_id);
+  add_favotite($product_id, $member_id);
 
   $file = "./images/upload/" . $product_id . "/";
   $image1 = $file . "/image1.jpg";
-  $image2 = $file . "/image2.jpg";
-  $image3 = $file . "/image3.jpg";
 
   // ブラウザバックされたら普通に戻れるけど今は放置で
   require_once './tpl/login/product/done_buying.php';
   exit;
 }
 
+// おねだりリスト
+if (isset($_POST['fav']) || isset($_GET['favorite'])) {
+  $member_id = $_SESSION['member_id'];
+  $favorites = get_favorite_list($member_id);
+  $paremts = get_paremts_list($member_id);
+  require_once './tpl/login/product/favotite_list.php';
+  exit;
+}
+if (isset($_POST['go_parents'])) {
+  $member_id = $_SESSION['member_id'];
+  $favorites = get_favorite_list($member_id);
+  $favo_product_name = $favorites[$_POST['add_fovo']];
+  $paremt_mail = $_POST['parent'];
+
+  $url = BASE_URL . "index.php?buy='" . $_POST['add_fovo'] . "'";
+  // メール送信
+  mb_language('ja');
+  mb_internal_encoding('UTF-8');
+  //メールの宛先
+  $mailTo = $paremt_mail;
+
+  //Return-Pathに指定するメールアドレス
+  $returnMail = 'BuyMyToys@example.com';
+
+  $name = "BuyMyToys";
+  $mail = 'BuyMyToys@example.com';
+  $subject = "【BuyMyToys】おねだりリストのおしらせ";
+
+  $body = <<< EOM
+    おねだりリストが届いています。
+    {$url}
+    EOM;
+  //Fromヘッダーを作成
+  $header = 'From: ' . mb_encode_mimeheader($name) . ' <' . $mail . '>';
+  mb_send_mail($mailTo, $subject, $body, $header, '-f' . $returnMail);
+  header('Location:./index.php');
+  exit;
+}
+if (isset($_GET['buy'])) {
+  if (isset($_SESSION['member_id'])) {
+    $member_id = $_SESSION['member_id'];
+    $favorites = get_favorite_list($member_id);
+    $favo_product = $favorites[(int) $_GET['buy']];
+    $product_id = get_favo_product_id($favo_product['product_name']);
+    $product = get_product_details($product_id['product_id']);
+    require_once './tpl/login/product/buy.php';
+    exit;
+  }
+  // 未ログイン状態のTOPページ：一番最初に表示されるページ
+  if (!isset($_SESSION['member_id'])) {
+    require_once './tpl/nologin/login_form.php';
+    exit;
+  }
+  $member_id = $_SESSION['member_id'];
+  $favorites = get_favorite_list($member_id);
+  $favo_product = $favorites[$_POST['add_fovo']];
+  exit;
+}
+if (isset($_POST['buy'])) {
+  $product_id = $_POST['buy'];
+  buy_product($product_id);
+}
+if (isset($_POST['no'])) {
+  $product_id = $_POST['no'];
+  nobuy($product_id);
+  del_favotite($product_id);
+  $member_key = get_member_key($_SESSION['member_id']);
+  $products = lineup();
+  require_once './tpl/login/login_top.php';
+  exit;
+}
 // ##################### 会員系 ########################
 
 

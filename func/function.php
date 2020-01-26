@@ -102,14 +102,25 @@ function get_category_name($category_id)
 {
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
     mysqli_set_charset($cn, 'utf8');
-    $sql = "select category_name
-            from product_category
-            where category_id = '" . $category_id . "'";
+    $sql = "SELECT category_name
+            FROM product_category
+            WHERE category_id = '$category_id'";
     $result = mysqli_query($cn, $sql);
-    $row = mysqli_fetch_assoc($result);
+    $category_name = mysqli_fetch_assoc($result);
     mysqli_close($cn);
 
-    return $row;
+    return $category_name['category_name'];
+}
+function get_member_name($member_id)
+{
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql = "SELECT member_name FROM members WHERE member_id = '$member_id'";
+    $result = mysqli_query($cn, $sql);
+    $member_name = mysqli_fetch_assoc($result);
+    mysqli_close($cn);
+
+    return $member_name['member_name'];
 }
 
 function get_new_exhibits_product_id()
@@ -125,7 +136,8 @@ function get_new_exhibits_product_id()
     return $insert_num;
 }
 // 商品カテゴリ情報取得
-function get_product_category(){
+function get_product_category()
+{
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
     mysqli_set_charset($cn, 'utf8');
     $sql = "SELECT category_id,category_name FROM product_category";
@@ -142,7 +154,7 @@ function select_product_detail($product_id)
 {
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
     mysqli_set_charset($cn, 'utf8');
-    $sql = "SELECT i.product_name, m.member_name, c.category_name, i.product_description, i.product_price
+    $sql = "SELECT i.product_name, m.member_nickname, c.category_name, i.product_description, i.product_price
             FROM product_information AS i, members AS m, product_category AS c
             WHERE i.product_id = " . $product_id . "
             AND m.member_id = (
@@ -168,13 +180,11 @@ function verification_buying($product_id)
     $row = select_product_detail($product_id);
     $file = "./images/upload/" . $product_id . "/";
     $main_image = $file . "image1.jpg";
-    // $image1 = $file."image2.jpg";
-    // $image2 = $file."image3.jpg";
 
     $product = [
         'title' => $row['product_name'],
         'image' => $main_image,
-        'member_name' => $row['member_name'],
+        'member_nickname' => $row['member_nickname'],
         'category' =>  $row["category_name"],
         'description' => $row["product_description"],
         'price' => $row["product_price"],
@@ -189,12 +199,10 @@ function get_product_details($product_id)
     $row = select_product_detail($product_id);
     $file = "./images/upload/" . $product_id . "/";
     $main_image = $file . "image1.jpg";
-    // $image1 = $file."image2.jpg";
-    // $image2 = $file."image3.jpg";
     $product = [
         'title' => $row['product_name'],
         'image' => $main_image,
-        'member_name' => $row['member_name'],
+        'member_nickname' => $row['member_nickname'],
         'category' =>  $row["category_name"],
         'description' => $row["product_description"],
         'price' => $row["product_price"],
@@ -207,21 +215,116 @@ function unlink_if_isnot_uploaded($filename1, $filename2, $filename3)
     if ($filename1["error"]) {
         unlink('./images/upload/tpl/image1.jpg');
     }
-    if ($filename2["error"]) {
-        unlink('./images/upload/tpl/image2.jpg');
-    }
-    if ($filename3["error"]) {
-        unlink('./images/upload/tpl/image3.jpg');
-    }
 }
 
-function move_upload_file_if_is_upliaded($filename1, $filename2, $filename3)
+function add_product($product_id, $member_id, $name, $price, $category_id, $description)
 {
-    move_uploaded_file($filename1['tmp_name'], './images/upload/' . 'tpl/' . 'image1.jpg');
-    move_uploaded_file($filename2['tmp_name'], './images/upload/' . 'tpl/' . 'image2.jpg');
-    move_uploaded_file($filename3['tmp_name'], './images/upload/' . 'tpl/' . 'image3.jpg');
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql = "INSERT INTO product_information VALUES(
+            '" . $product_id . "',
+            '" . $member_id . "',
+            '" . $name . "',
+            " . $price . ",
+            '" . $category_id . "',
+            '" . $description . "',
+            CURRENT_TIMESTAMP,
+            0,
+            0);";
+    $result = mysqli_query($cn, $sql);
+    mysqli_fetch_assoc($result);
+    mysqli_close($cn);
+    return;
+}
+function cheng_trade_flg($product_id)
+{
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql = "UPDATE product_information SET trade_flg  = 1 WHERE product_id = " . $product_id . ";";
+    mysqli_query($cn, $sql);
+    mysqli_close($cn);
+
+    return;
+}
+function add_favotite($product_id, $member_id)
+{
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql = "INSERT INTO favorites(member_id, product_id, del_flg) VALUES ('$member_id','$product_id',0)";
+    mysqli_query($cn, $sql);
+    mysqli_close($cn);
+
+    return;
+}
+function del_favotite($product_id)
+{
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql = "UPDATE favorites SET del_flg  = 1 WHERE product_id = '$product_id'";
+    mysqli_query($cn, $sql);
+    mysqli_close($cn);
+
+    return;
 }
 
+// おねだりリスト取得
+function get_favorite_list($member_id)
+{
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql = "SELECT product_name,product_price FROM product_information AS p,favorites WHERE p.del_flg = 0 AND p.trade_flg=1 AND p.member_id = (SELECT member_id FROM favorites WHERE member_id = '$member_id')";
+    $result = mysqli_query($cn, $sql);
+    while ($db_data = mysqli_fetch_assoc($result)) {
+        $favorites[] =  $db_data;
+    }
+    mysqli_close($cn);
+    return $favorites;
+}
+// おねだり商品名
+function get_favo_product_id($product_name)
+{
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql = "SELECT f.product_id from product_information as p,favorites as f WHERE product_name = '$product_name'";
+    $result = mysqli_query($cn, $sql);
+    $product_id = mysqli_fetch_assoc($result);
+    mysqli_close($cn);
+    
+    return $product_id;
+}
+// 親リスト取得
+function get_paremts_list($member_id)
+{
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql = "SELECT parent_name,parentemail FROM parents WHERE member_id = '$member_id'";
+    $result = mysqli_query($cn, $sql);
+    while ($db_data = mysqli_fetch_assoc($result)) {
+        $paremts[] =  $db_data;
+    }
+    mysqli_close($cn);
+    return $paremts;
+}
+// 購入
+function buy_product($product_id)
+{
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql = "UPDATE product_information SET del_flg  = 1 WHERE product_id = " . $product_id . ";";
+    mysqli_query($cn, $sql);
+    mysqli_close($cn);
+    return ;
+}
+// 見送り
+function nobuy($product_id)
+{
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql = "UPDATE product_information SET trade_flg  = 0 WHERE product_id = " . $product_id . ";";
+    mysqli_query($cn, $sql);
+    mysqli_close($cn);
+    return ;
+}
 //------------------------------------------------ 会員機能 ------------------------------------------------//
 
 // すでに登録済みの会員か
@@ -290,7 +393,7 @@ function upload_profile_icon($member_key)
 {
     mkdir(PROFILE_UPLOAD_PATH . 'no_' . $member_key);
     chmod(PROFILE_UPLOAD_PATH . 'no_' . $member_key . '/', 0777);
-    rename(PRE_PROFILE_UPLOAD_NAME,PROFILE_UPLOAD_PATH . 'no_' . $member_key . '/user_profile.jpg');
+    rename(PRE_PROFILE_UPLOAD_NAME, PROFILE_UPLOAD_PATH . 'no_' . $member_key . '/user_profile.jpg');
     return;
 }
 // ログイン認証用のパスワードハッシュ取得
