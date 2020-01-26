@@ -82,7 +82,7 @@ if (isset($_POST['verification_to_done'])) {
           " . $price . ",
           '" . $category_id . "',
           '" . $description . "',
-          DATE(NOW()),
+          CURRENT_TIMESTAMP,
           0,
           0);";
   $result = mysqli_query($cn, $sql);
