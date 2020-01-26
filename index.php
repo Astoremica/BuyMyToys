@@ -87,6 +87,15 @@ if (isset($_POST['verification_to_done'])) {
   $row = mysqli_fetch_assoc($result);
   mysqli_close($cn);
 
+  // 出品完了画面で表示する情報
+  $row = select_product_detail($product_id);
+  // $name = ''; すでに設定済み
+  // $product_id = ''; すでに設定済み
+  $member_name = $row['member_name'];
+  $category = $row['category_name'];
+  // $product_id = ''; すでに設定済み
+  // $price = ''; すでに設定済み
+
   require_once './tpl/login/product/done_exhibits.php';
   exit;
 }
