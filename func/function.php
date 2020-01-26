@@ -123,6 +123,7 @@ function get_new_exhibits_product_id()
     mysqli_close($cn);
 
     return $insert_num;
+}
 // 商品カテゴリ情報取得
 function get_product_category(){
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
@@ -134,7 +135,7 @@ function get_product_category(){
         $categorys[] =  $db_data;
     }
 
-    return $categorys;＼
+    return $categorys;
 }
 
 function select_product_detail($product_id)
