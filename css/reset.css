@@ -183,4 +183,7 @@ select {
 body {
     width: 100%;
     position: relative;
+    font-family: 'Noto Sans JP';
+    font-style: normal;
+    font-weight: 100;
 }
