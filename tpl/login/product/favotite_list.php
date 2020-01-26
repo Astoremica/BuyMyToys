@@ -24,7 +24,7 @@
                 <?php for ($i = 0; $i < count($product); $i++) : ?>
                     <li>
                         <?php echo $product[$i]['product_name']; ?>
-                        <input type="radio" name="add_fovo" id="favo_radio" value="<?php echo $$product[$i]; ?>">
+                        <input type="radio" name="add_fovo" id="favo_radio" value="<?php echo $product[$i]['product_id']; ?>">
                     </li>
                 <?php endfor; ?>
             </ul>

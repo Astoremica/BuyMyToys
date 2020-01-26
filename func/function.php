@@ -295,7 +295,7 @@ function get_favo_product_id($product_name)
 function get_favo_product($product_id){
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
     mysqli_set_charset($cn, 'utf8');
-    $sql = "SELECT product_name FROM product_information WHERE product_id='$product_id'";
+    $sql = "SELECT product_id,product_name FROM product_information WHERE product_id='$product_id'";
     $result = mysqli_query($cn, $sql);
     while ($db_data = mysqli_fetch_assoc($result)) {
         $paremts =  $db_data;
