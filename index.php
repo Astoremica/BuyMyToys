@@ -68,7 +68,7 @@ if (isset($_POST['verification_to_done'])) {
           " . $price . ",
           '" . $category_id . "',
           '" . $description . "',
-          DATETIME(NOW()),
+          CURRENT_TIMESTAMP,
           0,
           0);";
   $result = mysqli_query($cn, $sql);
@@ -80,6 +80,36 @@ if (isset($_POST['verification_to_done'])) {
 }
 
 // ##################### 商品購入系 ########################
+
+// ###検索ボタンクリック時の動作
+if (isset($_GET['search_form'])) {
+  require_once './tpl/search_form.php';
+  exit;
+}
+
+// ###キーワード入力検索ボタンクリック時の動作
+if (isset($_POST['serch'])) {
+  // 検索結果表示をTOPページで代用
+  // ログイン状態判定
+  if (isset($_SESSION['member_id'])) {
+    // 下のプロフ画像表示用member_keyを取得
+    $member_key = get_member_key($_SESSION['member_id']);
+    // 検索結果を$productsに入れる
+    // $products = lineup();
+    require_once './tpl/login/login_top.php';
+    exit;
+  }
+  // 未ログイン状態
+  if (!isset($_SESSION['member_id'])) {
+    // 検索結果を$productsに入れる
+    // $products = lineup();
+    require_once './tpl/nologin/nologin_top.php';
+    exit;
+  }
+
+
+  exit;
+}
 
 // ###商品詳細ボタンクリック時の動作
 if (isset($_GET['product_detail'])) {
@@ -116,7 +146,7 @@ if (isset($_POST['verification_to_done_buying'])) {
   $image3 = $file . "/image3.jpg";
 
   // ブラウザバックされたら普通に戻れるけど今は放置で
-  require_once './tpl/login/product//done_buying.php';
+  require_once './tpl/login/product/done_buying.php';
   exit;
 }
 

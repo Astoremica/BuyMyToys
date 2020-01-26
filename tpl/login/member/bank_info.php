@@ -7,6 +7,8 @@
     <!-- ホーム画面に追加時アドレスバー非表示 -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="stylesheet" href="./css/reset.css">
+    <!-- 左上に戻るがあるヘッダー用スタイル -->
+    <link rel="stylesheet" href="./css/back_header_style.css">
     <!-- マイページCSS -->
     <link rel="stylesheet" href="./css/info_style.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,500,900&amp;subset=japanese" rel="stylesheet">
