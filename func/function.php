@@ -236,7 +236,7 @@ function buy_product($product_id)
 {
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
     mysqli_set_charset($cn, 'utf8');
-    $sql = "UPDATE product_information SET del_flg  = 1 WHERE product_id = " . $product_id . ";";
+    $sql = "UPDATE product_information SET del_flg = 1 WHERE product_id = '$product_id'";
     mysqli_query($cn, $sql);
     mysqli_close($cn);
     return ;
