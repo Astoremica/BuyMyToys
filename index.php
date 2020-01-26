@@ -130,8 +130,7 @@ if (isset($_POST['verification_to_done_buying'])) {
 // おねだりリスト
 if (isset($_POST['fav']) || isset($_GET['favorite'])) {
   $member_id = $_SESSION['member_id'];
-  $favorites = get_favorite_list($member_id);
-  $paremts = get_paremts_list($member_id);
+  $favorites_id = get_favorite_list($member_id);
   require_once './tpl/login/product/favotite_list.php';
   exit;
 }
