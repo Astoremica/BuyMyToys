@@ -26,6 +26,15 @@ function lineup()
 
 function search_contents($product_name, $category_id, $under_price, $top_price, $member_name)
 {
+    if($product_name == ''){
+        $product_name = NULL;
+    }
+    if($category_id == ''){
+        $category_id = NULL;
+    }
+    if($member_name == ''){
+        $member_name = NULL;
+    }
     // sql文を実行して結果を配列型にします
     $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
     mysqli_set_charset($cn, 'utf8');
