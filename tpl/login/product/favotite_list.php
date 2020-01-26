@@ -20,36 +20,14 @@
     <div id="fovo_info">
         <p>おねだりするものにチェックをいれよう</p>
         <form action="./index.php" method="post">
-            <?php if (is_array($favorites)) : ?>
-                <?php $i = 0; ?>
-                <ul class="favo_list">
-                    <?php foreach ($favorites as $reco) : ?>
-                        <?php if (is_array($reco)) : ?>
-                            <li>
-                                <input type="radio" name="add_fovo" id="favo_radio" value="<?php echo $i; ?>">
-                                <?php foreach ($reco as $value) : ?>
-                                    <?php echo $value; ?>
-                                <?php endforeach; ?>
-                            </li>
-                            <?php $i++; ?>
-                        <?php else : ?>
-                            <li>
-                                <input type="radio" name="add_fovo" id="favo_radio" value="<?php echo $i; ?>">
-                                <?php echo $roco; ?>
-
-                            </li>
-                            <?php $i++; ?>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </ul>
-            <?php else : ?>
-                <ul id="favo_list">
+            <ul id="favo_list">
+                <?php for ($i = 0; $i < count($product); $i++) : ?>
                     <li>
-                        <input type="radio" name="add_fovo" id="favo_radio" value="0">
-                        <?php echo $favorites; ?>
+                        <?php echo $product[$i]['product_name']; ?>
+                        <input type="radio" name="add_fovo" id="favo_radio" value="<?php echo $$product[$i]; ?>">
                     </li>
-                </ul>
-            <?php endif; ?>
+                <?php endfor; ?>
+            </ul>
             <!-- 親 -->
             <p>だれにおねだりする？</p>
             <?php if (is_array($paremts)) : ?>
