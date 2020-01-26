@@ -150,21 +150,17 @@ if (isset($_GET['singin'])) {
 
 // ###ログイン機能
 if (isset($_POST['login'])) {
-  if ($_SESSION['token'] != $_POST['login']['token']) {
-    require_once './tpl/error';
-    exit;
-  }
   $id_mail = isset($_POST['login']['id_mail']) ? htmlspecialchars($_POST['login']['id_mail'], ENT_QUOTES)  : '';
   $password = isset($_POST['login']['password']) ? htmlspecialchars($_POST['login']['password'], ENT_QUOTES)  : '';
   // IDもしくはメールアドレスをもとにハッシュ値取得
   $hash_user = get_hash_user($id_mail);
   if (password_verify($password, $hash_user['member_password'])) {
     $_SESSION['member_id'] = $hash_user['member_id'];
+    $member_key = get_member_key($_SESSION['member_id']);
     $products = lineup();
     require_once './tpl/login/login_top.php';
     exit;
   } else {
-    // $errors = "入力されたIDもしくはメールアドレスまたはパスワードが違います。";
     $products = lineup();
     require_once './tpl/nologin/nologin_top.php';
     exit;
@@ -308,6 +304,8 @@ if (isset($_POST['logout'])) {
 // ログイン状態のTOPページ：SESSIONにログイン情報がある状態で
 // 一番最初に表示されるページ
 if (isset($_SESSION['member_id'])) {
+  // ログイン中のメンバーIDからmember_keyを取得マイページボタンの画像用
+  $member_key = get_member_key($_SESSION['member_id']);
   $products = lineup();
   require_once './tpl/login/login_top.php';
   exit;

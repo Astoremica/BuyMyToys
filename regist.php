@@ -117,6 +117,8 @@ if (isset($_POST['regist_member'])) {
     $birthday_month = isset($_POST['regist_member']['month']) ? $_POST['regist_member']['month'] : '';
     $birthday_day = isset($_POST['regist_member']['day']) ? $_POST['regist_member']['day'] : '';
     $member_birthday = $birthday_year . '-' . $birthday_month . '-' . $birthday_day;
+    // プロフィール画像格納
+    $profile_icon = $_FILES['profile_icon'];
 
     $member_name = spaceTrim($member_name);
     $member_nickname = spaceTrim($member_nickname);
@@ -175,7 +177,10 @@ if (isset($_POST['regist_member'])) {
         $_SESSION['password'] = $password;
         $_SESSION['member_tel'] = $member_tel;
         $_SESSION['member_birthday'] = $member_birthday;
+        $_SESSION['profile_icon'] = $profile_icon;
     }
+    // ページ遷移の際に削除されるのでここで移動
+    move_uploaded_file($profile_icon['tmp_name'], PRE_PROFILE_UPLOAD_PATH . 'user_profile.jpg');
     require_once './tpl/nologin/regist/confirm_member.php';
     exit;
 }
@@ -194,9 +199,13 @@ if (isset($_POST['add_member'])) {
     $password_hash =  password_hash($_SESSION['password'], PASSWORD_DEFAULT);
     $member_tel = $_SESSION['member_tel'];
     $member_birthday = $_SESSION['member_birthday'];
+    $profile_icon = $_SESSION['profile_icon'];
     add_member($cn, $member_id, $member_name, $member_nickname, $member_gender, $member_mail, $password_hash, $member_tel, $member_birthday);
     update_pre_member($cn, $member_mail);
-
+    // メンバーキー取得
+    $member_key = get_member_key($member_id);
+    // プロフィール画像フォルダ生成+画像保存
+    upload_profile_icon($member_key['member_key']);
     //データベース接続切断
     mysqli_close($cn);
 

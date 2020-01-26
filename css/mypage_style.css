@@ -25,7 +25,9 @@
 }
 
 #profile_image img {
-    width: 100%;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
 }
 
 #user_name {
