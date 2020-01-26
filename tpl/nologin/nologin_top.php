@@ -19,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,500,900&amp;subset=japanese" rel="stylesheet">
     <link href="./images/materials/toys_boy_white.png">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-    <title><?php echo $title; ?></title>
+    <title>Buy My Toys | トップページ</title>
 </head>
 
 <body>
