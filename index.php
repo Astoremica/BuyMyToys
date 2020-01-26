@@ -11,6 +11,8 @@ require_once '../config.php';
 // ###出品ボタンクリック時の動作
 if (isset($_GET['exhibits_button'])) {
   unlink('./images/tpl/*');
+  // 商品カテゴリ一覧取得
+  $categorys = get_product_category();
   require_once './tpl/login/product/exhibits.php';
   exit;
 }
@@ -21,9 +23,9 @@ if (isset($_POST['exhibits_to_verification'])) {
   // DB
   $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
   mysqli_set_charset($cn, 'utf8');
-  $sql = "select category_name
-          from product_category
-          where category_id = '" . $_POST['category'] . "'";
+  $sql = "SELECT category_name
+          FROM product_category
+          WHERE category_id = '" . $_POST['category'] . "'";
   $result = mysqli_query($cn, $sql);
   $row = mysqli_fetch_assoc($result);
   mysqli_close($cn);
