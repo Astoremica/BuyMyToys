@@ -49,6 +49,18 @@ function get_new_exhibits_product_id()
     mysqli_close($cn);
 
     return $insert_num;
+// 商品カテゴリ情報取得
+function get_product_category(){
+    $cn = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
+    mysqli_set_charset($cn, 'utf8');
+    $sql = "SELECT category_id,category_name FROM product_category";
+    $result = mysqli_query($cn, $sql);
+    mysqli_close($cn);
+    while ($db_data = mysqli_fetch_assoc($result)) {
+        $categorys[] =  $db_data;
+    }
+
+    return $categorys;＼
 }
 
 function select_product_detail($product_id)

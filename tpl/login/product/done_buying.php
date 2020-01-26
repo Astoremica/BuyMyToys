@@ -28,6 +28,8 @@
         <p id="back_button"><a href="#" onclick="history.back(); return false;"><img src="./images/materials/back_arrow.png" alt="戻る"></a></p>
     </header>
     <div id="done_buying">
+
+    <p><?php echo $product["title"]; ?></p>
         <ul>
             <li class="product_image"><img src="<?php echo $image1; ?>"></li>
             <li class="product_image"><img src="<?php echo $image2; ?>"></li>
